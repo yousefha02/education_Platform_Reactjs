@@ -103,7 +103,7 @@ export default function AdditionalInformation() {
             </Box>
             <CheckBoxLevels/>
             <CheckBoxCurriculum/>
-            <StepperButtons/>
+            <StepperButtons link='subjects'/>
             </form>
         </TeacherLayout>
         </Navbar>

@@ -32,7 +32,7 @@ export default function TeacherPhoto() {
                 <Image src={URL.createObjectURL(image)}/>
             }
             </Box>
-            <StepperButtons/>
+            <StepperButtons link="AdditionalInformation"/>
         </TeacherLayout>
         </Navbar>
     )

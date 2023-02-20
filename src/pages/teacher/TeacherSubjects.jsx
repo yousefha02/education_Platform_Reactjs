@@ -4,6 +4,7 @@ import TeacherLayout from '../../components/teacher/TeacherLayout'
 import CheckBoxSubjects from '../../components/teacher/CheckBoxSubjects'
 import { Divider, Grid, Typography } from '@mui/material';
 import SelectedCategory from '../../components/teacher/SelectedCategory';
+import StepperButtons from '../../components/reusableUi/StepperButtons'
 
 const fakeData = [
     {title:"Arabic",categs:[{title:"one",id:1},{title:"two",id:2}]},
@@ -45,6 +46,7 @@ export default function TeacherSubjects() {
                         }
                     </Grid>
                 </Grid>
+                <StepperButtons link="resume"/>
             </TeacherLayout>
         </Navbar>
     )

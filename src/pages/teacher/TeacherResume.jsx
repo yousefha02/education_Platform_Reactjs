@@ -25,7 +25,7 @@ export default function TeacherResume() {
                     <Typography sx={{fontSize:"20px",marginBottom:"10px"}}>Higher education degrees</Typography>
                     <EducationDegrees/>
                 </Box>
-                <StepperButtons/>
+                <StepperButtons link="availability"/>
             </TeacherLayout>
         </Navbar>
     )

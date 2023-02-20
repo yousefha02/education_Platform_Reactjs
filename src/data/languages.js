@@ -1,6 +1,6 @@
 export default [
     "Arabic",
-    'Englis',
+    'English',
     'Turkish',
     'French',
     'German',

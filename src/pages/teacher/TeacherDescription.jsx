@@ -65,7 +65,7 @@ export default function TeacherDescription() {
                         />
                         {errors.description_en?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
                     </Box>
-                    <StepperButtons/>
+                    <StepperButtons link="video"/>
                 </Box>
             </form>
             </TeacherLayout>

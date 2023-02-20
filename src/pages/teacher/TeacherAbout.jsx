@@ -6,6 +6,7 @@ import "react-phone-input-2/lib/bootstrap.css";
 import Navbar from '../../components/Navbar';
 import AddLanguages from '../../components/reusableUi/AddLanguages';
 import TeacherLayout from '../../components/teacher/TeacherLayout';
+import { useNavigate } from 'react-router-dom';
 
 export default function TeacherAbout() {
     const { register,control, formState: { errors }, handleSubmit } = useForm({
@@ -22,6 +23,7 @@ export default function TeacherAbout() {
     });
 
     const onSubmit = data => console.log(data);
+    const navigate = useNavigate()
 
     return (
         <Navbar>
@@ -128,7 +130,7 @@ export default function TeacherAbout() {
                     </Box>
                     <AddLanguages/>
                 </Box>
-                <Button variant="contained" type="submit">Next</Button>
+                <Button variant="contained" type="submit" onClick={()=>navigate('/teacher/Photo')}>Next</Button>
             </form>
         </TeacherLayout>
         </Navbar>
