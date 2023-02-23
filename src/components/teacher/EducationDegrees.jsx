@@ -32,7 +32,8 @@ export default function EducationDegrees() {
                     )
                 })
             }
-            <Button sx={{fontSize:"12px",marginTop:"4px"}} onClick={addNewDegree}>Add another degree</Button>
+            <Button sx={{fontSize:"12px",marginTop:"4px"}} color="secondary"
+            onClick={addNewDegree}>Add another degree</Button>
         </Box>
     )
 }

@@ -19,12 +19,27 @@ import InsertCurriculums from './pages/admin/InsertCurriculums';
 import TeacherAvailability from './pages/teacher/TeacherAvailability';
 import TeacherDescription from './pages/teacher/TeacherDescription';
 import TeacherVideo from './pages/teacher/TeacherVideo';
+import Login from './pages/auth/Login';
+import StudentFirstStep from './pages/auth/registerStudent/StudentFirstStep';
+import StudentSecondStep from './pages/auth/registerStudent/StudentSecondStep';
+import StudentThirdStep from './pages/auth/registerStudent/StudentThirdStep';
+import StudentFouthStep from './pages/auth/registerStudent/StudentFouthStep';
+import TeacherFirstStep from './pages/auth/registerTeacher/TeacherFirstStep';
+import TeacherSecondStep from './pages/auth/registerTeacher/TeacherSecondStep';
+import TeacherThirdStep from './pages/auth/registerTeacher/TeacherThirdStep';
+import SingleTeacher from './pages/client/SingleTeacher';
+import SearchTeachers from './pages/client/SearchTeachers';
+import StudentProfile from './pages/student/StudentProfile';
 
 const theme = createTheme({
   direction:"rtl",
   palette:{
     primary:{
-      main:"#18A0FB",
+      main:"#1a477e",
+      contrastText:"#ffffff"
+    },
+    secondary:{
+      main:"#fc5a59",
       contrastText:"#ffffff"
     }
   }
@@ -42,24 +57,27 @@ function App() {
     }
   },[])
 
-  function changeLanugage(lang)
-  {
-      i18next.changeLanguage(lang);
-      if(lang==="ar"){
-        document.body.dir="rtl"
-      }
-      else{
-        document.body.dir="ltr"
-      }
-  }
-
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <Routes>
-          {/** student auth pages */}
+          {/** client pages */}
+          <Route path='teacher/:id' element={<SingleTeacher/>}/>
+          <Route path="teachers/search" element={<SearchTeachers/>}/>
+          {/** login page */}
+          <Route path='login' element={<Login/>}/>
+          {/** student auth */}
+          <Route path='studentregister/step1' element={<StudentFirstStep/>}/>
+          <Route path='studentregister/step2' element={<StudentSecondStep/>}/>
+          <Route path='studentregister/step3' element={<StudentThirdStep/>}/>
+          <Route path='studentregister/step4' element={<StudentFouthStep/>}/>
           {/** teacher auth */}
+          <Route path='teacherRegister/step1' element={<TeacherFirstStep/>}/>
+          <Route path='teacherRegister/step2' element={<TeacherSecondStep/>}/>
+          <Route path='teacherRegister/step3' element={<TeacherThirdStep/>}/>
           {/** student pages */}
+          <Route path='student/profile' element={<StudentProfile/>}/>
+
           {/** teacher pages */}
           <Route path='teacher/about' element={<TeacherAbout/>}/>
           <Route path='teacher/photo' element={<TeacherPhoto/>}/>

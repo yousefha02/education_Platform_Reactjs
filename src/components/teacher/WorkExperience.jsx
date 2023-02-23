@@ -32,7 +32,7 @@ export default function WorkExperience() {
                     )
                 })
             }
-            <Button sx={{fontSize:"12px",marginTop:"4px"}} onClick={addNewExperience}>Add another experience</Button>
+            <Button sx={{fontSize:"12px",marginTop:"4px"}} color="secondary" onClick={addNewExperience}>Add another experience</Button>
         </Box>
     )
 }

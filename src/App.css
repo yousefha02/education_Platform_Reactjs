@@ -4,6 +4,10 @@
   font-family: 'Cairo', sans-serif !important;
 }
 
+body{
+  background-color: #f1f4f6 !important;
+}
+
 a{
   color:inherit;
   text-decoration: none;
@@ -11,4 +15,36 @@ a{
 
 .MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0.MuiDrawer-paper.MuiDrawer-paperAnchorLeft.MuiDrawer-paperAnchorDockedLeft.muiltr-12i7wg6-MuiPaper-root-MuiDrawer-paper{
   left: 0 !important;
+}
+
+/* react code input  */
+.react-code-input{
+  display: flex !important;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-code-input input{
+  width:80px !important;
+  font-size: 20px !important;
+  text-align: center;
+  padding: 10px 0px;
+}
+
+.CircularProgressbar-text{
+  font-size: 28px !important;
+  font-weight: bold;
+}
+
+/* select currency */
+.currency .MuiSelect-select.MuiSelect-outlined{
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  outline: 0px !important;
+}
+
+.currency select{
+  border: 0px;
 }

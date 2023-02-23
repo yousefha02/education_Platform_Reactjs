@@ -32,7 +32,8 @@ export default function ProfessionalCertificates() {
                     )
                 })
             }
-            <Button sx={{fontSize:"12px",marginTop:"4px"}} onClick={addNewCertificates}>Add another certificate</Button>
+            <Button sx={{fontSize:"12px",marginTop:"4px"}} color="secondary"
+            onClick={addNewCertificates}>Add another certificate</Button>
         </Box>
     )
 }

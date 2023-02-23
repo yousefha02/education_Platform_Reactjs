@@ -34,6 +34,24 @@ export default function StudyLevels() {
         setOpenAddLevel(false)
     }
 
+    const levels = [
+        {
+            title:"Elementary",
+            years:3,
+            curriculums:5
+        },
+        {
+            title:"Elementary",
+            years:3,
+            curriculums:5
+        },
+        {
+            title:"Elementary",
+            years:3,
+            curriculums:5
+        },
+    ]
+
     return (
     <AdminLayout>
         <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px"}}>
@@ -56,12 +74,17 @@ export default function StudyLevels() {
                         ))}
                         </TableRow>
                     <TableBody>
-                        {[]?.courses
-                        ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        {levels.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((row) => {
                             return <TableRow hover role="checkbox"  key={row.id+"demj"}>
                                 <TableCell align='center'>
                                     {row.title}
+                                </TableCell>
+                                <TableCell align='center'>
+                                    {row.years}
+                                </TableCell>
+                                <TableCell align='center'>
+                                    {row.curriculums}
                                 </TableCell>
                             </TableRow>
                         })}
@@ -71,7 +94,7 @@ export default function StudyLevels() {
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={[]?.courses?.length}
+                    count={levels?.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

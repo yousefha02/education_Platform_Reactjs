@@ -12,12 +12,15 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import { Link } from 'react-router-dom';
+import ChangeLanguage from './reusableUi/ChangeLanguage';
+import { Button } from '@mui/material';
+import SelectCurrency from './reusableUi/SelectCurrency';
 const drawerWidth = 240;
-const navItems = ['Home', 'Contact', 'Profile','logout'];
 
 function Navbar(props) {
+    
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -32,13 +35,11 @@ function Navbar(props) {
         </Typography>
         <Divider />
         <List>
-            {navItems.map((item) => (
-            <ListItem key={item} disablePadding>
+            <ListItem  disablePadding>
                 <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={item} />
+                <ListItemText primary="" />
                 </ListItemButton>
             </ListItem>
-            ))}
         </List>
     </Box>
     );
@@ -65,12 +66,17 @@ function Navbar(props) {
             >
                 Education
             </Typography>
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                {navItems.map((item) => (
-                <Button key={item} sx={{ color: '#fff' }}>
-                    {item}
-                </Button>
-                ))}
+            <Box sx={{ display: { xs: 'none', sm: 'flex' },alignItems:"center",columnGap:"10px" }}>
+                <Link to="">
+                    <Box sx={{display:"flex",alignItems:"center",columnGap:"4px"}}>
+                        <EmailOutlinedIcon sx={{fontSize:"15px"}}/>
+                        <Typography sx={{fontSize:"14px"}}>yousef@gmail.com</Typography>
+                    </Box>
+                </Link>
+                <ChangeLanguage/>
+                <SelectCurrency/>
+                <Button sx={{ my: 2, color: 'white', display: 'block',textTransform:"capitalize",
+                border:"1px solid white",padding:"1px 18px"}}>Login</Button>
             </Box>
             </Toolbar>
         </AppBar>
@@ -91,7 +97,7 @@ function Navbar(props) {
             {drawer}
             </Drawer>
         </Box>
-        <Box component="main" sx={{ p: 3,width:"100%"}}>
+        <Box component="main" sx={{ paddingY: 3,width:"100%"}}>
             <Toolbar />
             {props.children}
         </Box>

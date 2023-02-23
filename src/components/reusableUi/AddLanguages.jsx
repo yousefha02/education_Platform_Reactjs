@@ -77,7 +77,8 @@ export default function AddLanguages() {
                     )
                 })
             }
-            <Button sx={{fontSize:"12px",marginTop:"4px"}} onClick={addNewLanguage}>Add another language</Button>
+            <Button sx={{fontSize:"12px",marginTop:"4px"}} color="secondary"
+            onClick={addNewLanguage}>Add another language</Button>
         </Box>
     )
 }

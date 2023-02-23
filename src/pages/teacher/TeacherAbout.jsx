@@ -17,7 +17,6 @@ export default function TeacherAbout() {
             date:'',
             email:'',
             phone:'',
-            WhatsApp:'',
             city:''
         }
     });
@@ -103,20 +102,6 @@ export default function TeacherAbout() {
                             {...register("phone", { required: "email phone is required" })}
                             />
                             {errors.phone?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
-                    </Box>
-                    <Box sx={{marginBottom:"26px"}}>
-                            <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>WhatsApp Number</InputLabel>
-                            <Controller
-                            name="email"
-                            control={control}
-                            render={({ field }) => <Box sx={{width:"100%"}}><PhoneInput  inputProps={{
-                                name: 'WhatsApp',
-                                required: true,
-                                autoFocus: true
-                            }} value="WhatsApp" {...field}/></Box>}
-                            {...register("WhatsApp", { required: "WhatsApp is required" })}
-                            />
-                            {errors.WhatsApp?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
                     </Box>
                     <Box sx={{marginBottom:"26px"}}>
                             <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>City</InputLabel>

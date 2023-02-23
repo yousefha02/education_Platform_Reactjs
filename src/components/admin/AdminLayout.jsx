@@ -22,39 +22,45 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import SubjectIcon from '@mui/icons-material/Subject';
 import CategoryIcon from '@mui/icons-material/Category';
 import AddIcon from '@mui/icons-material/Add';
+import HomeIcon from '@mui/icons-material/Home';
 
 const drawerWidth = 240;
 
 const topics = [
     {
+        title:"Control Board",
+        icon:HomeIcon,
+        link:''
+    },
+    {
         title:"Study Levels",
         icon:SchoolIcon,
-        link:'levels',
+        link:'/levels',
     },
     {
         title:"Study Years",
         icon:HourglassBottomIcon,
-        link:'years',
+        link:'/years',
     },
     {
         title:"Study Curriculums",
         icon:AssignmentIcon,
-        link:'curriculums',
+        link:'/curriculums',
     },
     {
         title:"Curriculums to Level",
         icon:AddIcon,
-        link:'Curriculums_insert',
+        link:'/Curriculums_insert',
     },
     {
         title:"Subjects",
         icon:SubjectIcon,
-        link:'subjects',
+        link:'/subjects',
     },
     {
         title:"Categories",
         icon:CategoryIcon,
-        link:'categories',
+        link:'/categories',
     },
 ]
 
@@ -73,7 +79,7 @@ function AdminLayout(props) {
         <Divider />
         <List>
             {topics.map((item, index) => (
-            <Link to={`/admin/${item.link}`}>
+            <Link to={`/admin${item.link}`}>
                 <ListItem key={item.title+index+'o'} disablePadding>
                     <ListItemButton>
                     <ListItemIcon>

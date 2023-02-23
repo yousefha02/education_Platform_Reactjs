@@ -12,7 +12,7 @@ export default function AddDayTime({day,selectedDays,setSelectedDays}) {
 
     return (
         <Box>
-            <Button sx={{textTransform:"capitalize"}} onClick={addNewTime}>Add more</Button>
+            <Button sx={{textTransform:"capitalize"}} onClick={addNewTime} color="secondary">Add more</Button>
             <Box>
             {
                 checkedDay.times.map((time,index)=>
