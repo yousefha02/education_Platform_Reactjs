@@ -6,42 +6,26 @@ import { useState } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
 
 export default function InsertCurriculums() {
-    const [value, setValue] = useState([]);
+    const [level, setLevel] = useState();
     const [curriculum,setCurriculum] = useState()
-
-    const levels = [{name:"advanced",id:1},{name:"elemntary",id:2},{name:"beginner",id:3}]
-
-
-    async function handelInsert()
-    {
-        const levels = value.map((item,index)=>
-        {
-            return item.id
-        })
-    }
     
     return (
         <AdminLayout>
             <Box sx={{marginBottom:"60px",width:"450px",maxWidth:"100%"}}>
-                <Typography sx={{fontSize:"24px",fontWeight:"600",color:"#424242",marginBottom:"15px"}}>Insert Curriculum to Levels</Typography>
-                {levels?.length>0&&
-                <Autocomplete
-                onChange={(event, newValue) => {
-                    setValue(newValue)
-                }}
-                multiple
-                id="size-small-standard-multi"
-                size="small"
-                options={levels}
-                getOptionLabel={(option) => option.name}
-                renderInput={(params) => (
-                <TextField
-                    {...params}
-                    variant="standard"
-                    label="Levels"
-                />
-                )}
-            />}
+            <Typography sx={{fontSize:"24px",fontWeight:"600",color:"#424242",marginBottom:"15px"}}>Insert Curriculum to Levels</Typography>
+            <Box sx={{marginTop:"40px"}}>
+                <InputLabel sx={{marginBottom:"8px",fontSize:"13px"}}>Study Level</InputLabel>
+                <FormControl fullWidth>
+                    <Select
+                    onChange={(e)=>setLevel(e.target.value)}
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    >
+                        <MenuItem value={'british'}>Beginner</MenuItem>
+                        <MenuItem value={'american'}>Elemnatry</MenuItem>
+                    </Select>
+                </FormControl>
+            </Box>
             <Box sx={{marginTop:"40px"}}>
                 <InputLabel sx={{marginBottom:"8px",fontSize:"13px"}}>Study Curriculum</InputLabel>
                 <FormControl fullWidth>
@@ -55,7 +39,7 @@ export default function InsertCurriculums() {
                     </Select>
                 </FormControl>
             </Box>
-            <Button sx={{marginTop:"20px"}} variant="contained" onClick={handelInsert}>Save</Button>
+            <Button sx={{marginTop:"20px"}} variant="contained">Save</Button>
             </Box>
         </AdminLayout>
     )
