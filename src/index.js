@@ -44,7 +44,4 @@ root.render(
       <App />
     </BrowserRouter>
   </CacheProvider>
-//   <BrowserRouter>
-//   <App />
-// </BrowserRouter>
 );

@@ -2,10 +2,10 @@ import { Avatar, Box, Container, Divider, Grid, List, ListItem, ListItemButton, 
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const topics = [{title:"Profile",link:"/profile"},{title:"Lessons",link:"Llesson"},
+const topics = [{title:"Profile",link:"/profile"},{title:"Lessons",link:"Lesson"},
 {title:"Settings",link:'/settings'},{title:"Messages",link:"/messages"}]
 
-export default function StudentLayout() {
+export default function StudentLayout({children}) {
     return (
         <Container>
             <Grid container spacing={2}>
@@ -21,7 +21,7 @@ export default function StudentLayout() {
                                 topics.map((topic,index)=>
                                 {
                                     return(
-                                        <Link to={`/admin${topic.link}`}>
+                                        <Link to={`/student${topic.link}`}>
                                             <ListItem key={topic.title+index+'o'} disablePadding>
                                                 <ListItemButton>
                                                     <ListItemText primary={topic.title} 
@@ -35,7 +35,7 @@ export default function StudentLayout() {
                         </List>
                     </Paper>
                 </Grid>
-                <Grid item xs={9}>Profile</Grid>
+                <Grid item xs={9}>{children}</Grid>
             </Grid>
         </Container>
     )
