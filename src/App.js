@@ -32,6 +32,7 @@ import SingleTeacher from './pages/client/SingleTeacher';
 import SearchTeachers from './pages/client/SearchTeachers';
 import StudentProfile from './pages/student/StudentProfile';
 import StudentSettings from './pages/student/StudentSettings';
+import AdminLogin from './pages/admin/AdminLogin';
 
 const theme = createTheme({
   direction:"rtl",
@@ -95,6 +96,7 @@ function App() {
             <Route path='teacher/video' element={<TeacherVideo/>}/>
             
             {/** admin pages */}
+            <Route path='admin/login' element={<AdminLogin/>}/>
             <Route path='admin' element={<AdminHome/>}/>
             <Route path='admin/levels' element={<StudyLevels/>}/>
             <Route path='admin/years' element={<StudyYears/>}/>
