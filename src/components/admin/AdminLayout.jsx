@@ -23,6 +23,7 @@ import SubjectIcon from '@mui/icons-material/Subject';
 import CategoryIcon from '@mui/icons-material/Category';
 import AddIcon from '@mui/icons-material/Add';
 import HomeIcon from '@mui/icons-material/Home';
+import BeenhereIcon from '@mui/icons-material/Beenhere';
 
 const drawerWidth = 240;
 
@@ -62,6 +63,11 @@ const topics = [
         icon:CategoryIcon,
         link:'/categories',
     },
+    {
+        title:"Teachers Approve",
+        icon:BeenhereIcon,
+        link:'/approve_teachers'
+    }
 ]
 
 function AdminLayout(props) {
