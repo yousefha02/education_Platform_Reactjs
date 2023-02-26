@@ -66,7 +66,7 @@ const topics = [
     {
         title:"Teachers Approve",
         icon:BeenhereIcon,
-        link:'/approve_teachers'
+        link:'/teachers_approve'
     }
 ]
 

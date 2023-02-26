@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import Navbar from '../../components/Navbar'
 import TeacherLayout from '../../components/teacher/TeacherLayout'
 import CheckBoxSubjects from '../../components/teacher/CheckBoxSubjects'
-import { Divider, Grid, Typography } from '@mui/material';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 import SelectedCategory from '../../components/teacher/SelectedCategory';
 import StepperButtons from '../../components/reusableUi/StepperButtons'
+import TeachingWayForm from '../../components/teacher/TeachingWayForm';
 
 const fakeData = [
     {title:"Arabic",categs:[{title:"one",id:1},{title:"two",id:2}]},
@@ -24,7 +25,7 @@ export default function TeacherSubjects() {
         <Navbar>
             <TeacherLayout active={3} title="Subjects">
                 <Grid container spacing={4}>
-                    <Grid item xs={9}>
+                    <Grid item xs={12} lg={9}>
                     {
                         fakeData.map((subject,index)=>
                         {
@@ -34,7 +35,7 @@ export default function TeacherSubjects() {
                         })
                     }
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={9} md={5} lg={3}>
                         <Typography sx={{fontSize:"15px",marginBottom:"12px"}}>Selected Subjects</Typography>
                         <Divider/>
                         {
@@ -46,6 +47,13 @@ export default function TeacherSubjects() {
                         }
                     </Grid>
                 </Grid>
+                <Box sx={{marginTop:"40px",width:"800px"}}>
+                    <Divider sx={{marginBottom:'40px'}}/>
+                    <Typography sx={{fontSize:"20px",fontWeight:"600",marginBottom:"18px"}}>
+                        How would you like to teach or train?
+                    </Typography>
+                    <TeachingWayForm/>
+                </Box>
                 <StepperButtons link="resume"/>
             </TeacherLayout>
         </Navbar>
