@@ -25,6 +25,7 @@ import AddIcon from '@mui/icons-material/Add';
 import HomeIcon from '@mui/icons-material/Home';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
 import { Button } from '@mui/material';
+import PasswordIcon from '@mui/icons-material/Password';
 
 const drawerWidth = 240;
 
@@ -68,6 +69,11 @@ const topics = [
         title:"Teachers Approve",
         icon:BeenhereIcon,
         link:'/teachers_approve'
+    },
+    {
+        title:"Change Password",
+        icon:PasswordIcon,
+        link:'/change_password'
     }
 ]
 

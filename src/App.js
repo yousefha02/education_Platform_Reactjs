@@ -34,6 +34,7 @@ import StudentProfile from './pages/student/StudentProfile';
 import StudentSettings from './pages/student/StudentSettings';
 import AdminLogin from './pages/admin/AdminLogin';
 import TeachersApprove from './pages/admin/TeachersApprove';
+import AdminChangePassword from './pages/admin/AdminChangePassword';
 
 const theme = createTheme({
   direction:"rtl",
@@ -106,7 +107,7 @@ function App() {
             <Route path='admin/categories' element={<Categories/>}/>
             <Route path='admin/Curriculums_insert' element={<InsertCurriculums/>}/>
             <Route path='admin/teachers_approve' element={<TeachersApprove/>}/>
-
+            <Route path='admin/change_password' element={<AdminChangePassword/>}/>
           </Routes>
         </ThemeProvider>
       </QueryClientProvider>
