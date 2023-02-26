@@ -16,7 +16,7 @@ export default function AdminChangePassword() {
 
     return (
             <AdminLayout>
-                <Paper sx={{padding:"20px",marginTop:"20px"}}>
+                <Paper sx={{padding:"20px",marginTop:"40px"}}>
                     <Typography>Change Your Password</Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Box sx={{width:{md:"450px",xs:"100%"}}}>

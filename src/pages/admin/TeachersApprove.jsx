@@ -56,7 +56,8 @@ export default function TeachersApprove() {
 
     return (
     <AdminLayout>
-        <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px"}}>
+        <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"30px",
+        marginTop:"40px"}}>
             <Typography sx={{fontSize:"20px",fontWeight:"500"}}>Teachers Approve</Typography>
         </Box>
         <Paper sx={{ width: '100%',padding:"20px"}}>

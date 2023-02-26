@@ -35,10 +35,10 @@ export default function Categories() {
 
     return (
     <AdminLayout>
-        <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px"}}>
+        <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",marginY:"30px"}}>
             <Typography sx={{fontSize:"20px",fontWeight:"500"}}>Categories</Typography>
             <Button onClick={()=>setOpenAddYear(true)}
-            sx={{marginBottom:"20px",textTransform:"capitalize"}} variant="contained">Add Category</Button>
+            sx={{textTransform:"capitalize"}} variant="contained">Add Category</Button>
         </Box>
         <Paper sx={{ width: '100%',padding:"20px"}}>
             <TableContainer sx={{ maxHeight: 440 }}>

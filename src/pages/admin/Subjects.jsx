@@ -15,10 +15,10 @@ export default function Subjects() {
 
     return (
     <AdminLayout>
-        <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"20px"}}>
+        <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",marginY:"30px"}}>
             <Typography sx={{fontSize:"20px",fontWeight:"500"}}>Subjects</Typography>
             <Button onClick={()=>setOpenAddYear(true)}
-            sx={{marginBottom:"20px",textTransform:"capitalize"}} variant="contained">Add Subject</Button>
+            sx={{textTransform:"capitalize"}} variant="contained">Add Subject</Button>
         </Box>
         <Grid container spacing={2} justifyContent="center">
         {

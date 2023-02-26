@@ -11,7 +11,7 @@ export default function InsertCurriculums() {
     
     return (
         <AdminLayout>
-            <Box sx={{marginBottom:"60px",width:"450px",maxWidth:"100%"}}>
+            <Box sx={{marginBottom:"60px",width:"450px",maxWidth:"100%",marginTop:"40px"}}>
             <Typography sx={{fontSize:"24px",fontWeight:"600",color:"#424242",marginBottom:"15px"}}>Insert Curriculum to Levels</Typography>
             <Box sx={{marginTop:"40px"}}>
                 <InputLabel sx={{marginBottom:"8px",fontSize:"13px"}}>Study Level</InputLabel>

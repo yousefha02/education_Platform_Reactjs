@@ -122,13 +122,13 @@ function AdminLayout(props) {
         >
             <Toolbar>
             <Box sx={{display:"flex",width:"100%",justifyContent:"space-between",alignItems:"center"}}>
-                <Box>
+                <Box sx={{display:"flex",alignItems:"center"}}>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
                         edge="start"
                         onClick={handleDrawerToggle}
-                        sx={{ mr: 2,ml:2, display: { sm: 'none' } }}
+                        sx={{ mr: 1,ml:1, display: { sm: 'none' } }}
                     >
                         <MenuIcon />
                     </IconButton>
