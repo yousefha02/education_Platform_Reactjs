@@ -24,6 +24,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import AddIcon from '@mui/icons-material/Add';
 import HomeIcon from '@mui/icons-material/Home';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
+import { Button } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -114,18 +115,23 @@ function AdminLayout(props) {
             }}
         >
             <Toolbar>
-            <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                sx={{ mr: 2,ml:2, display: { sm: 'none' } }}
-            >
-                <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap component="div">
-                Education
-            </Typography>
+            <Box sx={{display:"flex",width:"100%",justifyContent:"space-between",alignItems:"center"}}>
+                <Box>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                        sx={{ mr: 2,ml:2, display: { sm: 'none' } }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" noWrap component="div">
+                        Education
+                    </Typography>
+                </Box>
+                <Button variant="contained" color="secondary">Logout</Button>
+            </Box>
             </Toolbar>
         </AppBar>
         <Box

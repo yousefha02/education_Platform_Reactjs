@@ -11,9 +11,29 @@ export default function AdminLogin() {
         }
     });
 
-    const onSubmit = data => console.log(data);
-
     const navigate = useNavigate()
+
+    async function onSubmit(data)
+    {
+        try{
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}`,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({email:data.email,password:data.password})
+            })
+            const resData = await response.json()
+            if(response.status!==200&&response.status!==201)
+            {
+                throw new Error('failed occured')
+            }
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
+    }
 
     return (
         <Container>
