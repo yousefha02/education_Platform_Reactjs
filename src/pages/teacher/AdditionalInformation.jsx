@@ -14,7 +14,8 @@ export default function AdditionalInformation() {
             experience:"",
             yearsOfExperience:"",
             gender:'',
-            hours_per_week:""
+            hours_per_week:"",
+            research:""
         }
     });
 
@@ -100,6 +101,20 @@ export default function AdditionalInformation() {
                 {...register("hours_per_week", { required: "hours_per_week Address is required" })}
                 />
                 {errors.hours_per_week?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+            </Box>
+            <Box sx={{marginBottom:"26px"}}>
+                <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>Do you have experience in preparing theses and research  ?</InputLabel>
+                <Controller
+                name="research"
+                control={control}
+                render={({ field }) =>
+                <RadioGroup >
+                    <FormControlLabel value="yes" control={<Radio size="2px"/>} label="Yes"/>
+                    <FormControlLabel value="no" control={<Radio size="2px"/>} label="No" />
+                </RadioGroup>}
+                {...register("research", { required: "research Address is required" })}
+                />
+                {errors.research?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
             </Box>
             <CheckBoxLevels/>
             <CheckBoxCurriculum/>

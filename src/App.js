@@ -40,11 +40,11 @@ const theme = createTheme({
   direction:"rtl",
   palette:{
     primary:{
-      main:"#1a477e",
+      main:"#005B8E",
       contrastText:"#ffffff"
     },
     secondary:{
-      main:"#fc5a59",
+      main:"#FFC93C",
       contrastText:"#ffffff"
     }
   }
