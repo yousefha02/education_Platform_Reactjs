@@ -116,7 +116,7 @@ function Navbar(props) {
             {drawer}
             </Drawer>
         </Box>
-        <Box component="main" sx={{ paddingY: 3,width:"100%"}}>
+        <Box component="main" sx={{ paddingY: 0,width:"100%"}}>
             <Toolbar />
             {props.children}
         </Box>
