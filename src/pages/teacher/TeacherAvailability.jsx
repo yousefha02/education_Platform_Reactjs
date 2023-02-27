@@ -1,10 +1,11 @@
-import { Divider } from '@mui/material'
+import { Divider,Box,InputLabel } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 import AvailablitlyDay from '../../components/teacher/AvailablitlyDay'
 import TeacherLayout from '../../components/teacher/TeacherLayout'
 import StepperButtons from '../../components/reusableUi/StepperButtons'
 import days from '../../data/days'
+import SelectTimeZone from '../../components/reusableUi/SelectTimeZone'
 
 export default function TeacherAvailability() {
     const [selectedDays,setSelectedDays] = useState([])
@@ -30,19 +31,23 @@ export default function TeacherAvailability() {
     return (
         <Navbar>
             <TeacherLayout active={5} title="Availability">
-                {
-                    days.map((day,index)=>
+                <Box>
+                    <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>Choose your time zone </InputLabel>
+                    <SelectTimeZone/>
                     {
-                        return(
-                            <>
-                                <AvailablitlyDay day={day} key={index+'1a'} setSelectedDays={setSelectedDays}
-                                selectedDays={selectedDays} handleToggle={handleToggle}/>
-                                <Divider/>
-                            </>
-                        )
-                    })
-                }
-                <StepperButtons link="description"/>
+                        days.map((day,index)=>
+                        {
+                            return(
+                                <>
+                                    <AvailablitlyDay day={day} key={index+'1a'} setSelectedDays={setSelectedDays}
+                                    selectedDays={selectedDays} handleToggle={handleToggle}/>
+                                    <Divider/>
+                                </>
+                            )
+                        })
+                    }
+                    <StepperButtons link="description"/>
+                </Box>
             </TeacherLayout>
         </Navbar>
     )
