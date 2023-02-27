@@ -35,7 +35,12 @@ import StudentSettings from './pages/student/StudentSettings';
 import AdminLogin from './pages/admin/AdminLogin';
 import TeachersApprove from './pages/admin/TeachersApprove';
 import AdminChangePassword from './pages/admin/AdminChangePassword';
+<<<<<<< HEAD
+import HomeParent from './pages/parent/HomeParent';
+import ParentAddStudent from './pages/parent/ParentAddStudent';
+=======
 import Home from './pages/client/Home';
+>>>>>>> 247b1baa97e6049402442cc9de312e6a80a4af6e
 
 const theme = createTheme({
   direction:"rtl",
@@ -88,7 +93,6 @@ function App() {
             {/** student pages */}
             <Route path='student/profile' element={<StudentProfile/>}/>
             <Route path='student/settings' element={<StudentSettings/>}/>
-
             {/** teacher pages */}
             <Route path='teacher/about' element={<TeacherAbout/>}/>
             <Route path='teacher/photo' element={<TeacherPhoto/>}/>
@@ -98,7 +102,6 @@ function App() {
             <Route path='teacher/availability' element={<TeacherAvailability/>}/>
             <Route path='teacher/description' element={<TeacherDescription/>}/>
             <Route path='teacher/video' element={<TeacherVideo/>}/>
-            
             {/** admin pages */}
             <Route path='admin/login' element={<AdminLogin/>}/>
             <Route path='admin' element={<AdminHome/>}/>
@@ -110,6 +113,10 @@ function App() {
             <Route path='admin/Curriculums_insert' element={<InsertCurriculums/>}/>
             <Route path='admin/teachers_approve' element={<TeachersApprove/>}/>
             <Route path='admin/change_password' element={<AdminChangePassword/>}/>
+            {/** parent pages */}
+            <Route path='parent' element={<HomeParent/>}/>
+            <Route path='parent/add_student' element={<ParentAddStudent/>}/>
+            <Route/>
           </Routes>
         </ThemeProvider>
       </QueryClientProvider>
