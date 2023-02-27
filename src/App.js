@@ -35,6 +35,7 @@ import StudentSettings from './pages/student/StudentSettings';
 import AdminLogin from './pages/admin/AdminLogin';
 import TeachersApprove from './pages/admin/TeachersApprove';
 import AdminChangePassword from './pages/admin/AdminChangePassword';
+import Home from './pages/client/Home';
 
 const theme = createTheme({
   direction:"rtl",
@@ -70,6 +71,7 @@ function App() {
         <ThemeProvider theme={theme}>
           <Routes>
             {/** client pages */}
+            <Route path='/' element={<Home/>}/>
             <Route path='teacher/:id' element={<SingleTeacher/>}/>
             <Route path="teachers/search" element={<SearchTeachers/>}/>
             {/** login page */}

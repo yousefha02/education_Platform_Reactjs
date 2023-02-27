@@ -13,11 +13,18 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import PhoneIcon from '@mui/icons-material/Phone';
 import { Link } from 'react-router-dom';
 import ChangeLanguage from './reusableUi/ChangeLanguage';
-import { Button } from '@mui/material';
+import { Button , styled } from '@mui/material';
 import SelectCurrency from './reusableUi/SelectCurrency';
+import logoImage from '../images/logo.png'
 const drawerWidth = 240;
+
+const ImageLogo = styled('img')({
+    width:"110px",
+    height:"50px"
+})
 
 function Navbar(props) {
     
@@ -59,13 +66,16 @@ function Navbar(props) {
             >
                 <MenuIcon />
             </IconButton>
-            <Typography
+            {/* <Typography
                 variant="h6"
                 component="div"
                 sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
             >
                 Education
-            </Typography>
+            </Typography> */}
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } , alignItems:"center" }}>
+                <ImageLogo src={logoImage}/>
+            </Box>
             <Box sx={{ display: { xs: 'none', sm: 'flex' },alignItems:"center",columnGap:"10px" }}>
                 <Link to="">
                     <Box sx={{display:"flex",alignItems:"center",columnGap:"4px"}}>
@@ -73,10 +83,19 @@ function Navbar(props) {
                         <Typography sx={{fontSize:"14px"}}>yousef@gmail.com</Typography>
                     </Box>
                 </Link>
+                <Link to="">
+                    <Box sx={{display:"flex",alignItems:"center",columnGap:"4px"}}>
+                        <PhoneIcon sx={{fontSize:"15px"}}/>
+                        <Typography sx={{fontSize:"14px"}}>+999 5999999</Typography>
+                    </Box>
+                </Link>
                 <ChangeLanguage/>
                 <SelectCurrency/>
                 <Button sx={{ my: 2, color: 'white', display: 'block',textTransform:"capitalize",
-                border:"1px solid white",padding:"1px 18px"}}>Login</Button>
+                padding:"1px 18px"}} variant="text">تسجيل الدخول</Button>
+                <Button sx={{ my: 2, color: 'white', display: 'block',textTransform:"capitalize",
+                padding:"1px 18px" , backgroundColor:"#ffffff33" , fontSize:"12px" , height:"50px", borderRadius:"10px"}} variant="text">انضم لطاقم المدرسين
+                </Button>
             </Box>
             </Toolbar>
         </AppBar>
