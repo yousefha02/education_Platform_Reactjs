@@ -35,12 +35,9 @@ import StudentSettings from './pages/student/StudentSettings';
 import AdminLogin from './pages/admin/AdminLogin';
 import TeachersApprove from './pages/admin/TeachersApprove';
 import AdminChangePassword from './pages/admin/AdminChangePassword';
-<<<<<<< HEAD
 import HomeParent from './pages/parent/HomeParent';
 import ParentAddStudent from './pages/parent/ParentAddStudent';
-=======
 import Home from './pages/client/Home';
->>>>>>> 247b1baa97e6049402442cc9de312e6a80a4af6e
 
 const theme = createTheme({
   direction:"rtl",
