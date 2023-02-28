@@ -1,0 +1,9 @@
+<svg id="uk" xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19">
+  <path id="Path" d="M23.958,0H1.042A1.049,1.049,0,0,0,0,1.056V17.944A1.049,1.049,0,0,0,1.042,19H23.958A1.049,1.049,0,0,0,25,17.944V1.056A1.049,1.049,0,0,0,23.958,0Z" fill="#002781"/>
+  <path id="Path-2" data-name="Path" d="M25,1.056A1.049,1.049,0,0,0,23.958,0H21.27L14.583,5.212V0H10.417V5.212L3.73,0H1.042A1.049,1.049,0,0,0,0,1.056V2.42L6.374,7.389H0v4.222H6.374L0,16.58v1.364A1.049,1.049,0,0,0,1.042,19H3.73l6.687-5.212V19h4.167V13.788L21.27,19h2.688A1.049,1.049,0,0,0,25,17.944V16.58l-6.374-4.969H25V7.389H18.626L25,2.42Z" fill="#e6e6e6"/>
+  <path id="Path-3" data-name="Path" d="M25,8.444H13.542V0H11.458V8.444H0v2.111H11.458V19h2.083V10.556H25Z" fill="#d10d24"/>
+  <path id="Path-4" data-name="Path" d="M9.469,0,0,7H1.745L10,.9V.865A1,1,0,0,0,9.469,0Z" transform="translate(15)" fill="#d10d24"/>
+  <path id="Path-5" data-name="Path" d="M1.745,0H0L9.469,7A1,1,0,0,0,10,6.135V6.1Z" transform="translate(15 12)" fill="#d10d24"/>
+  <path id="Path-6" data-name="Path" d="M8.255,0,0,6.1v.032A1,1,0,0,0,.531,7L10,0Z" transform="translate(0 12)" fill="#d10d24"/>
+  <path id="Path-7" data-name="Path" d="M8.255,7H10L.531,0A1,1,0,0,0,0,.865V.9Z" fill="#d10d24"/>
+</svg>

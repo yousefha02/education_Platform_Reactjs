@@ -19,7 +19,7 @@ export default function StudentFouthStep() {
     return (
         <Navbar>
             <Container>
-                <Paper sx={{width:{md:"450px"},padding:"30px 50px",margin:"45px auto 60px"}}>
+                <Paper sx={{width:{md:"450px"},padding:"30px 50px",margin:"60px auto 60px"}}>
                     <HeaderSteps step={4} title="Additional Information" steps={4}/>
                     <form onSubmit={handleSubmit(onSubmit)}>
                     <Box sx={{marginBottom:"26px"}}>

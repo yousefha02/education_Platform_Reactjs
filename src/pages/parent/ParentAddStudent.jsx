@@ -13,7 +13,7 @@ export default function ParentAddStudent() {
 
     return (
         <Navbar>
-            <Container>
+            <Container sx={{marginTop:"60px"}}>
                 <from onSubmit={handleSubmit(onSubmit)}>
                     <Box sx={{marginBottom:"26px"}}>
                         <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>الطالب</InputLabel>

@@ -20,7 +20,7 @@ export default function Login() {
 
     return (
         <Navbar>
-            <Paper sx={{width:{md:"450px"},padding:"30px 50px",margin:"45px auto 60px"}}>
+            <Paper sx={{width:{md:"450px"},padding:"30px 50px",margin:"60px auto 60px"}}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                 <Typography sx={{fontSize:"28px",fontWeight:"600",marginBottom:"16px"}}>Login by Email</Typography>
                 <Typography sx={{marginBottom:"24px"}}>

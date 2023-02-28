@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import AdminLayout from '../../components/admin/AdminLayout'
-import { Box, Button, Dialog, Grid, Typography } from '@mui/material';
+import { Box, Button, Dialog, Grid, Typography,styled } from '@mui/material';
 import AddSubject from '../../components/admin/AddSubject';
+
+const Image = styled("img")({
+    width:"80%",
+    height:"160px",
+    borderRadius:"8px"
+})
 
 export default function Subjects() {
     
@@ -27,6 +33,7 @@ export default function Subjects() {
                 return(
                     <Grid item xs={6} md={4} lg={3} key={index+'aq1'}>
                         <Box sx={{backgroundColor:"#59aefc1a",borderRadius:"6px",padding:"16px 10px",textAlign:"center"}}>
+                            <Image src={'https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk='}/>
                             <Typography sx={{fontSize:"20px",fontWeight:"600",marginBottom:"8px"}}>{subject}</Typography>
                             <Typography sx={{fontSize:"13px"}}>3 categories</Typography>
                         </Box>

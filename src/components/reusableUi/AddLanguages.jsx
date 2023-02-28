@@ -51,7 +51,7 @@ export default function AddLanguages() {
                                             languages.map((lang,index)=>
                                             {
                                                 return(
-                                                    <MenuItem key={index+'a1'} value={lang}>{lang}</MenuItem>
+                                                    <MenuItem key={index+'a1'} value={lang}>{lang.title_en}</MenuItem>
                                                 )
                                             })
                                         }

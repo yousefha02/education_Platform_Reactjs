@@ -9,7 +9,7 @@ import Navbar from '../../components/Navbar'
 export default function SingleTeacher() {
     return (
         <Navbar>
-            <Container sx={{marginBottom:"40px",marginTop:"20p"}}>
+            <Container sx={{marginBottom:"40px",marginTop:"40px"}}>
                 <Grid container spacing={3}>
                     <Grid item xs={8}>
                         <HeaderSingleTeacher/>

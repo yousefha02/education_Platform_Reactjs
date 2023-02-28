@@ -23,7 +23,7 @@ export default function TeacherPhoto() {
         <Navbar>
         <TeacherLayout active={1} title="Profile Photo">
             <input type="file" id="image" hidden onChange={(e)=>setImage(e.target.files[0])}/>
-            <Button variant='contained' sx={{textTransform:"capitalize",padding:0}}>
+            <Button variant='contained' sx={{textTransform:"capitalize",padding:0,marginBottom:"20px"}}>
                 <Label htmlFor='image'>Replace Photo</Label>
             </Button>
             <Box>

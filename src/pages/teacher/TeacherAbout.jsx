@@ -17,6 +17,7 @@ export default function TeacherAbout() {
             date:'',
             email:'',
             phone:'',
+            country:"",
             city:''
         }
     });
@@ -90,18 +91,28 @@ export default function TeacherAbout() {
                             {errors.email?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
                     </Box>
                     <Box sx={{marginBottom:"26px"}}>
-                            <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Phone Number</InputLabel>
-                            <Controller
-                            name="email"
-                            control={control}
-                            render={({ field }) => <Box sx={{width:"100%"}}><PhoneInput  inputProps={{
-                                name: 'phone',
-                                required: true,
-                                autoFocus: true
-                            }} value="phone" {...field}/></Box>}
-                            {...register("phone", { required: "email phone is required" })}
-                            />
-                            {errors.phone?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                        <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Phone Number</InputLabel>
+                        <Controller
+                        name="email"
+                        control={control}
+                        render={({ field }) => <Box sx={{width:"100%"}}><PhoneInput inputProps={{
+                        name: 'phone',
+                        required: true,
+                        autoFocus: true
+                        }} value="phone" {...field}/></Box>}
+                        {...register("phone", { required: "email phone is required" })}
+                        />
+                        {errors.phone?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                    </Box>
+                    <Box sx={{marginBottom:"26px"}}>
+                        <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Country</InputLabel>
+                        <Controller
+                        name="country"
+                        control={control}
+                        render={({ field }) => <TextField {...field} fullWidth/>}
+                        {...register("country", { required: "country is required" })}
+                        />
+                        {errors.country?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
                     </Box>
                     <Box sx={{marginBottom:"26px"}}>
                             <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>City</InputLabel>

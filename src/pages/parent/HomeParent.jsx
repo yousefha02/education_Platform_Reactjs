@@ -7,7 +7,7 @@ export default function HomeParent() {
     const navigate = useNavigate()
     return (
         <Navbar>
-            <Container>
+            <Container sx={{marginTop:"60px"}}>
                 <Typography sx={{color:"#000000",fontWeight:"700",fontSize:"24px",marginBottom:"8px"}}>اهلا بك في اكاديمتنا</Typography>
                 <Typography sx={{color:"#000000",fontWeight:"500",fontSize:"18px",marginBottom:"32px"}}>يسعدنا تسهيل عملية متابعة دراسة ابنائك من خلال اكاديميتنا </Typography> 
                 <Grid container>

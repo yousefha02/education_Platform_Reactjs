@@ -17,7 +17,7 @@ export default function StudentSecondStep() {
     return (
         <Navbar>
             <Container>
-                <Paper sx={{width:{md:"450px"},padding:"30px 50px",margin:"45px auto 60px"}}>
+                <Paper sx={{width:{md:"450px"},padding:"30px 50px",margin:"60px auto 60px"}}>
                     <HeaderSteps step={2} title="Verify your Email" steps={4}/>
                     <form>
                         <Box sx={{display:"flex",justifyContent:"center"}}>

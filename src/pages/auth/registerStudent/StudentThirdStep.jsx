@@ -12,7 +12,7 @@ export default function StudentThirdStep() {
     return (
         <Navbar>
             <Container>
-                <Paper sx={{width:{md:"450px"},padding:"30px 50px",margin:"45px auto 60px"}}>
+                <Paper sx={{width:{md:"450px"},padding:"30px 50px",margin:"60px auto 60px"}}>
                     <HeaderSteps step={3} title="Enter your password" steps={4}/>
                     <form>
                         <Box sx={{marginTop:"40px",marginBottom:"80px"}}>

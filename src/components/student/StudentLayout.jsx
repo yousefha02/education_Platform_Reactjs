@@ -7,7 +7,7 @@ const topics = [{title:"Profile",link:"/profile"},{title:"Lessons",link:"Lesson"
 
 export default function StudentLayout({children}) {
     return (
-        <Container>
+        <Container sx={{marginTop:"50px"}}>
             <Grid container spacing={2}>
                 <Grid item xs={3}>
                     <Paper sx={{padding:"20px"}}>

@@ -7,7 +7,7 @@ import Navbar from '../../components/Navbar'
 export default function SearchTeachers() {
     return (
         <Navbar>
-            <Container sx={{marginBottom:"40px",marginTop:"20px"}}>
+            <Container sx={{marginBottom:"40px",marginTop:"60px"}}>
                 <Grid container spacing={3}>
                     <Grid item xs={9}>
                         <Box sx={{marginBottom:"20px"}}><HeaderSearchList/></Box>

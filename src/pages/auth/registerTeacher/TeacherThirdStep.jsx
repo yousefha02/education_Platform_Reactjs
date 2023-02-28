@@ -35,7 +35,7 @@ export default function TeacherThirdStep() {
     return (
         <Navbar>
             <Container>
-                <Paper sx={{width:{md:"450px"},padding:"30px 50px",margin:"45px auto 60px"}}>
+                <Paper sx={{width:{md:"450px"},padding:"30px 50px",margin:"60px auto 60px"}}>
                     <HeaderSteps step={3} title="Enter your password" steps={3}/>
                         <Box sx={{marginTop:"40px",marginBottom:"80px"}}>
                             <ReactCodeInput type='number' fields={4} ref={input1}/>

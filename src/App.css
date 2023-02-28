@@ -18,6 +18,11 @@ a{
 }
 
 /* react code input  */
+
+.react-tel-input .form-control {
+  width: 100% !important;
+}
+
 .react-code-input{
   display: flex !important;
   gap: 20px;
