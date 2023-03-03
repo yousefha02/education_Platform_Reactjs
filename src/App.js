@@ -3,8 +3,7 @@ import {createTheme,ThemeProvider} from '@mui/material'
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import Cookies from 'js-cookie';
-import i18next from 'i18next';
-import {Route,Routes} from 'react-router-dom'
+import {Navigate, Route,Routes} from 'react-router-dom'
 import TeacherAbout from './pages/teacher/TeacherAbout';
 import TeacherPhoto from './pages/teacher/TeacherPhoto';
 import AdminHome from './pages/admin/AdminHome';
@@ -38,6 +37,7 @@ import AdminChangePassword from './pages/admin/AdminChangePassword';
 import HomeParent from './pages/parent/HomeParent';
 import ParentAddStudent from './pages/parent/ParentAddStudent';
 import Home from './pages/client/Home';
+import {useSelector} from 'react-redux'
 
 const theme = createTheme({
   direction:"rtl",
@@ -66,6 +66,8 @@ function App() {
       document.body.dir="ltr"
     }
   },[])
+
+  const {admin} = useSelector((state)=>state.admin)
 
   return (
     <div className="App">
@@ -100,16 +102,16 @@ function App() {
             <Route path='teacher/description' element={<TeacherDescription/>}/>
             <Route path='teacher/video' element={<TeacherVideo/>}/>
             {/** admin pages */}
-            <Route path='admin/login' element={<AdminLogin/>}/>
-            <Route path='admin' element={<AdminHome/>}/>
-            <Route path='admin/levels' element={<StudyLevels/>}/>
-            <Route path='admin/years' element={<StudyYears/>}/>
-            <Route path='admin/curriculums' element={<StudyCurriculums/>}/>
-            <Route path='admin/subjects' element={<Subjects/>}/>
-            <Route path='admin/categories' element={<Categories/>}/>
-            <Route path='admin/Curriculums_insert' element={<InsertCurriculums/>}/>
-            <Route path='admin/teachers_approve' element={<TeachersApprove/>}/>
-            <Route path='admin/change_password' element={<AdminChangePassword/>}/>
+            <Route path='admin/login' element={!admin?<AdminLogin/>:<Navigate to="/admin"/>}/>
+            <Route path='admin' element={admin?<AdminHome/>:<Navigate to="/admin/login"/>}/>
+            <Route path='admin/levels' element={admin?<StudyLevels/>:<Navigate to="/admin/login"/>}/>
+            <Route path='admin/years' element={admin?<StudyYears/>:<Navigate to="/admin/login"/>}/>
+            <Route path='admin/curriculums' element={admin?<StudyCurriculums/>:<Navigate to="/admin/login"/>}/>
+            <Route path='admin/subjects' element={admin?<Subjects/>:<Navigate to="/admin/login"/>}/>
+            <Route path='admin/categories' element={admin?<Categories/>:<Navigate to="/admin/login"/>}/>
+            <Route path='admin/Curriculums_insert' element={admin?<InsertCurriculums/>:<Navigate to="/admin/login"/>}/>
+            <Route path='admin/teachers_approve' element={admin?<TeachersApprove/>:<Navigate to="/admin/login"/>}/>
+            <Route path='admin/change_password' element={admin?<AdminChangePassword/>:<Navigate to="/admin/login"/>}/>
             {/** parent pages */}
             <Route path='parent' element={<HomeParent/>}/>
             <Route path='parent/add_student' element={<ParentAddStudent/>}/>

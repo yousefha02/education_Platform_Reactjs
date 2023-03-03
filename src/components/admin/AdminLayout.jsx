@@ -26,65 +26,75 @@ import HomeIcon from '@mui/icons-material/Home';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
 import { Button } from '@mui/material';
 import PasswordIcon from '@mui/icons-material/Password';
+import {styled} from '@mui/material'
+import ChangeLanguage from '../reusableUi/ChangeLanguage'
+import logo from '../../images/logo.png'
+import { useTranslation } from 'react-i18next';
 
 const drawerWidth = 240;
 
-const topics = [
-    {
-        title:"Control Board",
-        icon:HomeIcon,
-        link:''
-    },
-    {
-        title:"Study Levels",
-        icon:SchoolIcon,
-        link:'/levels',
-    },
-    {
-        title:"Study Years",
-        icon:HourglassBottomIcon,
-        link:'/years',
-    },
-    {
-        title:"Study Curriculums",
-        icon:AssignmentIcon,
-        link:'/curriculums',
-    },
-    {
-        title:"Curriculums to Level",
-        icon:AddIcon,
-        link:'/Curriculums_insert',
-    },
-    {
-        title:"Subjects",
-        icon:SubjectIcon,
-        link:'/subjects',
-    },
-    {
-        title:"Categories",
-        icon:CategoryIcon,
-        link:'/categories',
-    },
-    {
-        title:"Teachers Approve",
-        icon:BeenhereIcon,
-        link:'/teachers_approve'
-    },
-    {
-        title:"Change Password",
-        icon:PasswordIcon,
-        link:'/change_password'
-    }
-]
+const Image = styled("img")({
+    width:"90px",
+    height:"40px"
+})
 
 function AdminLayout(props) {
     const lang = cookies.get("i18next") || "en";
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const { t } = useTranslation();
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+
+    const topics = [
+        {
+            title:t('controlBoard'),
+            icon:HomeIcon,
+            link:''
+        },
+        {
+            title:t('studylevels'),
+            icon:SchoolIcon,
+            link:'/levels',
+        },
+        {
+            title:t('studyyears'),
+            icon:HourglassBottomIcon,
+            link:'/years',
+        },
+        {
+            title:t('studycurriculums'),
+            icon:AssignmentIcon,
+            link:'/curriculums',
+        },
+        {
+            title:t('curriculumstoLevel'),
+            icon:AddIcon,
+            link:'/Curriculums_insert',
+        },
+        {
+            title:t('subjects'),
+            icon:SubjectIcon,
+            link:'/subjects',
+        },
+        {
+            title:t('categories'),
+            icon:CategoryIcon,
+            link:'/categories',
+        },
+        {
+            title:t('teachersapprove'),
+            icon:BeenhereIcon,
+            link:'/teachers_approve'
+        },
+        {
+            title:t('changepassword'),
+            icon:PasswordIcon,
+            link:'/change_password'
+        }
+    ]
 
     const drawer = (
     <div>
@@ -121,7 +131,8 @@ function AdminLayout(props) {
             }}
         >
             <Toolbar>
-            <Box sx={{display:"flex",width:"100%",justifyContent:"space-between",alignItems:"center"}}>
+            <Box sx={{display:"flex",width:"100%",justifyContent:"space-between",alignItems:"center",
+            paddingY:"8px"}}>
                 <Box sx={{display:"flex",alignItems:"center"}}>
                     <IconButton
                         color="inherit"
@@ -133,10 +144,13 @@ function AdminLayout(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Education
+                        <Image src={logo}/>
                     </Typography>
                 </Box>
-                <Button variant="contained" color="secondary">Logout</Button>
+                <Box>
+                    <ChangeLanguage/>
+                    <Button variant="contained" color="secondary" sx={{marginLeft:"12px"}}>{t('logout')}</Button>
+                </Box>
             </Box>
             </Toolbar>
         </AppBar>

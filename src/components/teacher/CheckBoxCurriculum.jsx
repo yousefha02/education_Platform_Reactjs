@@ -5,8 +5,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import { Box, InputLabel } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export default function CheckBoxCurriculum() {
+    const {t} = useTranslation()
     const [checked, setChecked] = React.useState([1]);
 
     const handleToggle = (value) => () => {
@@ -24,7 +26,7 @@ export default function CheckBoxCurriculum() {
 
     return (
         <Box sx={{marginBottom:"26px"}}>
-        <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>Which Curriculum you teach? you can select more than one.</InputLabel>
+        <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>{t('WhichCurriculum')}</InputLabel>
         <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         {["IG -curriculum","International Baccalaureate IB","French Baccalaureate -curriculum"].map((value) => {
             const labelId = `checkbox-list-secondary-label-${value}`;

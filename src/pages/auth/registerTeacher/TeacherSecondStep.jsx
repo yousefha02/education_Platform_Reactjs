@@ -5,6 +5,7 @@ import HeaderSteps from '../../../components/auth/HeaderSteps';
 import gmailImage from '../../../images/gmail.png'
 import ReactCodeInput from "react-code-input";
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Image = styled('img')({
     width:"180px",
@@ -15,21 +16,23 @@ export default function TeacherSecondStep() {
     const input1 = useRef();
     const navigate = useNavigate()
 
+    const {t} = useTranslation()
+
     async function confirmCode()
     {
         try{
-            const response = await fetch(`${process.env.REACT_APP_API_KEY}`,{
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
-                },
-                body:JSON.stringify({code:input1.current.state.value,email:""})
-            })
-            const resData = await response.json()
-            if(response.status!==200&&response.status!==201)
-            {
-                throw new Error('failed occured')
-            }
+            // const response = await fetch(`${process.env.REACT_APP_API_KEY}`,{
+            //     method:"POST",
+            //     headers:{
+            //         "Content-Type":"application/json"
+            //     },
+            //     body:JSON.stringify({code:input1.current.state.value,email:""})
+            // })
+            // const resData = await response.json()
+            // if(response.status!==200&&response.status!==201)
+            // {
+            //     throw new Error('failed occured')
+            // }
             navigate('/teacherRegister/step3')
         }
         catch(err)
@@ -42,7 +45,7 @@ export default function TeacherSecondStep() {
         <Navbar>
             <Container>
                 <Paper sx={{width:{md:"450px"},padding:"30px 50px",margin:"60px auto 60px"}}>
-                    <HeaderSteps step={2} title="Verify your Email" steps={3}/>
+                    <HeaderSteps step={2} title={t('verifyEmail')} steps={3}/>
                         <Box sx={{display:"flex",justifyContent:"center"}}>
                             <Image src={gmailImage}/>
                         </Box>
@@ -50,7 +53,7 @@ export default function TeacherSecondStep() {
                             <ReactCodeInput type='number' fields={4} ref={input1}/>
                         </Box>
                         <Button variant='contained' color="secondary" fullWidth type='submit'
-                        sx={{textTransform:"capitalize"}} onClick={confirmCode}>Confirm Code</Button>
+                        sx={{textTransform:"capitalize"}} onClick={confirmCode}>{t('confirmCode')}</Button>
                 </Paper>
             </Container>
         </Navbar>

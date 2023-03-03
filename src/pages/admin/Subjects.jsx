@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import AdminLayout from '../../components/admin/AdminLayout'
 import { Box, Button, Dialog, Grid, Typography,styled } from '@mui/material';
 import AddSubject from '../../components/admin/AddSubject';
+import { useTranslation } from 'react-i18next';
 
 const Image = styled("img")({
     width:"80%",
@@ -10,7 +11,7 @@ const Image = styled("img")({
 })
 
 export default function Subjects() {
-    
+    const {t} = useTranslation()
     const [openAddYear,setOpenAddYear] = useState(false)
     function handleClose()
     {
@@ -22,9 +23,9 @@ export default function Subjects() {
     return (
     <AdminLayout>
         <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",marginY:"30px"}}>
-            <Typography sx={{fontSize:"20px",fontWeight:"500"}}>Subjects</Typography>
+            <Typography sx={{fontSize:"20px",fontWeight:"500"}}>{t('subjects')}</Typography>
             <Button onClick={()=>setOpenAddYear(true)}
-            sx={{textTransform:"capitalize"}} variant="contained">Add Subject</Button>
+            sx={{textTransform:"capitalize"}} variant="contained">{t('addsubject')}</Button>
         </Box>
         <Grid container spacing={2} justifyContent="center">
         {

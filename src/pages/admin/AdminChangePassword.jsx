@@ -2,6 +2,7 @@ import { Box, Button, InputLabel, Paper, TextField, Typography } from '@mui/mate
 import React from 'react'
 import { useForm, Controller } from "react-hook-form";
 import AdminLayout from '../../components/admin/AdminLayout'
+import { useTranslation } from 'react-i18next';
 
 export default function AdminChangePassword() {
     const { register,control, formState: { errors }, handleSubmit } = useForm({
@@ -13,25 +14,27 @@ export default function AdminChangePassword() {
     });
 
     const onSubmit = data => console.log(data);
+    
+    const {t} = useTranslation()
 
     return (
             <AdminLayout>
                 <Paper sx={{padding:"20px",marginTop:"40px"}}>
-                    <Typography>Change Your Password</Typography>
+                    <Typography>{t('changePassword')}</Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Box sx={{width:{md:"450px",xs:"100%"}}}>
                             <Box sx={{marginTop:"32px"}}>
-                                <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Old Password</InputLabel>
+                                <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('oldPassword')}</InputLabel>
                                 <Controller
                                 name="oldPassword"
                                 control={control}
                                 render={({ field }) => <TextField {...field} fullWidth/>}
                                 {...register("oldPassword", { required: "oldPassword Address is required" })}
                                 />
-                                {errors.oldPassword?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                                {errors.oldPassword?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                             </Box>
                             <Box sx={{marginTop:"32px"}}>
-                                <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>New Password</InputLabel>
+                                <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('newPassword')}</InputLabel>
                                 <Controller
                                 name="newPassword"
                                 control={control}
@@ -41,7 +44,7 @@ export default function AdminChangePassword() {
                                 {errors.newPassword?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
                             </Box>
                             <Box sx={{marginTop:"32px"}}>
-                                <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Confirm New Password</InputLabel>
+                                <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('confirmPassword')}</InputLabel>
                                 <Controller
                                 name="confirmNewPassword"
                                 control={control}
@@ -51,7 +54,7 @@ export default function AdminChangePassword() {
                                 {errors.confirmNewPassword?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
                             </Box>
                             <Button type="submit" sx={{marginTop:"30px"}}
-                            variant="contained" color="secondary">Change Password</Button>
+                            variant="contained" color="secondary">{t('changePassword')}</Button>
                         </Box>
                     </form>
                 </Paper>

@@ -7,6 +7,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import {Link} from 'react-router-dom'
 import english from '../../../images/english.svg'
 import arabic from '../../../images/arabic.png'
+import { useTranslation } from 'react-i18next';
 
 const IconWrapper = styled(Box)({
     width:"30px",
@@ -27,6 +28,7 @@ const MatLink = styled(Link)({
 const Image = styled('img')({})
 
 export default function LinksFooter() {
+    const {t} = useTranslation()
     return (
         <Box sx={{backgroundColor:"#d9d9d952"}}>
             <Container sx={{padding:"20px",display:"flex",columnGap:"12px",justifyContent:"space-between",
@@ -38,12 +40,12 @@ export default function LinksFooter() {
                     <IconWrapper><InstagramIcon sx={{fontSize:"18px",color:"white"}}/></IconWrapper>
                 </Box>
                 <Box sx={{display:"flex",columnGap:"18px",alignItems:"center",flexWrap:"wrap"}}>
-                    <MatLink to="">ادفع الآن</MatLink>
-                    <MatLink to="">من نحن</MatLink>
-                    <MatLink to="">الشروط والأحكام</MatLink>
-                    <MatLink to="">سياسة الخصوصية</MatLink>
-                    <MatLink to="">سياسة الاسترداد</MatLink>
-                    <MatLink to="">خريطة الموقع</MatLink>
+                    <MatLink to="">{t('pay')}</MatLink>
+                    <MatLink to="">{t('aboutUs')}</MatLink>
+                    <MatLink to="">{('TermsAndConditions')}</MatLink>
+                    <MatLink to="">{t('PrivacyPolicy')}</MatLink>
+                    <MatLink to="">{t('RefundPolicy')}</MatLink>
+                    <MatLink to="">{t('Sitemap')}</MatLink>
                 </Box>
                 <Box sx={{display:"flex",columnGap:"4px",alignItems:"center"}}>
                     <Image src={english}/>

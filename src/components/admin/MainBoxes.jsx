@@ -4,32 +4,7 @@ import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import SubjectOutlinedIcon from '@mui/icons-material/SubjectOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import CastForEducationOutlinedIcon from '@mui/icons-material/CastForEducationOutlined';
-const details = [
-    {
-        title:"Total Students",
-        number:200,
-        icon:PeopleAltOutlinedIcon,
-        color:"#5e72e4"
-    },
-    {
-        title:"Total Teachers",
-        number:8,
-        icon:SchoolOutlinedIcon,
-        color:"#FFAA16"
-    },
-    {
-        title:"Total Subjects",
-        number:34,
-        icon:SubjectOutlinedIcon,
-        color:"#673BB7"
-    },
-    {
-        title:"Registered Lessons",
-        number:20,
-        icon:CastForEducationOutlinedIcon,
-        color:"#FF1616"
-    }
-]
+import { useTranslation } from 'react-i18next';
 
 const IconWrapper = styled(Box)({
     borderRadius:"50%",
@@ -51,6 +26,33 @@ const CardBox = styled(Card)({
 })
 
 export default function Statistics() {
+    const {t} = useTranslation()
+    const details = [
+        {
+            title:t('totalstudents'),
+            number:200,
+            icon:PeopleAltOutlinedIcon,
+            color:"#5e72e4"
+        },
+        {
+            title:t('totalteachers'),
+            number:8,
+            icon:SchoolOutlinedIcon,
+            color:"#FFAA16"
+        },
+        {
+            title:t('registeredlessons'),
+            number:34,
+            icon:SubjectOutlinedIcon,
+            color:"#673BB7"
+        },
+        {
+            title:t('totalsubjects'),
+            number:20,
+            icon:CastForEducationOutlinedIcon,
+            color:"#FF1616"
+        }
+    ]
     return (
         <Grid container spacing={4}>
             {

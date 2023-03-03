@@ -11,16 +11,19 @@ import { Box, Button, Typography } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-
-const columns = [
-    { id: 'Name', label: 'Name', minWidth: 150 },
-    { id: 'Email', label: 'Email', minWidth: 150 },
-    { id: 'Gender', label: 'Gender', minWidth: 150 },
-    { id: 'Phone', label: 'Phone', minWidth: 150 },
-    { id: 'View', label: 'View', minWidth: 150 },
-    { id: 'Actions', label: 'Actions', minWidth: 150 }];
+import { useTranslation } from 'react-i18next';
 
 export default function TeachersApprove() {
+    const {t} = useTranslation()
+
+    const columns = [
+        { id: 'Name', label: t('name'), minWidth: 150 },
+        { id: 'Email', label: t('email'), minWidth: 150 },
+        { id: 'Gender', label: t('gender'), minWidth: 150 },
+        { id: 'Phone', label: t('phone'), minWidth: 150 },
+        { id: 'View', label: t('view'), minWidth: 150 },
+        { id: 'Actions', label: t('actions'), minWidth: 150 }];
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -58,7 +61,7 @@ export default function TeachersApprove() {
     <AdminLayout>
         <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"30px",
         marginTop:"40px"}}>
-            <Typography sx={{fontSize:"20px",fontWeight:"500"}}>Teachers Approve</Typography>
+            <Typography sx={{fontSize:"20px",fontWeight:"500"}}>{t('teachersapprove')}</Typography>
         </Box>
         <Paper sx={{ width: '100%',padding:"20px"}}>
             <TableContainer sx={{ maxHeight: 440 }}>

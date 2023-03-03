@@ -1,9 +1,11 @@
 import { Box ,Button,Grid} from '@mui/material'
 import React, { useState } from 'react'
 import FormWorkExperience from './FormWorkExperience'
+import { useTranslation } from 'react-i18next';
 
 export default function WorkExperience() {
     const [WorkExperience,setWorkExperience] = useState([])
+    const {t} = useTranslation()
 
     function addNewExperience()
     {
@@ -32,7 +34,7 @@ export default function WorkExperience() {
                     )
                 })
             }
-            <Button sx={{fontSize:"12px",marginTop:"4px"}} color="secondary" onClick={addNewExperience}>Add another experience</Button>
+            <Button sx={{fontSize:"12px",marginTop:"4px"}} color="secondary" onClick={addNewExperience}>{t('addExp')}</Button>
         </Box>
     )
 }

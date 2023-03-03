@@ -6,8 +6,10 @@ import TeacherLayout from '../../components/teacher/TeacherLayout'
 import StepperButtons from '../../components/reusableUi/StepperButtons'
 import days from '../../data/days'
 import SelectTimeZone from '../../components/reusableUi/SelectTimeZone'
+import { useTranslation } from 'react-i18next';
 
 export default function TeacherAvailability() {
+    const {t} = useTranslation()
     const [selectedDays,setSelectedDays] = useState([])
 
     const handleToggle = (value) => () => {
@@ -30,9 +32,9 @@ export default function TeacherAvailability() {
 
     return (
         <Navbar>
-            <TeacherLayout active={5} title="Availability">
+            <TeacherLayout active={5} title={t('availability')}>
                 <Box>
-                    <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>Choose your time zone </InputLabel>
+                    <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>{t('timezone')}</InputLabel>
                     <SelectTimeZone/>
                     {
                         days.map((day,index)=>

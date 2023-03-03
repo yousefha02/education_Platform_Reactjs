@@ -1,8 +1,10 @@
 import { Box ,Button,Grid} from '@mui/material'
 import React, { useState } from 'react'
 import FormEducationDegrees from './FormEducationDegrees'
+import { useTranslation } from 'react-i18next';
 
 export default function EducationDegrees() {
+    const {t} = useTranslation()
     const [degrees,setDegrees] = useState([])
 
     function addNewDegree()
@@ -33,7 +35,7 @@ export default function EducationDegrees() {
                 })
             }
             <Button sx={{fontSize:"12px",marginTop:"4px"}} color="secondary"
-            onClick={addNewDegree}>Add another degree</Button>
+            onClick={addNewDegree}>{t('addDegree')}</Button>
         </Box>
     )
 }

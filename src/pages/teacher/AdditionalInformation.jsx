@@ -6,8 +6,10 @@ import StepperButtons from '../../components/reusableUi/StepperButtons'
 import CheckBoxLevels from '../../components/teacher/CheckBoxLevels';
 import CheckBoxCurriculum from '../../components/teacher/CheckBoxCurriculum';
 import Navbar from '../../components/Navbar';
+import { useTranslation } from 'react-i18next';
 
 export default function AdditionalInformation() {
+    const {t} = useTranslation()
     const { register,control, formState: { errors }, handleSubmit } = useForm({
         defaultValues: {
             certificates:"",
@@ -23,38 +25,38 @@ export default function AdditionalInformation() {
 
     return (
         <Navbar>
-        <TeacherLayout title="Additional Information" active={2}>
+        <TeacherLayout title={t('additionalInformation')} active={2}>
             <form onSubmit={handleSubmit(onSubmit)}>
             <Box sx={{marginBottom:"26px"}}>
-                <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>Do you have certificates in teaching or training ?</InputLabel>
+                <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>{t('certificates')}</InputLabel>
                 <Controller
                 name="certificates"
                 control={control}
                 render={({ field }) =>
                 <RadioGroup >
-                    <FormControlLabel value="yes" control={<Radio size="2px"/>} label="Yes"/>
-                    <FormControlLabel value="no" control={<Radio size="2px"/>} label="No" />
+                    <FormControlLabel value="yes" control={<Radio size="2px"/>} label={t('yes')}/>
+                    <FormControlLabel value="no" control={<Radio size="2px"/>} label={t('no')}/>
                 </RadioGroup>}
                 {...register("certificates", { required: "certificates Address is required" })}
                 />
-                {errors.certificates?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                {errors.certificates?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
             </Box>
             <Box sx={{marginBottom:"26px"}}>
-                <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>Do you have experience in teaching or training ?</InputLabel>
+                <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>{t('experience')}</InputLabel>
                 <Controller
                 name="certificates"
                 control={control}
                 render={({ field }) =>
                 <RadioGroup >
-                    <FormControlLabel value="yes" control={<Radio size="2px"/>} label="Yes"/>
-                    <FormControlLabel value="no" control={<Radio size="2px"/>} label="No" />
+                    <FormControlLabel value="yes" control={<Radio size="2px"/>} label={t('yes')}/>
+                    <FormControlLabel value="no" control={<Radio size="2px"/>} label={t('No')}/>
                 </RadioGroup>}
                 {...register("experience", { required: "experience Address is required" })}
                 />
-                {errors.experience?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                {errors.experience?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
             </Box>
             <Box sx={{marginBottom:"26px"}}>
-                <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>How many years of experience do you have in teaching or training?</InputLabel>
+                <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>{t('yearsExp')}</InputLabel>
                 <Controller
                 name="yearsOfExperience"
                 control={control}
@@ -68,10 +70,10 @@ export default function AdditionalInformation() {
                 </RadioGroup>}
                 {...register("yearsOfExperience", { required: "yearsOfExperience Address is required" })}
                 />
-                {errors.yearsOfExperience?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                {errors.yearsOfExperience?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
             </Box>
             <Box sx={{marginBottom:"26px"}}>
-                <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>What type of gender do you prefer to teach or train?</InputLabel>
+                <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>{t('genderType')}</InputLabel>
                 <Controller
                 name="gender"
                 control={control}
@@ -83,10 +85,10 @@ export default function AdditionalInformation() {
                 </RadioGroup>}
                 {...register("gender", { required: "gender Address is required" })}
                 />
-                {errors.yearsOfExperience?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                {errors.yearsOfExperience?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
             </Box>
             <Box sx={{marginBottom:"26px"}}>
-                <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>How many hours per week do you plan to teach or train with Modarby?</InputLabel>
+                <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>{t('hoursPerWeek')}</InputLabel>
                 <Controller
                 name="gender"
                 control={control}
@@ -100,10 +102,10 @@ export default function AdditionalInformation() {
                 </RadioGroup>}
                 {...register("hours_per_week", { required: "hours_per_week Address is required" })}
                 />
-                {errors.hours_per_week?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                {errors.hours_per_week?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
             </Box>
             <Box sx={{marginBottom:"26px"}}>
-                <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>Do you have experience in preparing theses and research  ?</InputLabel>
+                <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>{t('reserch')}</InputLabel>
                 <Controller
                 name="research"
                 control={control}
@@ -114,7 +116,7 @@ export default function AdditionalInformation() {
                 </RadioGroup>}
                 {...register("research", { required: "research Address is required" })}
                 />
-                {errors.research?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                {errors.research?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
             </Box>
             <CheckBoxLevels/>
             <CheckBoxCurriculum/>

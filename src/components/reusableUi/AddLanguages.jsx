@@ -1,10 +1,14 @@
 import { Box ,Button,FormControl,Grid, InputLabel, MenuItem, Select} from '@mui/material'
 import React, { useState } from 'react'
 import languages from '../../data/languages' 
+import { useTranslation } from 'react-i18next';
 
 const levels = ['Beginner','Intermediate','Intermediate High','Advanced','Native']
 
 export default function AddLanguages() {
+    
+    const {t} = useTranslation()
+
     const [chosenlanguages,setChosenLanguages] = useState([])
 
     function addNewLanguage()
@@ -32,10 +36,10 @@ export default function AddLanguages() {
         <Box sx={{marginBottom:"26px"}}>
             <Grid container spacing={4}>
                 <Grid item xs={5}>
-                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Languages spoken</InputLabel>
+                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('languagesSpokne')}</InputLabel>
                 </Grid>
                 <Grid item xs={5}>
-                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Level</InputLabel>
+                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('level')}</InputLabel>
                 </Grid>
             </Grid>
             {
@@ -51,7 +55,7 @@ export default function AddLanguages() {
                                             languages.map((lang,index)=>
                                             {
                                                 return(
-                                                    <MenuItem key={index+'a1'} value={lang}>{lang.title_en}</MenuItem>
+                                                    <MenuItem key={index+'a1'} value={lang.id}>{lang.title_en}</MenuItem>
                                                 )
                                             })
                                         }
@@ -78,7 +82,7 @@ export default function AddLanguages() {
                 })
             }
             <Button sx={{fontSize:"12px",marginTop:"4px"}} color="secondary"
-            onClick={addNewLanguage}>Add another language</Button>
+            onClick={addNewLanguage}>{t('addLanguage')}</Button>
         </Box>
     )
 }

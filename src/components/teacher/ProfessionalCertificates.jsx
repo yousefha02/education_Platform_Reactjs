@@ -1,9 +1,11 @@
 import { Box ,Button,Grid} from '@mui/material'
 import React, { useState } from 'react'
 import FormProfessionalCertificates from './FormProfessionalCertificates'
+import { useTranslation } from 'react-i18next';
 
 export default function ProfessionalCertificates() {
     const [certificates,setCertificates] = useState([])
+    const {t} = useTranslation()
 
     function addNewCertificates()
     {
@@ -33,7 +35,7 @@ export default function ProfessionalCertificates() {
                 })
             }
             <Button sx={{fontSize:"12px",marginTop:"4px"}} color="secondary"
-            onClick={addNewCertificates}>Add another certificate</Button>
+            onClick={addNewCertificates}>{t('addCer')}</Button>
         </Box>
     )
 }

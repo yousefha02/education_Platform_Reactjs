@@ -9,12 +9,16 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Box, Button, Dialog, Typography } from '@mui/material';
 import AddCategory from '../../components/admin/AddCategory';
-
-const columns = [
-    { id: 'name_course', label: 'Title', minWidth: 150 },
-    { id: 'name_teacher', label: 'Subject', minWidth: 150 }];
+import { useTranslation } from 'react-i18next';
 
 export default function Categories() {
+    const {t} = useTranslation()
+
+    const columns = [
+    { id: 'name_course', label: t('titleAr'), minWidth: 150 },    
+    { id: 'name_course_en', label: t('titleEn'), minWidth: 150 },
+    { id: 'name_teacher', label: t('subject'), minWidth: 150 }];
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -36,9 +40,9 @@ export default function Categories() {
     return (
     <AdminLayout>
         <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",marginY:"30px"}}>
-            <Typography sx={{fontSize:"20px",fontWeight:"500"}}>Categories</Typography>
+            <Typography sx={{fontSize:"20px",fontWeight:"500"}}>{t('categories')}</Typography>
             <Button onClick={()=>setOpenAddYear(true)}
-            sx={{textTransform:"capitalize"}} variant="contained">Add Category</Button>
+            sx={{textTransform:"capitalize"}} variant="contained">{t('addCategory')}</Button>
         </Box>
         <Paper sx={{ width: '100%',padding:"20px"}}>
             <TableContainer sx={{ maxHeight: 440 }}>

@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography,Avatar, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useTranslation } from 'react-i18next';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -42,19 +43,20 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     ];
 
     export default function NewStudentsList() {
+    const {t} = useTranslation()
     return (
         <Paper sx={{marginY:"40px",padding:"20px"}}>
-            <Typography sx={{marginBottom:"30px"}}>New Students List</Typography>
+            <Typography sx={{marginBottom:"30px"}}>{t('studentlist')}</Typography>
             <TableContainer>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
                     <TableRow>
-                        <StyledTableCell align='right'>Name</StyledTableCell>
-                        <StyledTableCell align="right">Email</StyledTableCell>
-                        <StyledTableCell align="right">City</StyledTableCell>
-                        <StyledTableCell align="right">Phone</StyledTableCell>
-                        <StyledTableCell align="right">Date Of Birth</StyledTableCell>
-                        <StyledTableCell align="right">Delete</StyledTableCell>
+                        <StyledTableCell align='start'>{t('name')}</StyledTableCell>
+                        <StyledTableCell align="start">{t('email')}</StyledTableCell>
+                        <StyledTableCell align="start">{t('city')}</StyledTableCell>
+                        <StyledTableCell align="start">{t('phone')}</StyledTableCell>
+                        <StyledTableCell align="start">{t('birth')}</StyledTableCell>
+                        <StyledTableCell align="start">{t('delete')}</StyledTableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -64,11 +66,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
                         columnGap:"12px"}}>
                             <Avatar alt={"yousef"}/> {"Yousef"}
                         </StyledTableCell>
-                        <StyledTableCell align="right">yousef@gmail.com</StyledTableCell>
-                        <StyledTableCell align="right">Gaza</StyledTableCell>
-                        <StyledTableCell align="right">0592374719</StyledTableCell>
-                        <StyledTableCell align="right">2002/9/3</StyledTableCell>
-                        <StyledTableCell align="right">
+                        <StyledTableCell align="start">yousef@gmail.com</StyledTableCell>
+                        <StyledTableCell align="start">Gaza</StyledTableCell>
+                        <StyledTableCell align="start">0592374719</StyledTableCell>
+                        <StyledTableCell align="start">2002/9/3</StyledTableCell>
+                        <StyledTableCell align="start">
                             <Button color="error" variant='contained' sx={{minWidth:"10px"}}>
                                 <DeleteIcon/>
                             </Button>

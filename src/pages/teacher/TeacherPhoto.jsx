@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import TeacherLayout from '../../components/teacher/TeacherLayout'
 import StepperButtons from '../../components/reusableUi/StepperButtons'
 import Navbar from '../../components/Navbar'
+import { useTranslation } from 'react-i18next';
 
 const Label = styled("label")({
     width:"100%",
@@ -18,13 +19,14 @@ const Image = styled('img')({
 export default function TeacherPhoto() {
     
     const [image,setImage] = useState(null)
+    const {t} = useTranslation()
 
     return (
         <Navbar>
-        <TeacherLayout active={1} title="Profile Photo">
+        <TeacherLayout active={1} title={t('profile_photo')}>
             <input type="file" id="image" hidden onChange={(e)=>setImage(e.target.files[0])}/>
             <Button variant='contained' sx={{textTransform:"capitalize",padding:0,marginBottom:"20px"}}>
-                <Label htmlFor='image'>Replace Photo</Label>
+                <Label htmlFor='image'>{t('replace_photo')}</Label>
             </Button>
             <Box>
             {

@@ -6,6 +6,7 @@ import { Box, Divider, Grid, Typography } from '@mui/material';
 import SelectedCategory from '../../components/teacher/SelectedCategory';
 import StepperButtons from '../../components/reusableUi/StepperButtons'
 import TeachingWayForm from '../../components/teacher/TeachingWayForm';
+import { useTranslation } from 'react-i18next';
 
 const fakeData = [
     {title:"Arabic",categs:[{title:"one",id:1},{title:"two",id:2}]},
@@ -14,6 +15,7 @@ const fakeData = [
 ]
 
 export default function TeacherSubjects() {
+    const {t} = useTranslation()
     const [choseCategories,setChosenCategories] = useState([])
 
     function handleDeleteSelectedCategory(id)
@@ -23,7 +25,7 @@ export default function TeacherSubjects() {
 
     return (
         <Navbar>
-            <TeacherLayout active={3} title="Subjects">
+            <TeacherLayout active={3} title={t('subjects')}>
                 <Grid container spacing={4}>
                     <Grid item xs={12} lg={9}>
                     {
@@ -36,7 +38,7 @@ export default function TeacherSubjects() {
                     }
                     </Grid>
                     <Grid item xs={9} md={5} lg={3}>
-                        <Typography sx={{fontSize:"15px",marginBottom:"12px"}}>Selected Subjects</Typography>
+                        <Typography sx={{fontSize:"15px",marginBottom:"12px"}}>{t('selectedsubjects')}</Typography>
                         <Divider/>
                         {
                             choseCategories.length>0&&choseCategories.map((categ,index)=>
@@ -50,7 +52,7 @@ export default function TeacherSubjects() {
                 <Box sx={{marginTop:"40px",width:"800px"}}>
                     <Divider sx={{marginBottom:'40px'}}/>
                     <Typography sx={{fontSize:"20px",fontWeight:"600",marginBottom:"18px"}}>
-                        How would you like to teach or train?
+                        {t('wouldTeach')}
                     </Typography>
                     <TeachingWayForm/>
                 </Box>

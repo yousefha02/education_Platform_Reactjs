@@ -4,29 +4,8 @@ import image1 from '../../../images/work1.png'
 import image2 from '../../../images/work2.jpeg'
 import image3 from '../../../images/work3.jpeg'
 import image4 from '../../../images/work4.png'
+import { useTranslation } from 'react-i18next';
 
-const data = [
-    {
-        image:image1,
-        title:"انشاء ملف شخصي",
-        description:"عرف عن نفسك وما هي المواضيع التي ترغب بتدريسها مع وصف لخبراتك ومواهبك الخاصة وطرق التدريس او التدريب التي تتبعها لهذه المواضيع. حدد طريقة التدريس (عن بعد او وجها لوجه) الأوقات المتاحة لديك وتكلفة ساعة التدريس"
-    },
-    {
-        image:image2,
-        title:"تواصل مع طلاب من حول العالم",
-        description:"سوف يقوم الموقع بمساعدة الطلاب في البحث عن مدرسين ومدربين في مجالات مختلفة مثل: اللغات، المناهج المدرسية و الجامعية، الرياضة، الفن، التجميل، الطبخ وغيرها. حيث سنعرض قائمة المدربين/المدرسين بحسب موضوع البحث، الوقت المتاح للتدريس، المكان والتكلفة"
-    },
-    {
-        image:image3,
-        title:"طلبات الحجز عبر الموقع",
-        description:"ستتم الحجوزات عن طريق الموقع بحسب الوقت المناسب للطالب والمتاح للمدرس، كما يستطيع الطالب حجز الدرس لمدة تتراوح بين ساعة الى 3 ساعات بحسب مايراه مناسباً لاحتياجاته"
-    },
-    {
-        image:image4,
-        title:"تقاضي الأجر مقابل الدروس",
-        description:"يقوم الطالب بالدفع مقدما للموقع عند القيام بالحجز، ليضمن الموقع سداد أجور المدربين/المدرسين بشكل اسبوعي او شهري عن طريق تحويل باي بال أو تحويل بنكي"
-    }
-]
 
 const Image = styled("img")({
     width:"100%",
@@ -34,11 +13,35 @@ const Image = styled("img")({
 })
 
 export default function HomeWorks() {
+
+    const {t} = useTranslation()
+    const data = [
+        {
+            image:image1,
+            title:t('work1_title'),
+            description:t('work1_desc')
+        },
+        {
+            image:image2,
+            title:t('work2_title'),
+            description:t('work2_desc')
+        },
+        {
+            image:image3,
+            title:t('work3_title'),
+            description:t('work3_desc')
+        },
+        {
+            image:image4,
+            title:t('work4_title'),
+            description:t('work4_desc')
+        },
+    ]
     return (
         <Box sx={{marginY:"60px"}}>
             <Container>
                 <Typography sx={{fontSize:{md:"26px",xs:"22px"},fontWeight:"700",color:"#151313",textAlign:"center",
-                marginBottom:"50px"}}>كيف يعمل موقعنا ؟</Typography>
+                marginBottom:"50px"}}>{t('websiteWork')}</Typography>
                 {
                     data.map((item,index)=>
                     {
@@ -55,7 +58,7 @@ export default function HomeWorks() {
                     })
                 }
                 <Box sx={{display:"flex",justifyContent:"center"}}>
-                    <Button variant="contained">تقديم طلب مجاناً</Button>
+                    <Button variant="contained">{t('becometeacher')}</Button>
                 </Box>
             </Container>
         </Box>

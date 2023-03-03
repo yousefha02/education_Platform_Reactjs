@@ -4,8 +4,10 @@ import Navbar from '../../components/Navbar'
 import { useForm, Controller } from "react-hook-form";
 import ReactCodeInput from "react-code-input";
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function Login() {
+    const {t} = useTranslation()
     const { register,control, formState: { errors }, handleSubmit } = useForm({
         defaultValues: {
             email:'',
@@ -22,40 +24,37 @@ export default function Login() {
         <Navbar>
             <Paper sx={{width:{md:"450px"},padding:"30px 50px",margin:"60px auto 60px"}}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                <Typography sx={{fontSize:"28px",fontWeight:"600",marginBottom:"16px"}}>Login by Email</Typography>
-                <Typography sx={{marginBottom:"24px"}}>
-                    Use Email for login
-                </Typography>
+                <Typography sx={{fontSize:"28px",fontWeight:"600",marginBottom:"16px"}}>{t('loginemail')}</Typography>
                 <Box sx={{marginBottom:"30px"}}>
-                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Email</InputLabel>
+                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('email')}</InputLabel>
                     <Controller
                     name="email"
                     control={control}
                     render={({ field }) => <TextField type="email" {...field} fullWidth/>}
                     {...register("email", { required: "email Address is required" })}
                     />
-                    {errors.email?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                    {errors.email?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                 </Box>
                 <Box sx={{marginBottom:"30px"}}>
-                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Pin Code</InputLabel>
+                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('pinCode')}</InputLabel>
                     <ReactCodeInput type='number' fields={4} ref={input1}/>
                 </Box>
                 <Button variant='contained' color="secondary" fullWidth type='submit'
-                sx={{textTransform:"capitalize"}}>Login</Button>
+                sx={{textTransform:"capitalize"}}>{t('login')}</Button>
                 <Typography sx={{marginTop:"40px",fontSize:"15px",textAlign:"center"
-                ,fontWeight:"700",marginBottom:"20px"}}>Don't have an account?</Typography>
+                ,fontWeight:"700",marginBottom:"20px"}}>{t('donthaveacount')}</Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
                         <Button sx={{textTransform:"capitalize"}} variant='outlined'
-                        fullWidth onClick={()=>navigate('/studentregister/step1')}>Student</Button>
+                        fullWidth onClick={()=>navigate('/studentregister/step1')}>{t('student')}</Button>
                     </Grid>
                     <Grid item xs={4}>
                         <Button sx={{textTransform:"capitalize"}} variant='outlined'
-                        fullWidth onClick={()=>navigate('/teacherRegister/step1')}>Teacher</Button>
+                        fullWidth onClick={()=>navigate('/teacherRegister/step1')}>{t('teacher')}</Button>
                     </Grid>
                     <Grid item xs={4}>
                         <Button sx={{textTransform:"capitalize"}} variant='outlined'
-                        fullWidth>Parent</Button>
+                        fullWidth>{t('parent')}</Button>
                     </Grid>
                 </Grid>
                 </form>

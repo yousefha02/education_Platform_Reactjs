@@ -14,11 +14,13 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import PhoneIcon from '@mui/icons-material/Phone';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import ChangeLanguage from './reusableUi/ChangeLanguage';
 import { Button , styled } from '@mui/material';
 import SelectCurrency from './reusableUi/SelectCurrency';
 import logoImage from '../images/logo.png'
+import { useTranslation } from 'react-i18next';
+
 const drawerWidth = 240;
 
 const ImageLogo = styled('img')({
@@ -27,7 +29,8 @@ const ImageLogo = styled('img')({
 })
 
 function Navbar(props) {
-    
+    const {t} = useTranslation()
+    const navigate = useNavigate()
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -38,7 +41,7 @@ function Navbar(props) {
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
         <Typography variant="h6" sx={{ my: 2 }}>
-            التعليم
+            <ImageLogo src={logoImage}/>
         </Typography>
         <Divider />
         <List>
@@ -66,13 +69,6 @@ function Navbar(props) {
             >
                 <MenuIcon />
             </IconButton>
-            {/* <Typography
-                variant="h6"
-                component="div"
-                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-            >
-                Education
-            </Typography> */}
             <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } , alignItems:"center" }}>
                 <ImageLogo src={logoImage}/>
             </Box>
@@ -92,9 +88,11 @@ function Navbar(props) {
                 <ChangeLanguage/>
                 <SelectCurrency/>
                 <Button sx={{ my: 2, color: 'white', display: 'block',textTransform:"capitalize",
-                padding:"1px 18px"}} variant="text">تسجيل الدخول</Button>
-                <Button sx={{ my: 2, color: 'white', display: 'block',textTransform:"capitalize",
-                padding:"1px 18px" , backgroundColor:"#ffffff33" , fontSize:"12px" , height:"50px", borderRadius:"10px"}} variant="text">انضم لطاقم المدرسين
+                padding:"1px 18px"}} variant="text" onClick={()=>navigate('/login')}>{t('login')}</Button>
+                <Button onClick={()=>navigate('/teacherRegister/step1')}
+                sx={{ my: 2, color: 'white', display: 'block',textTransform:"capitalize",
+                padding:"1px 13px" , backgroundColor:"#ffffff33" , fontSize:"14px" , height:"50px", borderRadius:"10px"}} variant="text"> 
+                {t('becometeacher')}
                 </Button>
             </Box>
             </Toolbar>

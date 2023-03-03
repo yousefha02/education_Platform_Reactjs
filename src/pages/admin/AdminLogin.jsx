@@ -2,8 +2,15 @@ import { Box, Button, Grid, InputLabel,Container, Paper, TextField, Typography }
 import React from 'react'
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
+import {useSnackbar} from 'notistack'
+import {adminLogin} from '../../redux/adminSlice'
+import { useDispatch } from 'react-redux';
 
 export default function AdminLogin() {
+
+    const dispatch = useDispatch()
+    const {closeSnackbar,enqueueSnackbar} = useSnackbar()
+
     const { register,control, formState: { errors }, handleSubmit } = useForm({
         defaultValues: {
             email:'',
@@ -15,19 +22,24 @@ export default function AdminLogin() {
 
     async function onSubmit(data)
     {
+        closeSnackbar()
         try{
-            const response = await fetch(`${process.env.REACT_APP_API_KEY}`,{
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/admin/login`,{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
-                },
+                },     
                 body:JSON.stringify({email:data.email,password:data.password})
             })
             const resData = await response.json()
             if(response.status!==200&&response.status!==201)
             {
+                enqueueSnackbar(resData.message,{variant:"error",autoHideDuration:"8000"})
                 throw new Error('failed occured')
             }
+            navigate('/admin')
+            dispatch(adminLogin({admin:resData.data}))
+            enqueueSnackbar('success',{variant:"success",autoHideDuration:"8000"})
         }
         catch(err)
         {

@@ -36,26 +36,21 @@ export default [
     },
     {
         "id":8,
-        "title_ar":"الإيطالية",
-        "title_en":"Italian"
-    },
-    {
-        "id":9,
         "title_ar":"الصينية",
         "title_en":"Chinese"
     },
     {
-        "id":10,
+        "id":9,
         "title_ar":"اليابانية",
         "title_en":"Japanese"
     },
     {
-        "id":11,
+        "id":10,
         "title_ar":"الكورية",
         "title_en":"Korean"
     },
     {
-        "id":12,
+        "id":11,
         "title_ar":"الروسية",
         "title_en":"Russian"
     },
