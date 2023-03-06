@@ -36,6 +36,7 @@ export default function Login() {
                 },
                 body:JSON.stringify({password:input1.current.state.value,email:data.email})
             })
+            console.log(response);
             const resData = await response.json()
             console.log(resData)
             if(response.status!==200&&response.status!==201)
