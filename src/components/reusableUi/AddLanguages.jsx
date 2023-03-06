@@ -1,35 +1,40 @@
 import { Box ,Button,FormControl,Grid, InputLabel, MenuItem, Select} from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import languages from '../../data/languages' 
 import { useTranslation } from 'react-i18next';
 
 const levels = ['Beginner','Intermediate','Intermediate High','Advanced','Native']
 
-export default function AddLanguages() {
+export default function AddLanguages({chosenlanguages,setChosenLanguages}) {
     
     const {t} = useTranslation()
 
-    const [chosenlanguages,setChosenLanguages] = useState([])
 
     function addNewLanguage()
     {
-        setChosenLanguages(back=>[...back,{language:"Arabic",level:"Beginner",id:chosenlanguages.length+1}])
+        setChosenLanguages(back=>[...back,{LanguageId:1,level:"Beginner",id:chosenlanguages.length+1}])
     }
 
-    function handleChangeLevel(id,level)
+    function handleChangeLevel(selectedLang,level)
     {
         setChosenLanguages(back=>back.map(lang=>
         {
-            return lang.id===id?{...lang,level:level}:lang
+            return lang===selectedLang?{...lang,level:level}:lang
         }))
     }
 
-    function handleChangeLanguage(id,language)
+    function handleChangeLanguage(selectedLang,language)
     {
         setChosenLanguages(back=>back.map(lang=>
         {
-            return lang.id===id?{...lang,language:language}:lang
+            return lang===selectedLang?{...lang,LanguageId:language}:lang
         }))
+    }
+
+    function deleteLanguage(selectedLang)
+    {   
+        const languages = chosenlanguages.filter(lang=>lang!==selectedLang)
+        setChosenLanguages(languages)
     }
 
     return (
@@ -43,14 +48,14 @@ export default function AddLanguages() {
                 </Grid>
             </Grid>
             {
-                chosenlanguages.map((language,index)=>
+                chosenlanguages?.length>0&&chosenlanguages.map((language,index)=>
                 {
                     return(
-                        <Grid container key={index+'po1'} spacing={4} sx={{marginBottom:"20px"}}>
+                        <Grid container key={index+'po1'} spacing={4} sx={{marginBottom:"20px"}} alignItems="center">
                             <Grid item xs={5}>
                                 <FormControl fullWidth>
-                                    <Select value={language.language}
-                                    onChange={(e)=>handleChangeLanguage(language.id,e.target.value)}>
+                                    <Select value={language.LanguageId}
+                                    onChange={(e)=>handleChangeLanguage(language,e.target.value)}>
                                         {
                                             languages.map((lang,index)=>
                                             {
@@ -65,7 +70,7 @@ export default function AddLanguages() {
                             <Grid item xs={5}>
                                 <FormControl fullWidth>
                                     <Select value={language.level} 
-                                    onChange={(e)=>handleChangeLevel(language.id,e.target.value)}>
+                                    onChange={(e)=>handleChangeLevel(language,e.target.value)}>
                                         {
                                             levels.map((level,index)=>
                                             {
@@ -76,6 +81,9 @@ export default function AddLanguages() {
                                         }
                                     </Select>
                                 </FormControl>
+                            </Grid>
+                            <Grid xs={2}>
+                                <Button onClick={()=>deleteLanguage(language)} color="error">{t('delete')}</Button>
                             </Grid>
                         </Grid> 
                     )

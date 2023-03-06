@@ -5,6 +5,7 @@ import Navbar from '../../../components/Navbar';
 import HeaderSteps from '../../../components/auth/HeaderSteps';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import {useSnackbar} from 'notistack'
 
 export default function TeacherFirstStep() {
     const { register,control, formState: { errors }, handleSubmit } = useForm({
@@ -13,25 +14,28 @@ export default function TeacherFirstStep() {
         }
     });
 
+    const {closeSnackbar,enqueueSnackbar} = useSnackbar()
     const {t} = useTranslation()
-
     const navigate = useNavigate()
 
     async function onSubmit(data)
     {
+        closeSnackbar()
         try{
-            // const response = await fetch(`${process.env.REACT_APP_API_KEY}`,{
-            //     method:"POST",
-            //     headers:{
-            //         "Content-Type":"application/json"
-            //     },
-            //     body:JSON.stringify({email:data.email})
-            // })
-            // const resData = await response.json()
-            // if(response.status!==200&&response.status!==201)
-            // {
-            //     throw new Error('failed occured')
-            // }
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/signup`,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({email:data.email})
+            })
+            const resData = await response.json()
+            if(response.status!==200&&response.status!==201)
+            {
+                enqueueSnackbar(resData.message,{variant:"error",autoHideDuration:"8000"})
+                throw new Error('failed occured')
+            }
+            localStorage.setItem('teacherEmail',data.email)
             navigate('/teacherRegister/step2')
         }
         catch(err)

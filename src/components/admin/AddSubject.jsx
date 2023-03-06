@@ -2,6 +2,8 @@ import { Box, Button, DialogActions, DialogTitle, InputLabel, TextField, Typogra
 import React, { useState } from 'react'
 import { useForm,Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
+import { useSelector } from 'react-redux';
 
 const Label = styled("label")({
     width:"100%",
@@ -14,8 +16,9 @@ const Image = styled('img')({
     width:"300px"
 })
 
-export default function AddSubject({handleClose}) {
-    
+export default function AddSubject({handleClose,setSubjects}) {
+    const {closeSnackbar,enqueueSnackbar} = useSnackbar()
+    const {token} = useSelector((state)=>state.admin)
     const {t} = useTranslation()
 
     const { register,control, formState: { errors }, handleSubmit } = useForm({
@@ -27,9 +30,39 @@ export default function AddSubject({handleClose}) {
 
     const [image,setImage] = useState(null)
     
-    function onSubmit(data)
+    async function onSubmit(data)
     {
-        console.log(data)
+        closeSnackbar()
+        const formData = new FormData()
+        formData.append('image',image)
+        formData.append('titleAR',data.title_ar)
+        formData.append('titleEN',data.title_en)
+        try{
+            if(!image)
+            {
+                enqueueSnackbar('image is required filed',{variant:"error",autoHideDuration:8000})
+                throw new Error('failed occured')
+            }
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/admin/subjectCategory`,{
+                method:"POST",
+                headers:{
+                    "Authorization":token
+                },
+                body:formData
+            })
+            if(response.status!==200&&response.status!==201)
+            {
+                throw new Error('failed occured')
+            }
+            const resData = await response.json()
+            handleClose()
+            enqueueSnackbar(resData.msg,{variant:"success",autoHideDuration:8000})
+            setSubjects(back=>[{...resData.data,TeacherSubjectCategories:[]},...back])
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
     }
 
     return (

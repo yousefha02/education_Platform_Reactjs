@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import AdminLayout from '../../components/admin/AdminLayout'
+import React from 'react'
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,19 +6,17 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Box, Button, Dialog, Typography } from '@mui/material';
-import AddStudyYear from '../../components/admin/AddStudyYear';
-import {useClasses} from '../../hooks/useClasses'
-import Loading from '../../components/Loading'
+import { Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import {useCurriculums} from '../../hooks/useCurriculums'
+import Loading from '../../components/Loading';
 
-export default function StudyYears() {
+export default function StudyCurriculums() {
     const {t} = useTranslation()
+
     const columns = [
     { id: 'name_course', label: t('titleAr'), minWidth: 150 },
-    { id: 'name_course', label: t('titleEn'), minWidth: 150 },
-    { id: 'name_teacher', label: t('studylevel'), minWidth: 150 }];
-
+    { id: 'name_course', label: t('titleEn'), minWidth: 150 },];
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -31,34 +28,14 @@ export default function StudyYears() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-    
-    const [openAddYear,setOpenAddYear] = useState(false)
-    function handleClose()
-    {
-        setOpenAddYear(false)
-    }
 
-    const {data,isLoading} = useClasses()
-    const [classes,setClasses] = useState([])
-    useEffect(()=>
-    {
-        if(!isLoading)
-        {
-            setClasses(data.data)
-        }
-        console.log(classes)
-    },[data])
+    const {data,isLoading} = useCurriculums()
 
     return (
-    <AdminLayout>
-        <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",marginY:"30px"}}>
-            <Typography sx={{fontSize:"20px",fontWeight:"500"}}>{t('studyyears')}</Typography>
-            <Button onClick={()=>setOpenAddYear(true)}
-            sx={{textTransform:"capitalize"}} variant="contained">{t('addstudyyear')}</Button>
-        </Box>
+    <Box>
         {
-        !isLoading?
-        <Paper sx={{ width: '100%',padding:"20px"}}>
+            !isLoading?
+            <Paper sx={{ width: '100%',padding:"20px"}}>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableRow>
@@ -73,7 +50,7 @@ export default function StudyYears() {
                         ))}
                         </TableRow>
                     <TableBody>
-                        {classes
+                        {data.data
                         ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((row) => {
                             return <TableRow hover role="checkbox"  key={row.id+"demj"}>
@@ -83,9 +60,6 @@ export default function StudyYears() {
                                 <TableCell align='center'>
                                     {row.titleEN}
                                 </TableCell>
-                                <TableCell align='center'>
-                                    {row.Level?.title}
-                                </TableCell>
                             </TableRow>
                         })}
                     </TableBody>
@@ -94,19 +68,16 @@ export default function StudyYears() {
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={classes?.length}
+                    count={data.data.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-        </Paper>
-        :
-        <Loading/>
+            </Paper>
+            :
+            <Loading/>
         }
-        <Dialog onClose={handleClose} open={openAddYear}>
-            <AddStudyYear handleClose={handleClose}/>
-        </Dialog>
-    </AdminLayout>
+    </Box>
 )
 }

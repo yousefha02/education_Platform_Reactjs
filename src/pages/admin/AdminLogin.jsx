@@ -37,8 +37,9 @@ export default function AdminLogin() {
                 enqueueSnackbar(resData.message,{variant:"error",autoHideDuration:"8000"})
                 throw new Error('failed occured')
             }
+            localStorage.clear()
+            dispatch(adminLogin({admin:resData.data,token:resData.token}))
             navigate('/admin')
-            dispatch(adminLogin({admin:resData.data}))
             enqueueSnackbar('success',{variant:"success",autoHideDuration:"8000"})
         }
         catch(err)

@@ -1,11 +1,16 @@
-import { Box, Button, DialogActions, DialogTitle, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { Box, Button, DialogActions, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { useForm,Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import {useSubjects} from '../../hooks/useSubject'
+import { useSnackbar } from 'notistack';
+import { useSelector } from 'react-redux';
 
 export default function AddStudyYear({handleClose}) {
 
     const {t} = useTranslation()
+    const {closeSnackbar,enqueueSnackbar} = useSnackbar()
+    const {token} = useSelector((state)=>state.admin)
 
     const { register,control, formState: { errors }, handleSubmit } = useForm({
         defaultValues: {
@@ -14,16 +19,36 @@ export default function AddStudyYear({handleClose}) {
             subject:""
         }
     });
-    
-    function onSubmit(data)
+
+    const {data,isLoading} = useSubjects()
+
+    async function onSubmit(data)
     {
-        console.log(data)
+        closeSnackbar()
+        try{
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/admin/subject`,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization":token
+                },
+                body:JSON.stringify({titleAR:data.title_ar,titleEN:data.title_en,subjectCategoryId:data.subject})
+            })
+            if(response.status!==200&&response.status!==201)
+            {
+                throw new Error('failed occured')
+            }
+            const resData = await response.json()
+            enqueueSnackbar(resData.msg,{variant:"success",autoHideDuration:8000})
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
     }
 
     return (
         <>
-            <DialogTitle>{t('addCategory')}</DialogTitle>
-            <Box sx={{display:"flex",justifyContent:"center",padding:"20px"}}>
                 <Box sx={{width:"500px",maxWidth:"100%"}}>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Box sx={{marginBottom:"18px"}}>
@@ -57,8 +82,13 @@ export default function AddStudyYear({handleClose}) {
                                     id="demo-simple-select"
                                     {...register("subject", { required: "level is required" })}
                                 >
-                                    <MenuItem value={'arabic'}>Arabic</MenuItem>
-                                    <MenuItem value={'math'}>Math</MenuItem>
+                                    {
+                                        !isLoading&&
+                                        data.data.map((item,index)=>
+                                        {
+                                            return <MenuItem key={index+'ds1'} value={item.id}>{item.titleAR}</MenuItem>
+                                        })
+                                    }
                                 </Select>
                                 </FormControl>
                                 }
@@ -71,7 +101,6 @@ export default function AddStudyYear({handleClose}) {
                         </DialogActions>
                     </form>
                 </Box>
-            </Box>
         </>
     )
 }

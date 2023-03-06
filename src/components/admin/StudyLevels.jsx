@@ -7,8 +7,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Box, Button, Typography,Dialog } from '@mui/material';
-import AddStudyLevel from '../../components/admin/AddStudyLevel'
+import { Box, Button, Typography } from '@mui/material';
 import {useLevels} from '../../hooks/useLevels'
 import Loading from '../../components/Loading'
 import { useTranslation } from 'react-i18next';
@@ -30,30 +29,11 @@ export default function StudyLevels() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-    
-    const [openAddLevel,setOpenAddLevel] = useState(false)
-    function handleClose()
-    {
-        setOpenAddLevel(false)
-    }
-
     const {data,isLoading} = useLevels()
-    const [levels,setLevels] = useState([])
-    useEffect(()=>
-    {
-        if(!isLoading)
-        {
-            setLevels(data.data)
-        }
-    },[data])
+
 
     return (
-    <AdminLayout>
-        <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",marginY:"30px"}}>
-            <Typography sx={{fontSize:"20px",fontWeight:"500"}}>{t('studylevels')}</Typography>
-            <Button onClick={()=>setOpenAddLevel(true)}
-            sx={{textTransform:"capitalize"}} variant="contained">{t('addStudyLevel')}</Button>
-        </Box>
+    <Box>
         {!isLoading?
         <Paper sx={{ width: '100%',padding:"20px"}}>
             <TableContainer sx={{ maxHeight: 440 }}>
@@ -70,7 +50,7 @@ export default function StudyLevels() {
                         ))}
                         </TableRow>
                     <TableBody>
-                        {levels?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        {data.data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((row) => {
                             return <TableRow hover role="checkbox"  key={row.id+"demj"}>
                                 <TableCell align='center'>
@@ -87,7 +67,7 @@ export default function StudyLevels() {
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={levels?.length}
+                    count={data.data?.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
@@ -97,9 +77,6 @@ export default function StudyLevels() {
         :
         <Loading/>
         }
-        <Dialog open={openAddLevel} onClose={handleClose}>
-            <AddStudyLevel handleClose={handleClose}/>
-        </Dialog>
-    </AdminLayout>
+    </Box>
 )
 }

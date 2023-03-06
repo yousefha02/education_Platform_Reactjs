@@ -4,9 +4,11 @@ import { useForm,Controller } from 'react-hook-form';
 import {useLevels} from '../../hooks/useLevels'
 import {useSnackbar} from 'notistack'
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
-export default function AddStudyYear({handleClose}) {
+export default function AddStudyYear() {
 
+    const {token} = useSelector((state)=>state.admin)
     const {t} = useTranslation()
     const {closeSnackbar,enqueueSnackbar} = useSnackbar()
     const { register,control, formState: { errors }, handleSubmit } = useForm({
@@ -24,7 +26,8 @@ export default function AddStudyYear({handleClose}) {
             const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/admin/class`,{
                 method:"POST",
                 headers:{
-                    "Content-Type":"application/json"
+                    "Content-Type":"application/json",
+                    "Authorization":token
                 },
                 body:JSON.stringify(data)
             })
@@ -33,8 +36,8 @@ export default function AddStudyYear({handleClose}) {
                 throw new Error('failed occured')
             }
             const resData = await response.json()
-            enqueueSnackbar(resData.message,{variant:"success",autoHideDuration:8000})
-            handleClose()
+            enqueueSnackbar(resData.msg,{variant:"success",autoHideDuration:8000})
+            console.log(resData)
         }
         catch(err)
         {
@@ -46,8 +49,6 @@ export default function AddStudyYear({handleClose}) {
 
     return (
         <>
-            <DialogTitle>{t('addstudyyear')}</DialogTitle>
-            <Box sx={{display:"flex",justifyContent:"center",padding:"20px"}}>
                 <Box sx={{width:"500px",maxWidth:"100%"}}>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Box sx={{marginBottom:"18px"}}>
@@ -95,13 +96,9 @@ export default function AddStudyYear({handleClose}) {
                             />
                             {errors.levelId?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                         </Box>
-                        <DialogActions>
-                            <Button variant="contained" type="submit" sx={{ml:"6px",mr:"6px"}}>{t('save')}</Button>
-                            <Button onClick={handleClose} color="error">{t('cancel')}</Button>
-                        </DialogActions>
+                        <Button variant="contained" type="submit" sx={{ml:"6px",mr:"6px"}}>{t('save')}</Button>
                     </form>
                 </Box>
-            </Box>
         </>
     )
 }

@@ -140,5 +140,6 @@
     "YoutubeLink":"Youtube Video Link",
     "About":"About",
     "Photo":"Photo",
-    "Video":"Video"
+    "Video":"Video",
+    "password":"Password"
 }

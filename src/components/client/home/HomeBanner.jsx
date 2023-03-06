@@ -24,7 +24,7 @@ export default function HomeBanner() {
             {t('bannerTitle')}
         </Typography>
         <Typography sx={{fontSize:{lg:"18px",md:"18px",xs:"14px"},fontWeight:"600" , position:"relative" , maxWidth:"480px" , paddingX:"10px"}}>
-        We are part of the largest educational group in the Middle East when it comes to searching schools, universities, and professional courses. Now, we can help you use your knowledge, skills, hobbies, or experience to earn money by teaching or training. Be your own boss, control your time and income.
+          {t('bannerDesc')}
         </Typography>
     </Wrapper>
   )

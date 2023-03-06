@@ -5,6 +5,7 @@ import Navbar from '../../../components/Navbar';
 import HeaderSteps from '../../../components/auth/HeaderSteps';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import {useSnackbar} from 'notistack'
 
 export default function StudentFirstStep() {
     const { register,control, formState: { errors }, handleSubmit } = useForm({
@@ -16,12 +17,34 @@ export default function StudentFirstStep() {
     });
 
     const {t} = useTranslation()
-
+    const {closeSnackbar,enqueueSnackbar} = useSnackbar()
     const navigate = useNavigate()
 
-    const onSubmit = data => {
-        navigate('/studentregister/step2')
-    };
+    async function onSubmit(data)
+    {
+        closeSnackbar()
+        try{
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/student/signup`,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({email:data.email,name:data.fullName,location:data.place})
+            })
+            const resData = await response.json()
+            if(response.status!==200&&response.status!==201)
+            {
+                enqueueSnackbar(resData.message,{variant:"error",autoHideDuration:"8000"})
+                throw new Error('failed occured')
+            }
+            localStorage.setItem('studentEmail',data.email)
+            navigate('/studentregister/step2')
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
+    }
 
     return (
         <Navbar>

@@ -15,7 +15,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 import cookies from "js-cookie";
 import SchoolIcon from '@mui/icons-material/School';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -30,6 +30,8 @@ import {styled} from '@mui/material'
 import ChangeLanguage from '../reusableUi/ChangeLanguage'
 import logo from '../../images/logo.png'
 import { useTranslation } from 'react-i18next';
+import {adminLogout} from '../../redux/adminSlice'
+import { useDispatch } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -39,6 +41,8 @@ const Image = styled("img")({
 })
 
 function AdminLayout(props) {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const lang = cookies.get("i18next") || "en";
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -89,11 +93,11 @@ function AdminLayout(props) {
             icon:BeenhereIcon,
             link:'/teachers_approve'
         },
-        {
-            title:t('changepassword'),
-            icon:PasswordIcon,
-            link:'/change_password'
-        }
+        // {
+        //     title:t('changepassword'),
+        //     icon:PasswordIcon,
+        //     link:'/change_password'
+        // }
     ]
 
     const drawer = (
@@ -118,6 +122,12 @@ function AdminLayout(props) {
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;
+
+    function logout()
+    {
+        dispatch(adminLogout())
+        navigate('/admin')
+    }
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -149,7 +159,8 @@ function AdminLayout(props) {
                 </Box>
                 <Box>
                     <ChangeLanguage/>
-                    <Button variant="contained" color="secondary" sx={{marginLeft:"12px"}}>{t('logout')}</Button>
+                    <Button variant="contained" color="secondary" sx={{marginLeft:"12px"}}
+                    onClick={logout}>{t('logout')}</Button>
                 </Box>
             </Box>
             </Toolbar>

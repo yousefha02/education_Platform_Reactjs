@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import AdminLayout from '../../components/admin/AdminLayout'
+import React from 'react'
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,17 +6,19 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Box, Button, Typography,Dialog } from '@mui/material';
-import AddStudyCurriculums from '../../components/admin/AddStudyCurriculums'
+import { Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-
-export default function StudyCurriculums() {
+import Loading from '../../components/Loading'
+import Cookies from 'js-cookie';
+import { useSubjectCategoreis } from '../../hooks/useSubjectCategoreis';
+export default function SubjectsCategories() {
     const {t} = useTranslation()
 
     const columns = [
-    { id: 'name_course', label: t('titleAr'), minWidth: 150 },
-    { id: 'name_course', label: t('titleEn'), minWidth: 150 },
-    { id: 'name_teacher', label:t('studylevel'), minWidth: 150 }];
+    { id: 'name_course', label: t('titleAr'), minWidth: 150 },    
+    { id: 'name_course_en', label: t('titleEn'), minWidth: 150 },
+    { id: 'name_teacher', label: t('subject'), minWidth: 150 }];
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -29,20 +30,14 @@ export default function StudyCurriculums() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-    
-    const [openAddLevel,setOpenAddLevel] = useState(false)
-    function handleClose()
-    {
-        setOpenAddLevel(false)
-    }
+
+    const {data,isLoading} = useSubjectCategoreis()
+    console.log(data)
 
     return (
-    <AdminLayout>
-        <Box sx={{display:"flex",justifyContent:"space-between",alignItems:"center",marginY:"30px"}}>
-            <Typography sx={{fontSize:"20px",fontWeight:"500"}}>{t('studycurriculums')}</Typography>
-            <Button onClick={()=>setOpenAddLevel(true)}
-            sx={{textTransform:"capitalize"}} variant="contained">{t('addstudycurriculum')}</Button>
-        </Box>
+    <Box>
+        {
+        !isLoading?
         <Paper sx={{ width: '100%',padding:"20px"}}>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
@@ -58,12 +53,18 @@ export default function StudyCurriculums() {
                         ))}
                         </TableRow>
                     <TableBody>
-                        {[]?.courses
+                        {data.data
                         ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((row) => {
                             return <TableRow hover role="checkbox"  key={row.id+"demj"}>
                                 <TableCell align='center'>
-                                    {row.title}
+                                    {row.titleAR}
+                                </TableCell>
+                                <TableCell align='center'>
+                                    {row.titleEN}
+                                </TableCell>
+                                <TableCell align='center'>
+                                    {Cookies.get("i18next")==='ar'?row.SubjectCategory?.titleAR:row.SubjectCategory?.titleEN}
                                 </TableCell>
                             </TableRow>
                         })}
@@ -73,16 +74,16 @@ export default function StudyCurriculums() {
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={[]?.courses?.length}
+                    count={data.data.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-            </Paper>
-            <Dialog open={openAddLevel} onClose={handleClose}>
-                <AddStudyCurriculums handleClose={handleClose}/>
-            </Dialog>
-    </AdminLayout>
+        </Paper>
+        :
+        <Loading/>
+        }
+    </Box>
 )
 }

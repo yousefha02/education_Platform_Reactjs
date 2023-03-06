@@ -14,7 +14,7 @@ export default function DownloadApp() {
     const {t} = useTranslation()
     return (
         <Box sx={{backgroundColor:"#5bc0f80d"}}>
-            <Container sx={{marginTop:"50px",paddingY:"40px"}}>
+            <Container sx={{paddingY:"40px"}}>
                 <Typography sx={{fontSize:{md:"26px",xs:"22px"},fontWeight:"700",color:"#151313",textAlign:"center",
                 marginBottom:"20px"}}>{t('downloadApp')}</Typography>
                 <Typography sx={{color:"#6D6D6D",textAlign:"center"}}>

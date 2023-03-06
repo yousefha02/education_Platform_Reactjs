@@ -70,7 +70,9 @@ function Navbar(props) {
                 <MenuIcon />
             </IconButton>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } , alignItems:"center" }}>
-                <ImageLogo src={logoImage}/>
+                <Link to="/">
+                    <ImageLogo src={logoImage}/>
+                </Link>
             </Box>
             <Box sx={{ display: { xs: 'none', sm: 'flex' },alignItems:"center",columnGap:"10px" }}>
                 <Link to="">

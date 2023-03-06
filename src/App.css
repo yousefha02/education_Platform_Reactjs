@@ -67,3 +67,34 @@ a{
   position: absolute;
   background: rgba(0, 0, 0, 0.8);
 }
+
+/* autocomplete*/
+.muirtl-1x5vv0-MuiGrid-root>.MuiGrid-item{
+  padding-top: 0px !important;
+}
+
+/* bullet */
+.swiper-wrapper{
+  margin-bottom: 50px;
+}
+  
+.swiper-pagination-bullet{
+  width: 12px !important;
+  height: 12px !important;
+  border: 2px solid #d4d4d4 !important;
+  background-color: #ffffff !important;
+  opacity: 1 !important;
+}
+  
+.swiper-pagination-bullet:hover{
+  background-color: #5BC0F8 !important;
+  transition: .5s;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active{
+  background-color: #5BC0F8 !important;
+}

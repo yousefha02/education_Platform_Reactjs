@@ -6,24 +6,49 @@ import AddLanguages from '../../components/reusableUi/AddLanguages';
 import TeacherLayout from '../../components/teacher/TeacherLayout';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import {useTeacher} from '../../hooks/useTeacher'
+import {useSelector} from 'react-redux'
 
 export default function TeacherAbout() {
+    const {teacher,token} = useSelector((state)=>state.teacher)
+    console.log(teacher.id)
+    const {data,isLoading} = useTeacher(teacher.id)
+
+    console.log(data)
+
     const { register,control, formState: { errors }, handleSubmit } = useForm({
         defaultValues: {
             firstName: '',
             lastName:'',
             gender:'',
-            date:'',
+            dateOfBirth:'',
             phone:'',
             country:"",
             city:''
         }
     });
 
-    const onSubmit = data => console.log(data);
     const navigate = useNavigate()
 
     const {t} = useTranslation()
+    const [chosenlanguages,setChosenLanguages] = useState([])
+
+    async function onSubmit(data)
+    {
+        const languages = chosenlanguages.map(lang=>
+            {
+                return {level:lang.level,TeacherId:4,LanguageId:lang.LanguageId}
+            })
+        const response = await fetch(`http://localhost:4000/api/v1/teacher/about/4`,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({...data,languages:languages})
+        })
+        navigate('/teacher/photo')
+    }
 
     return (
         <Navbar>
@@ -70,14 +95,14 @@ export default function TeacherAbout() {
                             {errors.gender?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                     </Box>
                     <Box sx={{marginBottom:"26px"}}>
-                            <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('birth')}</InputLabel>
+                            <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('dateOfBirth')}</InputLabel>
                             <Controller
-                            name="date"
+                            name="dateOfBirth"
                             control={control}
                             render={({ field }) => <TextField type="date" {...field} fullWidth/>}
-                            {...register("date", { required: "date Address is required" })}
+                            {...register("dateOfBirth", { required: "dateOfBirth Address is required" })}
                             />
-                            {errors.date?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
+                            {errors.dateOfBirth?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                     </Box>
                     <Box sx={{marginBottom:"26px"}}>
                         <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('phone')}</InputLabel>
@@ -105,13 +130,13 @@ export default function TeacherAbout() {
                             name="city"
                             control={control}
                             render={({ field }) => <TextField {...field} fullWidth/>}
-                            {...register("date", { required: "city is required" })}
+                            {...register("city", { required: "city is required" })}
                             />
                             {errors.city?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                     </Box>
-                    <AddLanguages/>
+                    <AddLanguages chosenlanguages={chosenlanguages} setChosenLanguages={setChosenLanguages}/>
                 </Box>
-                <Button variant="contained" type="submit" onClick={()=>navigate('/teacher/Photo')}>{t('next')}</Button>
+                <Button variant="contained" type="submit">{t('next')}</Button>
             </form>
         </TeacherLayout>
         </Navbar>

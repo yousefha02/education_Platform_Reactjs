@@ -11,11 +11,11 @@ export const teacherSlice = createSlice({
   reducers: {
     loginTeacher: (state,action) => {
         state.teacher = action.payload.teacher;
-        state.token = action.payload.token;
+        state.token = action.payload.token
     },
     logoutTeacher:(state)=>{
         state.teacher = null
-        state.token = null;
+        state.token = null
     },
 },
 })

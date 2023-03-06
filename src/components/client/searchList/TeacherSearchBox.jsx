@@ -18,7 +18,9 @@ export default function TeacherSearchBox() {
                     <Image src={'https://mui.com/static/images/avatar/2.jpg'}/>
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography sx={{fontSize:"20px",marginBottom:"8px",fontWeight:"700"}}>Yousef A.</Typography>
+                    <Link to="/teacher/1">
+                        <Typography sx={{fontSize:"20px",marginBottom:"8px",fontWeight:"700"}}>Yousef A.</Typography>
+                    </Link>
                     <Typography sx={{fontSize:"15px",fontWeight:"600",marginBottom:"10px"}}>Simple and clear style up to the highest levels</Typography>
                     <Box sx={{display:"flex",columnGap:"4px",alignItems:"center",marginBottom:"8px"}}>
                         <SpeakerNotesIcon sx={{fontSize:"16px",color:"#d5d5d5"}}/>
@@ -39,8 +41,8 @@ export default function TeacherSearchBox() {
                 </Grid>
                 <Grid item xs={3}>
                     <Typography sx={{fontWeight:"bold",fontSize:"14px",marginBottom:"12px"}}>4.05 KWD/Hour</Typography>
-                    <Button variant="contained" color="secondary" fullWidth>Request to book</Button>
-                    <Button variant="outlined" fullWidth sx={{marginTop:"16px"}}>Contact to teacher</Button>
+                    <Button variant="contained" fullWidth>طلب حجز الآن</Button>
+                    <Button variant="outlined" fullWidth sx={{marginTop:"16px"}}>تواصل مع المعلم</Button>
                 </Grid>
             </Grid>
         </Paper>

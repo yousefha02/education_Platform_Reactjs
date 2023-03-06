@@ -1,15 +1,53 @@
 import { Typography,Button, Box, InputLabel, FormControl, Select, MenuItem } from '@mui/material'
 import React from 'react'
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { useTranslation } from 'react-i18next';
+import {useLevels} from '../../hooks/useLevels'
+import {useCurriculums} from '../../hooks/useCurriculums'
+import {useSnackbar} from 'notistack'
+import { useSelector } from 'react-redux';
 
 export default function InsertCurriculums() {
     const [level, setLevel] = useState();
     const [curriculum,setCurriculum] = useState()
+    const {token} = useSelector((state)=>state.admin)
     const {t} = useTranslation()
+    const {closeSnackbar,enqueueSnackbar} = useSnackbar()
+
+    const levels = useLevels()
+    const curriculums = useCurriculums()
+
+    async function insertLevel()
+    {
+        closeSnackbar()
+        try{
+            if(!level||!curriculum)
+            {
+                enqueueSnackbar('empty field',{variant:"error",autoHideDuration:8000})
+                throw new Error('failed occured')
+            }
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/admin/curriculumLevel`,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization":token
+                },
+                body:JSON.stringify({levelId:level,curriculumId:curriculum})
+            })
+            const resData = await response.json()
+            if(response.status!==200&&response.status!==201)
+            {
+                enqueueSnackbar(resData.message,{variant:"error",autoHideDuration:8000})
+                throw new Error('failed occured')
+            }
+            enqueueSnackbar(resData.msg,{variant:"success",autoHideDuration:8000})
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
+    }
     
     return (
         <AdminLayout>
@@ -23,8 +61,13 @@ export default function InsertCurriculums() {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     >
-                        <MenuItem value={'british'}>Beginner</MenuItem>
-                        <MenuItem value={'american'}>Elemnatry</MenuItem>
+                        {
+                            !levels.isLoading&&
+                            levels.data.data.map((item,index)=>
+                            {
+                                return <MenuItem value={item.id} key={index+'m1o'}>{item.titleAR}</MenuItem>
+                            })
+                        }
                     </Select>
                 </FormControl>
             </Box>
@@ -36,12 +79,17 @@ export default function InsertCurriculums() {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     >
-                        <MenuItem value={'british'}>British</MenuItem>
-                        <MenuItem value={'american'}>American</MenuItem>
+                        {
+                            !curriculums.isLoading&&
+                            curriculums.data.data.map((item,index)=>
+                            {
+                                return <MenuItem value={item.id} key={index+'m1o'}>{item.titleAR}</MenuItem>
+                            })
+                        }
                     </Select>
                 </FormControl>
             </Box>
-            <Button sx={{marginTop:"20px"}} variant="contained">{t('save')}</Button>
+            <Button sx={{marginTop:"20px"}} variant="contained" onClick={insertLevel}>{t('save')}</Button>
             </Box>
         </AdminLayout>
     )

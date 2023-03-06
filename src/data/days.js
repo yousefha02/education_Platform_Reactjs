@@ -1,30 +1,37 @@
 export default [
     {
-        title:"Saturday",
-        id:1
+        "titleEN":"Saturday",
+        "titleAR":"السبت",
+        "id":1
     },
     {
-        title:"Sunday",
-        id:2
+        "titleEN":"Sunday",
+        "titleAR":"الأحد",
+        "id":2
     },
     {
-        title:"Monday",
-        id:3
+        "titleEN":"Monday",
+        "titleAR":"الإثنين",
+        "id":3
     },
     {
-        title:"Tuesday",
-        id:4
+        "titleEN":"Tuesday",
+        "titleAR":"الثلاثاء",
+        "id":4
     },
     {
-        title:"Wednesday",
-        id:5
+        "titleEN":"Wednesday",
+        "titleAR":"الأربعاء",
+        "id":5
     },
     {
-        title:"Thursday",
-        id:6
+        "titleEN":"Thursday",
+        "titleAR":"الخمس",
+        "id":6
     },
     {
-        title:"Friday",
+        "titleEN":"Friday",
+        "titleAR":"الجمعة",
         id:7
     }
 ]
