@@ -19,7 +19,12 @@ const Image = styled('img')({
 export default function TeacherPhoto() {
     
     const [image,setImage] = useState(null)
-    const {t} = useTranslation()
+    const {t} = useTranslation();
+
+
+    const handleButtonSubmit = async ()=> {
+       
+    }
 
     return (
         <Navbar>
@@ -34,7 +39,7 @@ export default function TeacherPhoto() {
                 <Image src={URL.createObjectURL(image)}/>
             }
             </Box>
-            <StepperButtons link="AdditionalInformation"/>
+            <StepperButtons link="AdditionalInformation" onSubmit={handleButtonSubmit}/>
         </TeacherLayout>
         </Navbar>
     )
