@@ -9,17 +9,20 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import {useTeacher} from '../../hooks/useTeacher'
 import {useSelector} from 'react-redux'
+import { useEffect } from 'react';
 
 export default function TeacherAbout() {
     const {teacher,token} = useSelector((state)=>state.teacher)
-    console.log(teacher.id)
+    const [load,setLoad] = useState(false)
     const {data,isLoading} = useTeacher(teacher.id)
 
-    console.log(data)
+    const navigate = useNavigate()
+    const {t} = useTranslation()
+    const [chosenlanguages,setChosenLanguages] = useState([])
 
-    const { register,control, formState: { errors }, handleSubmit } = useForm({
+    const { register,control, formState: { errors }, handleSubmit , reset} = useForm({
         defaultValues: {
-            firstName: '',
+            firstName:"",
             lastName:'',
             gender:'',
             dateOfBirth:'',
@@ -29,24 +32,39 @@ export default function TeacherAbout() {
         }
     });
 
-    const navigate = useNavigate()
-
-    const {t} = useTranslation()
-    const [chosenlanguages,setChosenLanguages] = useState([])
+    useEffect(()=>{
+        if(data)
+        {
+            const user = data?.data;
+            setChosenLanguages(data?.data.LangTeachStds)
+            reset({
+                firstName:user?.firstName,
+                lastName:user?.lastName,
+                gender:user?.gender,
+                dateOfBirth:user?.dateOfBirth,
+                phone:user?.phone,
+                country:user?.country,
+                city:user?.city,
+            })
+        }
+    },[data])
 
     async function onSubmit(data)
     {
+        setLoad(true)
         const languages = chosenlanguages.map(lang=>
-            {
-                return {level:lang.level,TeacherId:4,LanguageId:lang.LanguageId}
-            })
-        const response = await fetch(`http://localhost:4000/api/v1/teacher/about/4`,{
+        {
+            return {level:lang.level,TeacherId:teacher?.id,LanguageId:lang.LanguageId}
+        })
+        const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/about/${teacher.id}`,{
             method:"POST",
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "Authorization":token
             },
             body:JSON.stringify({...data,languages:languages})
         })
+        setLoad(false)
         navigate('/teacher/photo')
     }
 
@@ -56,14 +74,14 @@ export default function TeacherAbout() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Box sx={{width:{md:"500px",xs:"100%"}}}>
                     <Box sx={{marginBottom:"26px"}}>
-                            <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('fname')}</InputLabel>
-                            <Controller
-                            name="firstName"
-                            control={control}
-                            render={({ field }) => <TextField {...field} fullWidth/>}
-                            {...register("firstName", { required: "firstName Address is required" })}
-                            />
-                            {errors.firstName?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
+                        <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('fname')}</InputLabel>
+                        <Controller
+                        name="firstName"
+                        control={control}
+                        render={({ field }) => <TextField {...field} fullWidth/>}
+                        {...register("firstName", { required: "firstName Address is required" })}
+                        />
+                        {errors.firstName?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                     </Box>
                     <Box sx={{marginBottom:"26px"}}>
                             <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('lname')}</InputLabel>
@@ -82,6 +100,7 @@ export default function TeacherAbout() {
                                 control={control}
                                 render={({ field }) =><FormControl fullWidth>
                                 <Select
+                                    {...field}
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     {...register("gender", { required: "gender is required" })}
@@ -136,7 +155,12 @@ export default function TeacherAbout() {
                     </Box>
                     <AddLanguages chosenlanguages={chosenlanguages} setChosenLanguages={setChosenLanguages}/>
                 </Box>
-                <Button variant="contained" type="submit">{t('next')}</Button>
+                {
+                    !load?
+                    <Button variant="contained" type="submit">{t('next')}</Button>
+                    :
+                    <Button variant="contained">{t('next')}...</Button>
+                }
             </form>
         </TeacherLayout>
         </Navbar>

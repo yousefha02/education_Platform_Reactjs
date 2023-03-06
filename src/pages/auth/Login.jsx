@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import {useSnackbar} from 'notistack'
 import { useState } from 'react';
 import {loginTeacher} from '../../redux/teacherSlice'
+import {loginStudent} from '../../redux/studentSlice'
 import { useDispatch } from 'react-redux';
 
 export default function Login() {
@@ -48,8 +49,13 @@ export default function Login() {
             if(resData.role === "teacher")
             {
                 dispatch(loginTeacher({token:resData.token,teacher:resData.data}))
+                navigate('/teacher/about')
             }
-            navigate('/teacher/about')
+            else if(resData.role === "student")
+            {
+                dispatch(loginStudent({token:resData.token,student:resData.data}))
+                navigate('/')
+            }
             enqueueSnackbar(resData.msg,{variant:"success",autoHideDuration:"8000"})
             setLoad(false)
         }
