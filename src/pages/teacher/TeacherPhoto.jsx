@@ -4,6 +4,10 @@ import TeacherLayout from '../../components/teacher/TeacherLayout'
 import StepperButtons from '../../components/reusableUi/StepperButtons'
 import Navbar from '../../components/Navbar'
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 
 const Label = styled("label")({
     width:"100%",
@@ -20,10 +24,30 @@ export default function TeacherPhoto() {
     
     const [image,setImage] = useState(null)
     const {t} = useTranslation();
-
+    const {closeSnackbar,enqueueSnackbar} = useSnackbar();
+    const {teacher,token} = useSelector((state)=>state.teacher);
+    const [load,setLoad] = useState(false);
+    const navigate = useNavigate()
 
     const handleButtonSubmit = async ()=> {
-       
+        closeSnackbar();
+        if(!image){
+            enqueueSnackbar(t('image_required') , {variant:"error" , autoHideDuration:2000});
+            return ;
+        }
+        setLoad(true)
+        const formData = new FormData();
+        formData.append('image' , image);
+        const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/image/${teacher.id}`,{
+            method:"POST",
+            headers:{
+                "Authorization":token
+            },
+            body:formData
+        })
+        setLoad(false)
+        const resData = await response.json();
+        navigate('/teacher/AdditionalInformation')
     }
 
     return (
@@ -39,7 +63,7 @@ export default function TeacherPhoto() {
                 <Image src={URL.createObjectURL(image)}/>
             }
             </Box>
-            <StepperButtons link="AdditionalInformation" onSubmit={handleButtonSubmit}/>
+            <StepperButtons link="AdditionalInformation" onSubmit={handleButtonSubmit} load={load}/>
         </TeacherLayout>
         </Navbar>
     )
