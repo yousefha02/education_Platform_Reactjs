@@ -4,10 +4,13 @@ import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import {useSnackbar} from 'notistack'
 import Navbar from '../../components/Navbar'
+import {loginParent} from '../../redux/parentSlice'
+import { useDispatch } from 'react-redux';
 
 export default function ParentRegister() {
 
     const {closeSnackbar,enqueueSnackbar} = useSnackbar()
+    const dispatch = useDispatch()
 
     const { register,control, formState: { errors }, handleSubmit } = useForm({
         defaultValues: {
@@ -36,8 +39,9 @@ export default function ParentRegister() {
                 enqueueSnackbar(resData.message,{variant:"error",autoHideDuration:"8000"})
                 throw new Error('failed occured')
             }
-            console.log(resData)
+            dispatch(loginParent({parent:resData.data,token:resData.token}))
             enqueueSnackbar('success',{variant:"success",autoHideDuration:"8000"})
+            navigate('/parent')
         }
         catch(err)
         {

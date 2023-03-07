@@ -33,7 +33,7 @@ import AdminChangePassword from './pages/admin/AdminChangePassword';
 import HomeParent from './pages/parent/HomeParent';
 import ParentAddStudent from './pages/parent/ParentAddStudent';
 import Home from './pages/client/Home';
-import {useSelector} from 'react-redux'
+import {useSelector,useDispatch} from 'react-redux'
 import Landing from './pages/client/Landing';
 import SearchFilterTeacher from './pages/client/SearchFilterTeacher';
 import ParentRegister from './pages/parent/ParentRegister';
@@ -56,12 +56,15 @@ const theme = createTheme({
     Gray:{
       main:"#F6F6F6",
       contrastText:"#6D6D6D"
+    },
+    Blue:{
+      main:"#ffffff33",
+      contrastText:"#ffffff"
     }
   }
 })
 
 function App() {
-
   const queryClient = new QueryClient()
 
   useEffect(()=>{
@@ -76,6 +79,7 @@ function App() {
 
   const {admin} = useSelector((state)=>state.admin)
   const {teacher} = useSelector((state)=>state.teacher)
+  const {parent} = useSelector((state)=>state.parent)
 
   return (
     <div className="App">
@@ -131,8 +135,8 @@ function App() {
             
             {/** parent pages */}
             <Route path='parent/register' element={<ParentRegister/>}/>
-            <Route path='parent' element={<HomeParent/>}/>
-            <Route path='parent/add_student' element={<ParentAddStudent/>}/>
+            <Route path='parent' element={parent?<HomeParent/>:<Navigate to="/"/>}/>
+            <Route path='parent/add_student' element={parent?<ParentAddStudent/>:<Navigate to="/"/>}/>
             <Route/>
           </Routes>
         </ThemeProvider>

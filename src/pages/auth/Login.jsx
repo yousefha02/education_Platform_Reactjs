@@ -9,6 +9,7 @@ import {useSnackbar} from 'notistack'
 import { useState } from 'react';
 import {loginTeacher} from '../../redux/teacherSlice'
 import {loginStudent} from '../../redux/studentSlice'
+import {loginParent} from '../../redux/parentSlice'
 import { useDispatch } from 'react-redux';
 
 export default function Login() {
@@ -56,6 +57,11 @@ export default function Login() {
             {
                 dispatch(loginStudent({token:resData.token,student:resData.data}))
                 navigate('/')
+            }
+            else if(resData.role === "parent")
+            {
+                dispatch(loginParent({token:resData.token,parent:resData.data}))
+                navigate('/parent')
             }
             enqueueSnackbar(resData.msg,{variant:"success",autoHideDuration:"8000"})
             setLoad(false)
@@ -107,7 +113,7 @@ export default function Login() {
                         </Grid>
                         <Grid item xs={4}>
                             <Button sx={{textTransform:"capitalize"}} variant='outlined'
-                            fullWidth>{t('parent')}</Button>
+                            fullWidth onClick={()=>navigate('/parent/register')}>{t('parent')}</Button>
                         </Grid>
                     </Grid>
                     </form>

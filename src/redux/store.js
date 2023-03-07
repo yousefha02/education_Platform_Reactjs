@@ -2,6 +2,7 @@ import { configureStore , combineReducers} from '@reduxjs/toolkit'
 import adminRreducer from './adminSlice';
 import studentRreducer from './studentSlice';
 import teacherReducer from './teacherSlice'
+import parentReducer from './parentSlice'
 
 import {
     persistStore,
@@ -33,10 +34,17 @@ import {
     storage,
   }
 
+  const persistConfig4 = {
+    key: 'root4',
+    version: 1,
+    storage,
+  }
+
   const rootReducer=combineReducers({
     admin:persistReducer(persistConfig, adminRreducer),
     student : persistReducer(persistConfig2, studentRreducer),
-    teacher : persistReducer(persistConfig3, teacherReducer)
+    teacher : persistReducer(persistConfig3, teacherReducer),
+    parent : persistReducer(persistConfig4, parentReducer)
   })
 
 

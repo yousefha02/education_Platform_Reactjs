@@ -20,6 +20,9 @@ import { Button , styled } from '@mui/material';
 import SelectCurrency from './reusableUi/SelectCurrency';
 import logoImage from '../images/logo.png'
 import { useTranslation } from 'react-i18next';
+import { useSelector,useDispatch } from 'react-redux';
+import { logoutTeacher } from '../redux/teacherSlice';
+import {logoutParent} from '../redux/parentSlice'
 
 const drawerWidth = 240;
 
@@ -31,12 +34,21 @@ const ImageLogo = styled('img')({
 function Navbar(props) {
     const {t} = useTranslation()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const {teacher} = useSelector((state)=>state.teacher)
+    const {parent} = useSelector((state)=>state.parent)
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+
+    function handleTeacherLogout()
+    {
+        dispatch(logoutTeacher())
+        navigate('/login')
+    }
 
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -69,7 +81,7 @@ function Navbar(props) {
             >
                 <MenuIcon />
             </IconButton>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } , alignItems:"center" }}>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' },paddingY:"10px" , alignItems:"center" }}>
                 <Link to="/">
                     <ImageLogo src={logoImage}/>
                 </Link>
@@ -89,13 +101,29 @@ function Navbar(props) {
                 </Link>
                 <ChangeLanguage/>
                 <SelectCurrency/>
-                <Button sx={{ my: 2, color: 'white', display: 'block',textTransform:"capitalize",
-                padding:"1px 18px"}} variant="text" onClick={()=>navigate('/login')}>{t('login')}</Button>
-                <Button onClick={()=>navigate('/teacherRegister/step1')}
-                sx={{ my: 2, color: 'white', display: 'block',textTransform:"capitalize",
-                padding:"1px 13px" , backgroundColor:"#ffffff33" , fontSize:"14px" , height:"50px", borderRadius:"10px"}} variant="text"> 
-                {t('becometeacher')}
-                </Button>
+                {!teacher&&!parent&&
+                <>
+                    <Button sx={{ my: 2, color: 'white', display: 'block',textTransform:"capitalize",
+                    padding:"1px 18px"}} variant="text" onClick={()=>navigate('/login')}>{t('login')}</Button>
+                    <Button onClick={()=>navigate('/teacherRegister/step1')}
+                    sx={{ my: 2, color: 'white', display: 'block',textTransform:"capitalize",
+                    padding:"1px 13px" , backgroundColor:"#ffffff33" , fontSize:"14px" , height:"50px", borderRadius:"10px"}} variant="text"> 
+                    {t('becometeacher')}
+                    </Button>
+                </>}
+                {
+                    teacher&&
+                    <>
+                        <Button color="Blue" variant="contained" onClick={()=>navigate('/teacher/about')}>{teacher?.firstName+" "+teacher?.lastName}</Button>
+                        <Button color="Blue" variant="contained" onClick={handleTeacherLogout}>{t('logout')}</Button>
+                    </>
+                }
+                {
+                    parent&&
+                    <Button color="Blue" variant="contained" onClick={()=>dispatch(logoutParent())}>
+                        {t('logout')}
+                    </Button>
+                }
             </Box>
             </Toolbar>
         </AppBar>
