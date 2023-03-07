@@ -93,6 +93,11 @@ function AdminLayout(props) {
             icon:BeenhereIcon,
             link:'/teachers_approve'
         },
+        {
+            title:t('student_parent'),
+            icon:SubjectIcon,
+            link:'/parent-student',
+        },
         // {
         //     title:t('changepassword'),
         //     icon:PasswordIcon,
