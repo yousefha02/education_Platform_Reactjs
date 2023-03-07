@@ -31,7 +31,6 @@ import AdminLogin from './pages/admin/AdminLogin';
 import TeachersApprove from './pages/admin/TeachersApprove';
 import AdminChangePassword from './pages/admin/AdminChangePassword';
 import HomeParent from './pages/parent/HomeParent';
-import ParentAddStudent from './pages/parent/ParentAddStudent';
 import Home from './pages/client/Home';
 import {useSelector,useDispatch} from 'react-redux'
 import Landing from './pages/client/Landing';
@@ -41,6 +40,7 @@ import AdminLevels from './pages/admin/AdminLevels';
 import AdminClasses from './pages/admin/AdminClasses';
 import AdminCurriculums from './pages/admin/AdminCurriculums';
 import AdminSubjectCategories from './pages/admin/AdminSubjectCategories';
+import AdminParentStudent from './pages/admin/AdminParentStudent';
 
 const theme = createTheme({
   direction:"rtl",
@@ -132,11 +132,11 @@ function App() {
             <Route path='admin/Curriculums_insert' element={admin?<InsertCurriculums/>:<Navigate to="/admin/login"/>}/>
             <Route path='admin/teachers_approve' element={admin?<TeachersApprove/>:<Navigate to="/admin/login"/>}/>
             <Route path='admin/change_password' element={admin?<AdminChangePassword/>:<Navigate to="/admin/login"/>}/>
+            <Route path='admin/parent-student' element={admin?<AdminParentStudent/>:<Navigate to="/admin/login"/>}/>
             
             {/** parent pages */}
             <Route path='parent/register' element={<ParentRegister/>}/>
             <Route path='parent' element={parent?<HomeParent/>:<Navigate to="/"/>}/>
-            <Route path='parent/add_student' element={parent?<ParentAddStudent/>:<Navigate to="/"/>}/>
             <Route/>
           </Routes>
         </ThemeProvider>

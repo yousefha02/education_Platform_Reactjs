@@ -142,5 +142,15 @@
     "Photo":"Photo",
     "Video":"Video",
     "password":"Password",
-    "image_required":"Upload image is required"
+    "image_required":"Upload image is required",
+    "view_children":"Childrens",
+    "add":"Add",
+    "student_parent":"Parents requests for children",
+    "finished":"Finished",
+    "new":"New",
+    "student_name":"Student Name",
+    "parent_name":"Parent Name",
+    "status":"Status",
+    "accept":"accepted",
+    "reject":"rejected"
 }

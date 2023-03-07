@@ -142,5 +142,15 @@
     "Photo":"صورة",
     "Video":"فيديو",
     "password":"كلمة المرور",
-    "image_required":"الرجاء تحميل صورة"
+    "image_required":"الرجاء تحميل صورة",
+    "view_children":"الأبناء",
+    "add":"إضافة",
+    "student_parent":"طلبات الاباء للابناء",
+    "finished":"منتهية",
+    "new":"جديد",
+    "student_name":"إسم الطالب",
+    "parent_name":"إسم الأب",
+    "status":"الحالة",
+    "accept":"مقبولة",
+    "reject":"مرفوضة"
 }
