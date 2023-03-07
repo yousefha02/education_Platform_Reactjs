@@ -3,33 +3,38 @@ import React, { useState } from 'react'
 import FormWorkExperience from './FormWorkExperience'
 import { useTranslation } from 'react-i18next';
 
-export default function WorkExperience() {
-    const [WorkExperience,setWorkExperience] = useState([])
+export default function WorkExperience({Experience,setExperience}) {
     const {t} = useTranslation()
 
     function addNewExperience()
     {
-        setWorkExperience(back=>[...back,{job:"Job",from:"2021",to:"2023",company:"Company",id:WorkExperience.length+1}])
+        setExperience(back=>[...back,{jobTitle:"Job",from:"2021",to:"2023",companyName:"Company",id:WorkExperience.length+1}])
     }
 
-    function handleChangeWorkExperience(e,id)
+    function handleChangeWorkExperience(e,item)
     {
         const {value,name} = e.target
-        setWorkExperience(back=>back.map(work=>
+        setExperience(back=>back.map(work=>
         {
-            return work.id===id?{...work,[name]:value}:work
+            return work===item?{...work,[name]:value}:work
         }))
+    }
+
+    function handleDeleteExperiecnce(item)
+    {
+        const newExperiecnces = Experience.filter(exp=>exp!==item)
+        setExperience(newExperiecnces)
     }
 
     return (
         <Box sx={{marginBottom:"26px"}}>
             {
-                WorkExperience.map((item,index)=>
+                Experience.map((item,index)=>
                 {
                     return(
                         <Grid container key={index+'po1'} spacing={3} 
                         sx={{marginBottom:"20px",alignItems:"center"}}>
-                            <FormWorkExperience item={item} handleChangeWorkExperience={handleChangeWorkExperience}/>
+                            <FormWorkExperience handleDeleteExperiecnce={handleDeleteExperiecnce} item={item} handleChangeWorkExperience={handleChangeWorkExperience}/>
                         </Grid> 
                     )
                 })

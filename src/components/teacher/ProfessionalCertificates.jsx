@@ -3,22 +3,28 @@ import React, { useState } from 'react'
 import FormProfessionalCertificates from './FormProfessionalCertificates'
 import { useTranslation } from 'react-i18next';
 
-export default function ProfessionalCertificates() {
-    const [certificates,setCertificates] = useState([])
+export default function ProfessionalCertificates({setCertificates,certificates}) {
+
     const {t} = useTranslation()
 
     function addNewCertificates()
     {
-        setCertificates(back=>[...back,{institution:"Institution",from:"2021",to:"2023",subject:"Subject",id:certificates.length+1}])
+        setCertificates(back=>[...back,{name:"Institution",from:"2021",to:"2023",subject:"Subject",id:certificates.length+1}])
     }
 
-    function handleChangeCertificates(e,id)
+    function handleChangeCertificates(e,item)
     {
         const {value,name} = e.target
         setCertificates(back=>back.map(certificate=>
         {
-            return certificate.id===id?{...certificate,[name]:value}:certificate
+            return certificate===item?{...certificate,[name]:value}:certificate
         }))
+    }
+
+    function handleDeleteCertificates(item)
+    {
+        const newCertificates = certificates.filter(exp=>exp!==item)
+        setCertificates(newCertificates)
     }
 
     return (
@@ -29,7 +35,7 @@ export default function ProfessionalCertificates() {
                     return(
                         <Grid container key={index+'po1'} spacing={3} 
                         sx={{marginBottom:"20px",alignItems:"center"}}>
-                            <FormProfessionalCertificates item={item} handleChangeCertificates={handleChangeCertificates}/>
+                            <FormProfessionalCertificates handleDeleteCertificates={handleDeleteCertificates} item={item} handleChangeCertificates={handleChangeCertificates}/>
                         </Grid> 
                     )
                 })

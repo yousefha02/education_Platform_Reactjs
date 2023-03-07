@@ -20,8 +20,6 @@ export default function TeacherAbout() {
     const {t} = useTranslation()
     const [chosenlanguages,setChosenLanguages] = useState([])
 
-    console.log(teacher)
-
     const { register,control, formState: { errors }, handleSubmit , reset} = useForm({
         defaultValues: {
             firstName:"",

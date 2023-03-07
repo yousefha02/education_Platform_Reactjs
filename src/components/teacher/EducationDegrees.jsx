@@ -3,22 +3,27 @@ import React, { useState } from 'react'
 import FormEducationDegrees from './FormEducationDegrees'
 import { useTranslation } from 'react-i18next';
 
-export default function EducationDegrees() {
+export default function EducationDegrees({degrees,setDegrees}) {
     const {t} = useTranslation()
-    const [degrees,setDegrees] = useState([])
 
     function addNewDegree()
     {
-        setDegrees(back=>[...back,{university:"University",from:"2021",to:"2023",degrees:"Degrees",id:degrees.length+1}])
+        setDegrees(back=>[...back,{UniversityName:"University",from:"2021",to:"2023",degree:"Degrees",id:degrees.length+1}])
     }
 
-    function handleChangeDegrees(e,id)
+    function handleChangeDegrees(e,item)
     {
         const {value,name} = e.target
         setDegrees(back=>back.map(degrees=>
         {
-            return degrees.id===id?{...degrees,[name]:value}:degrees
+            return degrees===item?{...degrees,[name]:value}:degrees
         }))
+    }
+
+    function handleDeleteDegrees(item)
+    {
+        const newDegrees = degrees.filter(exp=>exp!==item)
+        setDegrees(newDegrees)
     }
 
     return (

@@ -3,7 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 
-export default function StepperButtons({link , onSubmit , load}) {
+export default function StepperButtons({ onSubmit , load}) {
     const {t} = useTranslation();
     const navigate = useNavigate();
     return (

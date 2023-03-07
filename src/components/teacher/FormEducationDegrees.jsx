@@ -8,23 +8,23 @@ export default function FormEducationDegrees({item,handleChangeDegrees}) {
         <>
             <Grid item xs={3}>
                 <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('InstitutionName')}</InputLabel>
-                <TextField defaultValue={item.university} fullWidth 
-                onChange={(e)=>handleChangeDegrees(e,item.id)} name="university"/>
+                <TextField defaultValue={item.UniversityName} fullWidth 
+                onChange={(e)=>handleChangeDegrees(e,item)} name="UniversityName"/>
             </Grid>
             <Grid item xs={2}>
                 <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('from')}</InputLabel>
                 <TextField type="number" defaultValue={item.from} fullWidth
-                onChange={(e)=>handleChangeDegrees(e,item.id)} name="from"/>
+                onChange={(e)=>handleChangeDegrees(e,item)} name="from"/>
             </Grid>
             <Grid item xs={2}>
                 <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('to')}</InputLabel>
                 <TextField type="number" defaultValue={item.to} fullWidth
-                onChange={(e)=>handleChangeDegrees(e,item.id)} name="to"/>
+                onChange={(e)=>handleChangeDegrees(e,item)} name="to"/>
             </Grid>
             <Grid item xs={2}>
                 <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('Degrees')}</InputLabel>
-                <TextField fullWidth defaultValue={item.degrees}
-                onChange={(e)=>handleChangeDegrees(e,item.id)} name="degrees"/>
+                <TextField fullWidth defaultValue={item.degree}
+                onChange={(e)=>handleChangeDegrees(e,item)} name="degree"/>
             </Grid>
             <Grid item xs={2}>
                 <Button color="error">{t('delete')}</Button>
