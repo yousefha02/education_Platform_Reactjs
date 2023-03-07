@@ -6,17 +6,24 @@ import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import { Box, InputLabel } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { useCurriculums } from '../../hooks/useCurriculums';
+import Cookies from 'js-cookie';
+import { useSelector } from 'react-redux';
 
-export default function CheckBoxCurriculum() {
+
+export default function CheckBoxCurriculum({checked , setChecked}) {
     const {t} = useTranslation()
-    const [checked, setChecked] = React.useState([1]);
+    const {data} = useCurriculums();
+    const lang = Cookies.get("i18next") || "en";
+    const {teacher} = useSelector((state)=>state.teacher);
+    // console.log(data);
 
     const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
+        const currentIndex = checked.findIndex(l => l.CurriculumId === value ) ;
         const newChecked = [...checked];
 
         if (currentIndex === -1) {
-        newChecked.push(value);
+        newChecked.push({CurriculumId:value  , TeacherId:teacher.id});
         } else {
         newChecked.splice(currentIndex, 1);
         }
@@ -28,24 +35,24 @@ export default function CheckBoxCurriculum() {
         <Box sx={{marginBottom:"26px"}}>
         <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>{t('WhichCurriculum')}</InputLabel>
         <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-        {["IG -curriculum","International Baccalaureate IB","French Baccalaureate -curriculum"].map((value) => {
-            const labelId = `checkbox-list-secondary-label-${value}`;
+        {data?.data.map((value) => {
+            const labelId = `checkbox-list-secondary-label-${value.id+"knejd"}`;
             return (
             <ListItem
-                key={value}
+                key={value.id+"kjn"}
                 secondaryAction={
                 <Checkbox
                     size='2px'
                     edge="end"
-                    onChange={handleToggle(value)}
-                    checked={checked.indexOf(value) !== -1}
+                    onChange={handleToggle(value.id)}
+                    checked={checked.findIndex(l => l.CurriculumId === value.id ) !== -1}
                     inputProps={{ 'aria-labelledby': labelId }}
                 />
                 }
                 disablePadding
             >
                 <ListItemButton>
-                <ListItemText id={labelId} primary={value} sx={{textAlign:"start"}}/>
+                <ListItemText id={labelId} primary={lang === "en" ? value.titleEN : value.titleAR} sx={{textAlign:"start"}}/>
                 </ListItemButton>
             </ListItem>
             );

@@ -141,5 +141,6 @@
     "About":"About",
     "Photo":"Photo",
     "Video":"Video",
-    "password":"Password"
+    "password":"Password",
+    "image_required":"Upload image is required"
 }
