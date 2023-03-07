@@ -2,7 +2,7 @@ import { InputLabel, TextField,Grid, Button } from '@mui/material'
 import React from 'react'
 import { useTranslation } from 'react-i18next';
 
-export default function FormEducationDegrees({item,handleChangeDegrees}) {
+export default function FormEducationDegrees({item,handleChangeDegrees,handleDeleteDegrees}) {
     const {t} = useTranslation()
     return (
         <>
@@ -27,7 +27,7 @@ export default function FormEducationDegrees({item,handleChangeDegrees}) {
                 onChange={(e)=>handleChangeDegrees(e,item)} name="degree"/>
             </Grid>
             <Grid item xs={2}>
-                <Button color="error">{t('delete')}</Button>
+                <Button color="error" onClick={()=>handleDeleteDegrees(item)}>{t('delete')}</Button>
             </Grid>
         </>
     )
