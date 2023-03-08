@@ -47,6 +47,25 @@ export default function TeacherAvailability() {
         }
         setSelectedDays(newChecked);
     };
+
+    async function onSubmit()
+    {
+        try{
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/time/4`,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                },
+                body:JSON.stringify({times:selectedTimes,timeZone:selectedTimezone})
+            })
+            const data = await response.json()
+            console.log(data)
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
+    }
     
     return (
         <Navbar>
@@ -67,7 +86,7 @@ export default function TeacherAvailability() {
                             )
                         })
                     }
-                    <StepperButtons/>
+                    <StepperButtons onSubmit={onSubmit}/>
                 </Box>
             </TeacherLayout>
         </Navbar>

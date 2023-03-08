@@ -8,8 +8,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography,Avatar, Button } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useTranslation } from 'react-i18next';
+import {useTenStudents} from '../../hooks/useTenStudents'
+import { useSelector } from 'react-redux';
+import Loading from '../Loading';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -44,42 +46,49 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
     export default function NewStudentsList() {
     const {t} = useTranslation()
+    const {token} = useSelector((state)=>state.admin)
+    const {data,isLoading} = useTenStudents(token)
+    
     return (
-        <Paper sx={{marginY:"40px",padding:"20px"}}>
-            <Typography sx={{marginBottom:"30px"}}>{t('studentlist')}</Typography>
-            <TableContainer>
-                <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                    <TableHead>
-                    <TableRow>
-                        <StyledTableCell align='start'>{t('name')}</StyledTableCell>
-                        <StyledTableCell align="start">{t('email')}</StyledTableCell>
-                        <StyledTableCell align="start">{t('city')}</StyledTableCell>
-                        <StyledTableCell align="start">{t('phone')}</StyledTableCell>
-                        <StyledTableCell align="start">{t('birth')}</StyledTableCell>
-                        <StyledTableCell align="start">{t('delete')}</StyledTableCell>
-                    </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.name}>
-                        <StyledTableCell component="th" scope="row" sx={{display:"flex",alignItems:"center",
-                        columnGap:"12px"}}>
-                            <Avatar alt={"yousef"}/> {"Yousef"}
-                        </StyledTableCell>
-                        <StyledTableCell align="start">yousef@gmail.com</StyledTableCell>
-                        <StyledTableCell align="start">Gaza</StyledTableCell>
-                        <StyledTableCell align="start">0592374719</StyledTableCell>
-                        <StyledTableCell align="start">2002/9/3</StyledTableCell>
-                        <StyledTableCell align="start">
-                            <Button color="error" variant='contained' sx={{minWidth:"10px"}}>
-                                <DeleteIcon/>
-                            </Button>
-                        </StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Paper>
+        <>
+            {
+            !isLoading
+            ?
+            <Paper sx={{marginY:"40px",padding:"20px"}}>
+                <Typography sx={{marginBottom:"30px"}}>{t('studentlist')}</Typography>
+                <TableContainer>
+                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                        <TableHead>
+                        <TableRow>
+                            <StyledTableCell align='start'>{t('name')}</StyledTableCell>
+                            <StyledTableCell align="start">{t('email')}</StyledTableCell>
+                            <StyledTableCell align="start">{t('country')}</StyledTableCell>
+                            <StyledTableCell align="start">{t('phone')}</StyledTableCell>
+                            <StyledTableCell align="start">{t('birth')}</StyledTableCell>
+                        </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {
+                        data?.data.length>0&&data?.data.map((row) => (
+                            <StyledTableRow key={row.name}>
+                            <StyledTableCell component="th" scope="row" sx={{display:"flex",alignItems:"center",
+                            columnGap:"12px"}}>
+                                <Avatar alt={row.name} src={`${process.env.REACT_APP_API_KEY}images/${row.image}`}/>
+                                {row.name}
+                            </StyledTableCell>
+                            <StyledTableCell align="start">{row.email}</StyledTableCell>
+                            <StyledTableCell align="start">{row.location}</StyledTableCell>
+                            <StyledTableCell align="start">{row.phoneNumber}</StyledTableCell>
+                            <StyledTableCell align="start">{row.dateOfBirth}</StyledTableCell>
+                            </StyledTableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Paper>
+            :
+            <Loading/>
+            }
+        </>
     );
 }
