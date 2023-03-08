@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import ParentAddStudent from '../../components/parent/ParentAddStudent';
+import { useStudentsForParent } from '../../hooks/useStudentsForParent';
+import { useSelector } from 'react-redux';
 
 
 
@@ -49,6 +51,11 @@ export default function HomeParent() {
       setValue(newValue);
     };
 
+    const {parent , token} = useSelector(s => s.parent);
+
+    const {data} = useStudentsForParent(parent.id, token);
+    console.log(data);
+
     const {t} = useTranslation()
   
     return (
@@ -63,15 +70,19 @@ export default function HomeParent() {
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
-                    <Grid container>
-                        <Grid item xs={12} md={4} lg={3} sx={{width:"100%"}}>
+                    <Grid container spacing={2}>
+                        {
+                          data?.data.map(st =>{
+                            return <Grid item xs={12} md={4} lg={3} sx={{width:"100%"}} key={st.id+"kmk"}>
                             <Paper sx={{padding:"8px 6px",display:"flex",flexDirection:"column",alignItems:"center"}}>
-                                <Avatar alt={'Yousef'} src={`${process.env.REACT_APP_API}/images/`} 
+                                <Avatar alt={st.name} src={`${process.env.REACT_APP_API}images/${st.image}`} 
                                 sx={{width:"105px",height:"105px",fontSize:"42px"}}/>
-                                <Typography sx={{fontWeight:"500",marginY:"10px",fontSize:"18px",minHeight:"50px",textAlign:"center"}}>الطالب : Yousef Abohani </Typography>
+                                <Typography sx={{fontWeight:"500",marginY:"10px",fontSize:"18px",minHeight:"50px",textAlign:"center"}}>الطالب : {st.name}</Typography>
                                 <Button onClick={()=>navigate(`/parent-dash/student/1`)}>مشاهدة</Button>
                             </Paper>
                         </Grid>
+                          })
+                        }
                     </Grid>
                 </TabPanel>
                 <TabPanel value={value} index={1}>

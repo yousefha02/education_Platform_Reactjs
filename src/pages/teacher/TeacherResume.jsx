@@ -41,7 +41,7 @@ export default function TeacherResume() {
 
     async function onSubmit()
     {
-        setLoad(true);
+        setLoad(true); 
         const newCertificates = childComponentRefTwo.current.r.map(cert=>
         {
             return {TeacherId:teacher?.id,from:cert.from,to:cert.to,subject:cert.subject,name:cert.name}
