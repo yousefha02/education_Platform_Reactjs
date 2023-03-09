@@ -23,7 +23,7 @@ export default function AdminClasses() {
                 </Box>
                     <TabPanel value="1"><StudyClasses/></TabPanel>
                     <TabPanel value="2"><AddStudyYear/></TabPanel>
-                </TabContext>
+            </TabContext>
         </AdminLayout>
     )
 }

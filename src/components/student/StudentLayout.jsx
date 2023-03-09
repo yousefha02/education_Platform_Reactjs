@@ -1,42 +1,53 @@
 import { Avatar, Box, Container, Divider, Grid, List, ListItem, ListItemButton, ListItemText, Paper, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import LinksFooter from '../client/home/LinksFooter'
+import Footer from '../client/home/Footer'
+import DownloadApp from '../client/home/DownloadApp'
+import Navbar from '../Navbar'
 
-const topics = [{title:"Profile",link:"/profile"},{title:"Lessons",link:"Lesson"},
+const topics = [{title:"Profile",link:"/profile"},{title:"Lessons",link:"/lessons"},
 {title:"Settings",link:'/settings'},{title:"Messages",link:"/messages"}]
 
 export default function StudentLayout({children}) {
     return (
-        <Container sx={{marginTop:"50px"}}>
-            <Grid container spacing={2}>
-                <Grid item xs={3}>
-                    <Paper sx={{padding:"20px"}}>
-                        <Box sx={{display:"flex",alignItems:"center",flexDirection:"column"}}>
-                            <Avatar src={''} alt="Yousef Abohani" sx={{width:"95px",height:"95px"}}/>
-                            <Typography sx={{marginTop:"16px",fontWeight:"700"}}>Yousef Abohani</Typography>
-                        </Box>
-                        <Divider sx={{marginY:"20px"}}/>
-                        <List>
-                            {
-                                topics.map((topic,index)=>
+        <Navbar>
+            <Container sx={{marginTop:"50px"}}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} lg={3}>
+                        <Paper sx={{padding:"20px"}}>
+                            <Box sx={{display:"flex",alignItems:"center",flexDirection:"column"}}>
+                                <Avatar src={''} alt="Yousef Abohani" sx={{width:"95px",height:"95px"}}/>
+                                <Typography sx={{marginTop:"16px",fontWeight:"700"}}>Yousef Abohani</Typography>
+                            </Box>
+                            <Divider sx={{marginY:"20px"}}/>
+                            <List>
                                 {
-                                    return(
-                                        <Link to={`/student${topic.link}`}>
-                                            <ListItem key={topic.title+index+'o'} disablePadding>
-                                                <ListItemButton>
-                                                    <ListItemText primary={topic.title} 
-                                                    sx={{textAlign:"start"}}/>
-                                                </ListItemButton>
-                                            </ListItem>
-                                        </Link>
-                                    )
-                                })
-                            }
-                        </List>
-                    </Paper>
+                                    topics.map((topic,index)=>
+                                    {
+                                        return(
+                                            <Link to={`/student${topic.link}`}>
+                                                <ListItem key={topic.title+index+'o'} disablePadding>
+                                                    <ListItemButton>
+                                                        <ListItemText primary={topic.title} 
+                                                        sx={{textAlign:"start"}}/>
+                                                    </ListItemButton>
+                                                </ListItem>
+                                            </Link>
+                                        )
+                                    })
+                                }
+                            </List>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12} lg={9} sx={{overflow:"hidden"}}>{children}</Grid>
                 </Grid>
-                <Grid item xs={9}>{children}</Grid>
-            </Grid>
-        </Container>
+            </Container>
+            <Box sx={{marginTop:"120px"}}>
+                <DownloadApp/>
+                <LinksFooter/>
+                <Footer/>
+            </Box>
+        </Navbar>
     )
 }

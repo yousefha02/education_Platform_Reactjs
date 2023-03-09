@@ -1,6 +1,5 @@
 import { Box, Button, InputLabel, Paper, TextField, Typography } from '@mui/material'
 import React from 'react'
-import Navbar from '../../components/Navbar'
 import StudentLayout from '../../components/student/StudentLayout'
 import { useForm, Controller } from "react-hook-form";
 
@@ -16,7 +15,6 @@ export default function StudentSettings() {
     const onSubmit = data => console.log(data);
 
     return (
-        <Navbar>
             <StudentLayout>
                 <Paper sx={{padding:"40px 20px"}}>
                     <Typography>Change Your Password</Typography>
@@ -56,6 +54,5 @@ export default function StudentSettings() {
                     </form>
                 </Paper>
             </StudentLayout>
-        </Navbar>
     )
 }

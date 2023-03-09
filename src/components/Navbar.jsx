@@ -24,6 +24,7 @@ import { useSelector,useDispatch } from 'react-redux';
 import { logoutTeacher } from '../redux/teacherSlice';
 import {logoutParent} from '../redux/parentSlice'
 import cookies from "js-cookie";
+import {studentLogout} from '../redux/studentSlice'
 
 
 const drawerWidth = 240;
@@ -42,6 +43,7 @@ function Navbar(props) {
     const {teacher} = useSelector((state)=>state.teacher)
     const {parent} = useSelector((state)=>state.parent)
     const lang = cookies.get("i18next") || "en";
+    const {student} = useSelector((state)=>state.student)
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -50,6 +52,12 @@ function Navbar(props) {
     function handleTeacherLogout()
     {
         dispatch(logoutTeacher())
+        navigate('/login')
+    }
+
+    function handleStudentLogout()
+    {
+        dispatch(studentLogout())
         navigate('/login')
     }
 
@@ -104,7 +112,7 @@ function Navbar(props) {
                 </Link>
                 <ChangeLanguage lang={lang}/>
                 <SelectCurrency/>
-                {!teacher&&!parent&&
+                {!teacher&&!parent&&!student&&
                 <>
                     <Button sx={{ my: 2, color: 'white', display: 'block',textTransform:"capitalize",
                     padding:"1px 18px"}} variant="text" onClick={()=>navigate('/login')}>{t('login')}</Button>
@@ -117,8 +125,15 @@ function Navbar(props) {
                 {
                     teacher&&
                     <>
-                        <Button color="Blue" variant="contained" onClick={()=>navigate('/teacher/about')}>{teacher?.firstName+" "+teacher?.lastName}</Button>
+                        <Button color="Blue" variant="contained" onClick={()=>navigate('/teacher/about')}>{teacher?.firstName+" "+teacher?.lastName.slice[0]}</Button>
                         <Button color="Blue" variant="contained" onClick={handleTeacherLogout}>{t('logout')}</Button>
+                    </>
+                }
+                {
+                    student&&
+                    <>
+                        <Button color="Blue" variant="contained" onClick={()=>navigate('/student/profile')}>{student?.name}</Button>
+                        <Button color="Blue" variant="contained" onClick={handleStudentLogout}>{t('logout')}</Button>
                     </>
                 }
                 {

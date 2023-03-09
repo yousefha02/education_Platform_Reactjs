@@ -1,6 +1,5 @@
 import { FormControl, Grid, InputLabel, MenuItem,styled, Paper, Select, Typography,Box, TextField, Button, FormControlLabel, RadioGroup, Radio } from '@mui/material'
 import React from 'react'
-import Navbar from '../../components/Navbar'
 import StudentLayout from '../../components/student/StudentLayout'
 import { useForm, Controller } from "react-hook-form";
 import AddLanguages from '../../components/reusableUi/AddLanguages'
@@ -23,7 +22,6 @@ export default function StudentProfile() {
         defaultValues: {
             gender:'',
             fullName:'',
-            email:'',
             dateOfBirth:"",
             phone:'',
             city:"",
@@ -36,7 +34,6 @@ export default function StudentProfile() {
     const onSubmit = data => console.log(data);
 
     return (
-        <Navbar>
             <StudentLayout>
                 <Paper sx={{padding:"20px"}}>
                     <Typography sx={{fontSize:"24px",marginTop:"12px",fontWeight:"600",marginBottom:"30px"}}>
@@ -44,7 +41,7 @@ export default function StudentProfile() {
                     </Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Grid container spacing={6}>
-                            <Grid item xs={7}>
+                            <Grid item xs={12} md={7}>
                                 <Box sx={{marginBottom:"26px"}}>
                                     <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Full Name</InputLabel>
                                     <Controller
@@ -83,16 +80,6 @@ export default function StudentProfile() {
                                     {...register("dateOfBirth", { required: "dateOfBirth Address is required" })}
                                     />
                                     {errors.dateOfBirth?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
-                                </Box>
-                                <Box sx={{marginBottom:"26px"}}>
-                                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Email</InputLabel>
-                                    <Controller
-                                    name="email"
-                                    control={control}
-                                    render={({ field }) => <TextField {...field} fullWidth/>}
-                                    {...register("email", { required: "email Address is required" })}
-                                    />
-                                    {errors.email?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
                                 </Box>
                                 <Box sx={{marginBottom:"26px"}}>
                                     <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Phone</InputLabel>
@@ -154,9 +141,8 @@ export default function StudentProfile() {
                                     />
                                     {errors.curriculum?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
                                 </Box>
-                                <Button variant="contained" color="secondary" type="submit">Save</Button>
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={12} md={4}>
                             <Button variant='contained' sx={{textTransform:"capitalize",padding:0,marginBottom:"30px"}}>
                                 <Label htmlFor='image'>Upload Image</Label>
                             </Button>
@@ -164,9 +150,9 @@ export default function StudentProfile() {
                             <Image/>
                             </Grid>
                         </Grid>
+                        <Button variant="contained" color="secondary" type="submit" sx={{marginY:"10px"}}>Save</Button>
                     </form>
                 </Paper>
             </StudentLayout>
-        </Navbar>
     )
 }
