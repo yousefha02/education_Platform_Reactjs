@@ -163,7 +163,7 @@ function AdminLayout(props) {
                     </Typography>
                 </Box>
                 <Box>
-                    <ChangeLanguage/>
+                    <ChangeLanguage lang={lang}/>
                     <Button variant="contained" color="secondary" sx={{marginLeft:"12px"}}
                     onClick={logout}>{t('logout')}</Button>
                 </Box>

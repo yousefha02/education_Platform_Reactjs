@@ -1,11 +1,10 @@
-import { Box, Button, Container, FormControl, MenuItem, Select, Typography } from '@mui/material'
+import { Autocomplete, Box, Button, Container, FormControl, MenuItem, Select, TextField, Typography } from '@mui/material'
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react'
 import { Controller,useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux';
 import { useStudents } from '../../hooks/useStudents';
 import Navbar from '../Navbar'
-
 export default function ParentAddStudent() {
     const { register,control, formState: { errors }, handleSubmit , reset } = useForm({
         defaultValues: {
@@ -17,10 +16,11 @@ export default function ParentAddStudent() {
     const {parent , token} = useSelector(s => s.parent);
     const [isLoad , setIsLoad] = useState(false);
 
-    const {data : students} = useStudents();
+    const {data : students , isLoading} = useStudents();
 
 
-    const onSubmit = async ( data) => {
+    const onSubmit = async (e) => {
+        e.preventDefault();
         closeSnackbar();
         setIsLoad(true);
         try{
@@ -30,11 +30,12 @@ export default function ParentAddStudent() {
                     "Content-Type" : "application/json",
                     "Authorization" : token
                 },     
-                body:JSON.stringify({StudentId:data.studentId ,ParentId:parent.id})
+                body:JSON.stringify({StudentId:value ,ParentId:parent.id})
             })
             const resData = await response.json()
             setIsLoad(false);
             reset({studentId:""})
+            setValue(null);
             if(response.status!==200&&response.status!==201)
             {
                 enqueueSnackbar(resData.message,{variant:"error",autoHideDuration:2000})
@@ -49,15 +50,21 @@ export default function ParentAddStudent() {
         }
     };
 
+      const [value, setValue] = useState(null);
+
+
     return (
         <Navbar>
             <>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                {
+                    !isLoading&&
+                    <form onSubmit={e=>onSubmit(e)}>
                     <Box sx={{marginBottom:"26px"}}>
-                        <Controller
+                        {/* <Controller
                         name="studentId"
                         control={control}
-                        render={({ field }) =><Select
+                        render={({ field }) =>
+                        <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             {...field}
@@ -69,19 +76,34 @@ export default function ParentAddStudent() {
                                     })
                                 }
                         </Select>
-                    }
-                    {...register("studentId", { required: "studentId is required" })}
+                    } */}
+                    <Autocomplete
+                        onChange={(event, newValue) => {
+                            setValue(newValue?.id || null)
+                        }}
+                        id="size-small-standard-multi"
+                        size="small"
+                        options={students.data}
+                        getOptionLabel={(option) => option.name}
+                        renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            variant="standard"
+                        />
+                        )}
                     />
-                    {errors.studentId?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                    {/* {...register("studentId", { required: "studentId is required" })} */}
+                    {/* {errors.studentId?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>} */}
                     </Box>
                     {
                         isLoad
                         ?
                         <Button color="secondary" variant="contained" sx={{opacity:0.7}}>Save...</Button>
                         :
-                        <Button color="secondary" variant="contained" type="submit">Save</Button>
+                        value && <Button color="secondary" variant="contained" type="submit">Save</Button>
                     }
                 </form>
+                }
             </>
         </Navbar>
     )
