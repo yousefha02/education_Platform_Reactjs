@@ -123,7 +123,7 @@ function Navbar(props) {
                 {
                     teacher&&
                     <>
-                        <Button color="Blue" variant="contained" onClick={()=>navigate('/teacher/about')}>{teacher?.firstName+" "+teacher?.lastName.slice[0]}</Button>
+                        <Button color="Blue" variant="contained" onClick={()=>navigate('/teacher/about')}>{teacher?.firstName+" "+teacher?.lastName}</Button>
                         <Button color="Blue" variant="contained" onClick={handleTeacherLogout}>{t('logout')}</Button>
                     </>
                 }
