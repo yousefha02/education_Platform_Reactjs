@@ -5,7 +5,6 @@ import { Controller,useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux';
 import { useStudents } from '../../hooks/useStudents';
 import Navbar from '../Navbar'
-
 export default function ParentAddStudent() {
     const { register,control, formState: { errors }, handleSubmit , reset } = useForm({
         defaultValues: {
@@ -17,10 +16,11 @@ export default function ParentAddStudent() {
     const {parent , token} = useSelector(s => s.parent);
     const [isLoad , setIsLoad] = useState(false);
 
-    const {data : students} = useStudents();
+    const {data : students , isLoading} = useStudents();
 
 
     const onSubmit = async ( data) => {
+        console.log(data);
         closeSnackbar();
         setIsLoad(true);
         try{
@@ -49,15 +49,23 @@ export default function ParentAddStudent() {
         }
     };
 
+    const defaultProps = {
+        options: students?.data,
+        getOptionLabel: (option) => option?.name,
+      };
+
     return (
         <Navbar>
             <>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                {
+                    !isLoading&&
+                    <form onSubmit={handleSubmit(onSubmit)}>
                     <Box sx={{marginBottom:"26px"}}>
                         <Controller
                         name="studentId"
                         control={control}
-                        render={({ field }) =><Select
+                        render={({ field }) =>
+                        <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             {...field}
@@ -82,6 +90,7 @@ export default function ParentAddStudent() {
                         <Button color="secondary" variant="contained" type="submit">Save</Button>
                     }
                 </form>
+                }
             </>
         </Navbar>
     )

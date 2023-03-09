@@ -54,7 +54,7 @@ export default function HomeParent() {
     const {parent , token} = useSelector(s => s.parent);
 
     const {data} = useStudentsForParent(parent.id, token);
-    console.log(data);
+
 
     const {t} = useTranslation()
   

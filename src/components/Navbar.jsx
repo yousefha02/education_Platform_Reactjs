@@ -23,6 +23,8 @@ import { useTranslation } from 'react-i18next';
 import { useSelector,useDispatch } from 'react-redux';
 import { logoutTeacher } from '../redux/teacherSlice';
 import {logoutParent} from '../redux/parentSlice'
+import cookies from "js-cookie";
+
 
 const drawerWidth = 240;
 
@@ -39,6 +41,7 @@ function Navbar(props) {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const {teacher} = useSelector((state)=>state.teacher)
     const {parent} = useSelector((state)=>state.parent)
+    const lang = cookies.get("i18next") || "en";
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -99,7 +102,7 @@ function Navbar(props) {
                         <Typography sx={{fontSize:"14px"}}>+999 5999999</Typography>
                     </Box>
                 </Link>
-                <ChangeLanguage/>
+                <ChangeLanguage lang={lang}/>
                 <SelectCurrency/>
                 {!teacher&&!parent&&
                 <>
