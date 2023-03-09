@@ -2,7 +2,7 @@ import React from 'react'
 import PublicIcon from '@mui/icons-material/Public';
 import { useNavigate } from 'react-router-dom';
 import i18next from 'i18next';
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
 export default function ChangeLanguage({lang}) {
     const navigate = useNavigate()
     const languages=[
@@ -36,7 +36,7 @@ export default function ChangeLanguage({lang}) {
     return (
         <>
             <IconButton sx={{color:"white"}} onClick={handleClick} disableTouchRipple>
-                {/* <PublicIcon/> */}{lang}
+                <Typography sx={{fontSize:"18px"}}>{lang}</Typography>
             </IconButton>
             <Menu
             id="basic-menu"

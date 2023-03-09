@@ -26,7 +26,6 @@ import {logoutParent} from '../redux/parentSlice'
 import cookies from "js-cookie";
 import {studentLogout} from '../redux/studentSlice'
 
-
 const drawerWidth = 240;
 
 const ImageLogo = styled('img')({

@@ -9,7 +9,7 @@ export default function AddDayTime({day,selectedTimes,setSelectedTimes}) {
     
     function AddNewTime()
     {
-        setSelectedTimes(back=>[...back,{from:"20:48",to:"20:48",TeacherId:1,DayId:day.id}])
+        setSelectedTimes(back=>[...back,{from:"20:48",to:"20:48",DayId:day.id}])
     }
 
     function handleChangeTime(e,item)

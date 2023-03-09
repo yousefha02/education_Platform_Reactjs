@@ -9,15 +9,18 @@ import SelectTimeZone from '../../components/reusableUi/SelectTimeZone'
 import { useTranslation } from 'react-i18next';
 import {useTeacher} from '../../hooks/useTeacher'
 import { useSelector } from 'react-redux'
+import {useNavigate} from 'react-router-dom'
 
 export default function TeacherAvailability() {
     const {t} = useTranslation()
+    const navigate = useNavigate()
 
-    const {teacher} = useSelector((state)=>state.teacher)
+    const {teacher,token} = useSelector((state)=>state.teacher)
     const {data,isLoading} = useTeacher(teacher.id)
     const [selectedTimes,setSelectedTimes] = useState([])
     const [selectedDays,setSelectedDays] = useState([])
     const [selectedTimezone, setSelectedTimezone] = useState(null)
+    const [load,setLoad] = useState(false)
 
     useEffect(()=>
     {
@@ -50,16 +53,22 @@ export default function TeacherAvailability() {
 
     async function onSubmit()
     {
+        const days = selectedTimes.map(day=>
+        {
+            return {...day,TeacherId:teacher.id}
+        })
         try{
-            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/time/4`,{
+            setLoad(true)
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/availability/${teacher.id}`,{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",
+                    "Authorization":token
                 },
-                body:JSON.stringify({times:selectedTimes,timeZone:selectedTimezone})
+                body:JSON.stringify({teacherDayes:days,timeZone:selectedTimezone})
             })
             const data = await response.json()
-            console.log(data)
+            navigate('/teacher/description')
         }
         catch(err)
         {
@@ -86,7 +95,7 @@ export default function TeacherAvailability() {
                             )
                         })
                     }
-                    <StepperButtons onSubmit={onSubmit}/>
+                    <StepperButtons onSubmit={onSubmit} load={load}/>
                 </Box>
             </TeacherLayout>
         </Navbar>
