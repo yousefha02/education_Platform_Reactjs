@@ -6,7 +6,7 @@ import Footer from '../client/home/Footer'
 import DownloadApp from '../client/home/DownloadApp'
 import Navbar from '../Navbar'
 
-const topics = [{title:"Profile",link:"/profile"},{title:"Lessons",link:"Lesson"},
+const topics = [{title:"Profile",link:"/profile"},{title:"Lessons",link:"/lessons"},
 {title:"Settings",link:'/settings'},{title:"Messages",link:"/messages"}]
 
 export default function StudentLayout({children}) {
