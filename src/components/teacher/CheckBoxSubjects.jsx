@@ -5,6 +5,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import { InputLabel,Accordion,AccordionSummary,AccordionDetails } from '@mui/material';
+import Cookies from 'js-cookie';
 
 export default function CheckBoxSubjects({subject,choseCategories,setChosenCategories}) {
 
@@ -20,14 +21,16 @@ export default function CheckBoxSubjects({subject,choseCategories,setChosenCateg
         setChosenCategories(newChecked);
     };
 
+    const lang = Cookies.get("i18next") || "en";
+
     return (
         <Accordion sx={{marginBottom:"26px"}}>
         <AccordionSummary>
-            <InputLabel sx={{fontSize:"14px"}}>{subject.title}</InputLabel>
+            <InputLabel sx={{fontSize:"14px"}}>{lang==="en"?subject.titleEN:subject.titleAR}</InputLabel>
         </AccordionSummary>
         <AccordionDetails>
             <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper',display:"flex" }}>
-            {subject.categs.map((value) => {
+            {subject.Subjects.map((value) => {
                 const labelId = `checkbox-list-secondary-label-${value.id}`;
                 return (
                 <ListItem
@@ -45,7 +48,7 @@ export default function CheckBoxSubjects({subject,choseCategories,setChosenCateg
                     disablePadding
                 >
                     <ListItemButton>
-                        <ListItemText id={labelId} primary={value.title} sx={{textAlign:"start"}}/>
+                        <ListItemText id={labelId} primary={lang==="en"?value.titleEN:value.titleAR} sx={{textAlign:"start"}}/>
                     </ListItemButton>
                 </ListItem>
                 );
