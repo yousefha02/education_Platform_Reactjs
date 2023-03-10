@@ -1,6 +1,6 @@
 export default [ 
     {
-        title:"SAR"
+        title:"SAR",
     },
     {
         title:"AED"
