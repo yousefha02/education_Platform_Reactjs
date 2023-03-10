@@ -1,24 +1,57 @@
 import { Button,styled ,Box, InputLabel, TextField, Typography} from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TeacherLayout from '../../components/teacher/TeacherLayout'
 import StepperButtons from '../../components/reusableUi/StepperButtons'
 import Navbar from '../../components/Navbar'
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import {useTeacher} from '../../hooks/useTeacher'
 
 export default function TeacherVideo() {
 
+    const {teacher,token} = useSelector((state)=>state.teacher)
+    const [load,setLoad] = useState(false)
+    const navigate = useNavigate()
+    const {data,isLoading} = useTeacher()
     const {t} = useTranslation()
 
-    const { register,control, formState: { errors }, handleSubmit } = useForm({
+    const { register,control,reset ,formState: { errors }, handleSubmit } = useForm({
         defaultValues: {
             link: '',
         }
     });
 
-    function onSubmit(data)
+    useEffect(()=>{
+        if(data)
+        {
+            const user = data?.data;
+            reset({
+                videoLink:user.videoLink
+            })
+        }
+    },[data])
+
+    async function onSubmit(data)
     {
-        console.log(data)
+        try{
+            setLoad(true)
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/videoLink/${teacher.id}`,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization":token
+                },
+                body:JSON.stringify({videoLink:data.link})
+            })
+            const resData = await response.json()
+            navigate('/teacher')
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
     }
     return (
         <Navbar>
@@ -36,7 +69,7 @@ export default function TeacherVideo() {
                         {errors.link?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                     </Box>
                 </Box>
-                <StepperButtons/>
+                <StepperButtons onSubmit={onSubmit}/>
             </form>
         </TeacherLayout>
         </Navbar>
