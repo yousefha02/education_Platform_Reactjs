@@ -30,24 +30,35 @@ export default function TeacherPhoto() {
     const navigate = useNavigate()
 
     const handleButtonSubmit = async ()=> {
-        closeSnackbar();
-        if(!image){
-            enqueueSnackbar(t('image_required') , {variant:"error" , autoHideDuration:2000});
-            return ;
+        try{
+            closeSnackbar();
+            if(!image){
+                enqueueSnackbar(t('image_required') , {variant:"error" , autoHideDuration:2000});
+                throw new Error('image is not found')
+            }
+            setLoad(true)
+            const formData = new FormData();
+            formData.append('image' , image);
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/image/${teacher.id}`,{
+                method:"POST",
+                headers:{
+                    "Authorization":token
+                },
+                body:formData
+            })
+            if(response.status!==200&&response.status!==201)
+            {
+                throw new Error('failed occured')
+            }
+            setLoad(false)
+            const resData = await response.json();
+            console.log(resData)
+            navigate('/teacher/AdditionalInformation')
         }
-        setLoad(true)
-        const formData = new FormData();
-        formData.append('image' , image);
-        const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/image/${teacher.id}`,{
-            method:"POST",
-            headers:{
-                "Authorization":token
-            },
-            body:formData
-        })
-        setLoad(false)
-        const resData = await response.json();
-        navigate('/teacher/AdditionalInformation')
+        catch(err)
+        {
+            console.log(err)
+        }
     }
 
     return (

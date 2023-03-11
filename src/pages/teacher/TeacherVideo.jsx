@@ -14,7 +14,7 @@ export default function TeacherVideo() {
     const {teacher,token} = useSelector((state)=>state.teacher)
     const [load,setLoad] = useState(false)
     const navigate = useNavigate()
-    const {data,isLoading} = useTeacher()
+    const {data} = useTeacher(teacher?.id)
     const {t} = useTranslation()
 
     const { register,control,reset ,formState: { errors }, handleSubmit } = useForm({
@@ -28,7 +28,7 @@ export default function TeacherVideo() {
         {
             const user = data?.data;
             reset({
-                videoLink:user.videoLink
+                link:user?.videoLink
             })
         }
     },[data])
@@ -37,7 +37,7 @@ export default function TeacherVideo() {
     {
         try{
             setLoad(true)
-            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/videoLink/${teacher.id}`,{
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/videoLink/${teacher?.id}`,{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",
@@ -69,7 +69,7 @@ export default function TeacherVideo() {
                         {errors.link?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                     </Box>
                 </Box>
-                <StepperButtons onSubmit={onSubmit}/>
+                <StepperButtons onSubmit={onSubmit} load={load}/>
             </form>
         </TeacherLayout>
         </Navbar>

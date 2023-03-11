@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Paper, Typography } from '@mui/material'
+import { Button, Container, Grid, Paper } from '@mui/material'
 import React from 'react'
 import AboutSingleTeacher from '../../components/client/singleTeacher/AboutSingleTeacher'
 import AvailablitySingleTeacher from '../../components/client/singleTeacher/AvailablitySingleTeacher'
@@ -6,17 +6,26 @@ import HeaderSingleTeacher from '../../components/client/singleTeacher/HeaderSin
 import ResumeSingleTeacher from '../../components/client/singleTeacher/ResumeSingleTeacher'
 import StdeuntsTypeSingleTeacher from '../../components/client/singleTeacher/StdeuntsTypeSingleTeacher'
 import Navbar from '../../components/Navbar'
+import {useTeacher} from '../../hooks/useTeacher'
+import {useParams} from 'react-router-dom'
+import Loading from '../../components/Loading'
 export default function SingleTeacher() {
+    const {id} = useParams()
+    const {data,isLoading} = useTeacher(id)
+
+    console.log(data)
     return (
         <Navbar>
+            {
+            !isLoading?
             <Container sx={{marginBottom:"40px",marginTop:"40px"}}>
                 <Grid container spacing={3}>
                     <Grid item xs={8}>
-                        <HeaderSingleTeacher/>
-                        <AboutSingleTeacher/>
-                        <StdeuntsTypeSingleTeacher/>
-                        <AvailablitySingleTeacher/>
-                        <ResumeSingleTeacher/>
+                        <HeaderSingleTeacher teacher={data.data}/>
+                        <AboutSingleTeacher teacher={data.data}/>
+                        <StdeuntsTypeSingleTeacher teacher={data.data}/>
+                        <AvailablitySingleTeacher teacher={data.data}/>
+                        <ResumeSingleTeacher teacher={data.data}/>
                     </Grid>
                     <Grid item xs={4}>
                         <Paper sx={{padding:"24px 12px",marginY:"30px"}}>
@@ -28,6 +37,9 @@ export default function SingleTeacher() {
                     </Grid>
                 </Grid>
             </Container>
+            :
+            <Loading/>
+            }
         </Navbar>
     )
 }

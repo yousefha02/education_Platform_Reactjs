@@ -10,14 +10,14 @@ const Image = styled("img")({
     borderRadius:"8px"
 })
 
-export default function HeaderSingleTeacher() {
+export default function HeaderSingleTeacher({teacher}) {
     return (
         <Paper sx={{padding:"24px",marginY:"30px"}}>
-            <ReactPlayer url="https://www.youtube.com/watch?v=uv2_g7wCvdw" width="100%"/>
+            <ReactPlayer url={teacher.videoLink} width="100%"/>
             <Box sx={{marginTop:"30px",display:"flex",columnGap:"20px"}}>
                 <Image src={"https://mui.com/static/images/avatar/1.jpg"}/>
                 <Box>
-                    <Typography sx={{fontSize:"20px",marginBottom:"8px",fontWeight:"700"}}>Yousef A.</Typography>
+                    <Typography sx={{fontSize:"20px",marginBottom:"8px",fontWeight:"700"}}>{teacher.firstName + " "+teacher.lastName[0]}</Typography>
                     <Box sx={{display:"flex",columnGap:"4px",alignItems:"center",marginBottom:"8px"}}>
                         <SpeakerNotesIcon sx={{fontSize:"16px",color:"#d5d5d5"}}/>
                         <Typography sx={{color:"#4f4f51",fontSize:"14px",fontWeight:"bold"}}>Speaks: </Typography>
