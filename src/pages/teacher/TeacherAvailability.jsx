@@ -95,7 +95,7 @@ export default function TeacherAvailability() {
                             )
                         })
                     }
-                    <StepperButtons onSubmit={onSubmit} load={load}/>
+                    <StepperButtons onSubmit={onSubmit} load={load} skipLink="description"/>
                 </Box>
             </TeacherLayout>
         </Navbar>

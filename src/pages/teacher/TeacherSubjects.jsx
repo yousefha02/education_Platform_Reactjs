@@ -222,7 +222,7 @@ export default function TeacherSubjects() {
                     </Box>
                 </Box>
                 </Box>
-                <StepperButtons link="resume" onSubmit={onSubmit} load={load}/>
+                <StepperButtons skipLink="resume" onSubmit={onSubmit} load={load}/>
             </TeacherLayout>
         </Navbar>
     )

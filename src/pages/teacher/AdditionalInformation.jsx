@@ -182,7 +182,7 @@ export default function AdditionalInformation() {
             </Box> */}
             <CheckBoxLevels setChecked={setChecked} checked={checked}/>
             <CheckBoxCurriculum checked={checked_2} setChecked={setChecked_2}/>
-            <StepperButtons link='subjects' load={load}/>
+            <StepperButtons load={load} skipLink="subjects"/>
             </form>
         </TeacherLayout>
         </Navbar>

@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
+import { useTranslation } from 'react-i18next';
 
 const Image = styled('img')({
     width:"100%",
@@ -12,13 +13,14 @@ const Image = styled('img')({
 })
 
 export default function LandingTestimonials() {
+    const {t} = useTranslation()
     return (
         <Box sx={{marginY:"50px",paddingY:"40px",backgroundColor:"#d9d9d952"}}>
             <Container>
                 <Typography sx={{fontSize:{md:"26px",xs:"22px"},fontWeight:"700",color:"#151313",textAlign:"center",
-                marginBottom:"20px"}}>شهادة طلابنا , شرف لنا دومآ</Typography>
+                marginBottom:"20px"}}>{t('tsmTitle')}</Typography>
                 <Typography sx={{color:"#6D6D6D",textAlign:"center"}}>
-                أكثر من 10.000 طالب استفاد من منصّة معلمي
+                    {t('tsmDesc')}
                 </Typography>
                 <Box sx={{marginY:"40px"}}>
                 <Swiper

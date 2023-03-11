@@ -3,6 +3,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSubjects } from '../../../hooks/useSubject'
 import Loading from '../../Loading'
+import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
 
 const Image = styled("img")({
     width:"100%",
@@ -11,6 +13,7 @@ const Image = styled("img")({
 })
 
 export default function LandingSubjects() {
+    const {t} = useTranslation()
     const {data,isLoading} = useSubjects()
     return (
         <Container sx={{minHeight:"20vh",marginY:"60px"}}>
@@ -28,7 +31,7 @@ export default function LandingSubjects() {
                                     <Image src={"https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk="}/>
                                     <Typography sx={{textAlign:"center",marginTop:"8px",
                                     color:"#151313",fontSize:"18px",fontWeight:"bold"}}>
-                                        {item.titleAR}
+                                        {Cookies.get("i18next")==="ar"?item.titleAR:item.titleEN}
                                     </Typography>
                                 </Paper>
                             </Link>
@@ -38,7 +41,7 @@ export default function LandingSubjects() {
                 }
                 </Grid>
                 <Box sx={{marginTop:"30px",display:"flex",justifyContent:"center"}}>
-                    <Button variant="contained">عرض المزيد</Button>
+                    <Button variant="contained">{t('loadMore')}</Button>
                 </Box>
                 </>
                 :

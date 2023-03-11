@@ -3,7 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 
-export default function StepperButtons({ onSubmit , load}) {
+export default function StepperButtons({ onSubmit , load , skipLink}) {
     const {t} = useTranslation();
     const navigate = useNavigate();
     return (
@@ -17,7 +17,8 @@ export default function StepperButtons({ onSubmit , load}) {
                 <Button sx={{textTransform:"capitalize"}} variant="contained" type='submit'
                 onClick={onSubmit}>{t('next')}</Button>
             }
-            <Button sx={{textTransform:"capitalize"}} variant="outlined">{t('skip')}</Button>
+            <Button sx={{textTransform:"capitalize"}} variant="outlined" 
+            onClick={()=>navigate(`/teacher/${skipLink}`)}>{t('skip')}</Button>
         </Box>
     )
 }

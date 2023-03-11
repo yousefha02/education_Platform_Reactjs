@@ -1,7 +1,7 @@
 import { Box, Button } from '@mui/material'
 import React from 'react'
-import { useEffect } from 'react'
 import FormAddDayTime from './FormAddDayTime'
+import { useTranslation } from 'react-i18next';
 
 export default function AddDayTime({day,selectedTimes,setSelectedTimes}) {
 
@@ -26,10 +26,12 @@ export default function AddDayTime({day,selectedTimes,setSelectedTimes}) {
         const times = selectedTimes.filter(time=>time!==item)
         setSelectedTimes(times)
     }
+
+    const {t} = useTranslation()
     
     return (
         <Box>
-            <Button onClick={AddNewTime} sx={{textTransform:"capitalize"}} color="secondary">Add more</Button>
+            <Button onClick={AddNewTime} sx={{textTransform:"capitalize"}} color="secondary">{t('addMore')}</Button>
             <Box>
             {
                 checkedTimes.map((time,index)=>

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import {useSubjectCategoreis} from '../../../hooks/useSubjectCategoreis'
 import { useLevels } from '../../../hooks/useLevels';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
 
 const Wrapper = styled(Box)({
     backgroundPosition:"center",
@@ -20,6 +21,7 @@ const Wrapper = styled(Box)({
 })
 
 export default function LandingBanner() {
+    const lang = Cookies.get("i18next")
     const {t} = useTranslation()
     const categoriesData = useSubjectCategoreis()
     const levelsData = useLevels()
@@ -38,7 +40,7 @@ export default function LandingBanner() {
             <Container>
                 <Typography sx={{marginBottom:"70px",fontSize:{md:"28px", xs:"18px"} , 
                 position:"relative" , fontWeight:"bold"}} color="secondary">
-                مع معلمي , لا تقلق بشأن الدراسة وذاكر بالوقت والمكان اللي يناسبك
+                {t('landing_title')}
                 </Typography>
                 <Grid container spacing={2} alignItems="center"
                 sx={{backgroundColor:"white",padding:"0px 10px 14px",borderRadius:"6px",position:"relative",zIndex:3}}>
@@ -52,19 +54,19 @@ export default function LandingBanner() {
                         id="size-small-standard-multi"
                         size="small"
                         options={categoriesData.data.data}
-                        getOptionLabel={(option) => option.titleAR}
+                        getOptionLabel={(option) => lang==="ar"?option.titleAR:option.titleEN}
                         renderInput={(params) => (
                         <TextField
                             {...params}
                             variant="standard"
-                            label="بحث عن موضوع"
+                            label={t('categories')}
                         />
                         )}
                     />}
                     </Grid>
                     <Grid item xs={12} md={6} lg={5}>
                         <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">مرحلة دراسية</InputLabel>
+                            <InputLabel id="demo-simple-select-label">{t('studylevel')}</InputLabel>
                             <Select
                             sx={{textAlign:"start"}}
                             placeholder='level'
@@ -72,20 +74,20 @@ export default function LandingBanner() {
                             id="demo-simple-select"
                             value={level}
                             onChange={handleChange}
-                            label="مرحلة دراسية"
+                            label={t('studylevel')}
                             >
                                 {
                                     !levelsData.isLoading&&levelsData.data.data.length>0&&
                                     levelsData.data.data.map((item,index)=>
                                     {
-                                        return <MenuItem key={index+'zas'} value={item.id}>{item.titleAR}</MenuItem>
+                                        return <MenuItem key={index+'zas'} value={item.id}>{lang==="ar"?item.titleAR:item.titleEN}</MenuItem>
                                     })
                                 }
                             </Select>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} md={12} lg={2}>
-                        <Button variant="contained" fullWidth>بحث</Button>
+                        <Button variant="contained" fullWidth>{t('search')}</Button>
                     </Grid>
                 </Grid>
             </Container>

@@ -69,7 +69,7 @@ export default function TeacherVideo() {
                         {errors.link?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                     </Box>
                 </Box>
-                <StepperButtons onSubmit={onSubmit} load={load}/>
+                <StepperButtons onSubmit={onSubmit} load={load} skipLink="teacher"/>
             </form>
         </TeacherLayout>
         </Navbar>

@@ -26,12 +26,12 @@ export default function HeaderSingleTeacher({teacher}) {
                     <Box sx={{display:"flex",columnGap:"4px",alignItems:"center",marginBottom:"8px"}}>
                         <SpeakerNotesIcon sx={{fontSize:"16px",color:"#d5d5d5"}}/>
                         <Typography sx={{color:"#4f4f51",fontSize:"14px",fontWeight:"bold"}}>Certified teacher: </Typography>
-                        <Typography sx={{color:"#616161",fontSize:"14px"}}>5-10 Total years of experience</Typography>
+                        <Typography sx={{color:"#616161",fontSize:"14px"}}>{teacher.experienceYears} Total years of experience</Typography>
                     </Box>
                     <Box sx={{display:"flex",columnGap:"4px",alignItems:"center",marginBottom:"8px"}}>
                         <LocationOnIcon sx={{fontSize:"16px",color:"#d5d5d5"}}/>
                         <Typography sx={{color:"#4f4f51",fontSize:"14px",fontWeight:"bold"}}>Location: </Typography>
-                        <Typography sx={{color:"#616161",fontSize:"14px"}}>Gaza, Palestine</Typography>
+                        <Typography sx={{color:"#616161",fontSize:"14px"}}>{teacher.city + " , "+ teacher.country}</Typography>
                     </Box>
                     <Box sx={{display:"flex",columnGap:"4px",alignItems:"center",marginBottom:"8px"}}>
                         <SchoolIcon sx={{fontSize:"16px",color:"#d5d5d5"}}/>

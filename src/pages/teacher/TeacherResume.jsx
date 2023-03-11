@@ -91,7 +91,7 @@ export default function TeacherResume() {
                     <Typography sx={{fontSize:"20px",marginBottom:"10px"}}>{t('degrees')}</Typography>
                     <EducationDegrees degrees={degrees} setDegrees={setDegrees} ref={childComponentRefThree}/>
                 </Box>
-                <StepperButtons load={load} onSubmit={onSubmit}/>
+                <StepperButtons skipLink="availability" load={load} onSubmit={onSubmit}/>
             </TeacherLayout>
         </Navbar>
     )

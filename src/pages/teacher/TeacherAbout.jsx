@@ -36,7 +36,7 @@ export default function TeacherAbout() {
         if(data)
         {
             const user = data?.data;
-            setChosenLanguages(data?.data.LangTeachStds)
+            setChosenLanguages(data?.data?.LangTeachStds)
             reset({
                 firstName:user?.firstName,
                 lastName:user?.lastName,

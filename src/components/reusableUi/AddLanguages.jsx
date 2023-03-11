@@ -2,13 +2,14 @@ import { Box ,Button,FormControl,Grid, InputLabel, MenuItem, Select} from '@mui/
 import React, { useEffect, useState } from 'react'
 import languages from '../../data/languages' 
 import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
 
 const levels = ['Beginner','Intermediate','Intermediate High','Advanced','Native']
 
 export default function AddLanguages({chosenlanguages,setChosenLanguages}) {
     
     const {t} = useTranslation()
-
+    const langCookie = Cookies.get("i18next") || "en";
 
     function addNewLanguage()
     {
@@ -60,7 +61,7 @@ export default function AddLanguages({chosenlanguages,setChosenLanguages}) {
                                             languages.map((lang,index)=>
                                             {
                                                 return(
-                                                    <MenuItem key={index+'a1'} value={lang.id}>{lang.title_en}</MenuItem>
+                                                    <MenuItem key={index+'a1'} value={lang.id}>{langCookie==="ar"?lang.title_ar:lang.title_en}</MenuItem>
                                                 )
                                             })
                                         }

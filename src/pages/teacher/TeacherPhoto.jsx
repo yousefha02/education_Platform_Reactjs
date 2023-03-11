@@ -74,7 +74,7 @@ export default function TeacherPhoto() {
                 <Image src={URL.createObjectURL(image)}/>
             }
             </Box>
-            <StepperButtons link="AdditionalInformation" onSubmit={handleButtonSubmit} load={load}/>
+            <StepperButtons skipLink={"AdditionalInformation"} onSubmit={handleButtonSubmit} load={load}/>
         </TeacherLayout>
         </Navbar>
     )

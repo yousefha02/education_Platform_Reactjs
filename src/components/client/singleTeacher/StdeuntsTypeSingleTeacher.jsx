@@ -13,7 +13,7 @@ const IconWrapper = styled("Box")({
     height:"37px"
 })
 
-export default function StdeuntsTypeSingleTeacher() {
+export default function StdeuntsTypeSingleTeacher({teacher}) {
     return (
         <Paper sx={{padding:"32px 24px",marginY:"30px"}}>
             <Typography sx={{fontSize:"22px",marginBottom:"18px"}}>
@@ -24,7 +24,7 @@ export default function StdeuntsTypeSingleTeacher() {
                     <IconWrapper><TransgenderIcon/></IconWrapper>
                     <Box>
                         <Typography sx={{fontSize:"18px",fontWeight:"600"}}>Student's gender he teach</Typography>
-                        <Typography sx={{color:"#878787",fontSize:"14px"}}>Both (Male/Female)</Typography>
+                        <Typography sx={{color:"#878787",fontSize:"14px"}}>{teacher.favStdGender}</Typography>
                     </Box>
                 </Stack>
                 <Stack direction="row" columnGap="10px">

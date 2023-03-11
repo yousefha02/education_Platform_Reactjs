@@ -100,13 +100,13 @@ function Navbar(props) {
                 <Link to="">
                     <Box sx={{display:"flex",alignItems:"center",columnGap:"4px"}}>
                         <EmailOutlinedIcon sx={{fontSize:"15px"}}/>
-                        <Typography sx={{fontSize:"14px"}}>yousef@gmail.com</Typography>
+                        <Typography sx={{fontSize:"14px"}}>moalemy@gmail.com</Typography>
                     </Box>
                 </Link>
                 <Link to="">
                     <Box sx={{display:"flex",alignItems:"center",columnGap:"4px"}}>
                         <PhoneIcon sx={{fontSize:"15px"}}/>
-                        <Typography sx={{fontSize:"14px"}}>+999 5999999</Typography>
+                        <Typography sx={{fontSize:"14px"}}>+123456789</Typography>
                     </Box>
                 </Link>
                 <ChangeLanguage lang={lang}/>
