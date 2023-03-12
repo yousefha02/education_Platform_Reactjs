@@ -1,14 +1,15 @@
 import { Box, Divider, Grid, Paper, Typography } from '@mui/material'
 import React from 'react'
+import TimezoneSelect from 'react-timezone-select'
 
 export default function AvailablitySingleTeacher({teacher}) {
     console.log(teacher.timeZone)
     return (
         <Paper sx={{padding:"32px 24px",marginY:"30px"}}>
             <Typography sx={{fontSize:"22px",marginBottom:"18px"}}>Availability</Typography>
-            <Box>
+            <Box sx={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:"24px"}}>
                 <Typography>Tutor 's availability</Typography>
-                <Typography>{}</Typography>
+                <TimezoneSelect value={teacher.timeZone}/>
             </Box>
             <Box sx={{backgroundColor:"#f9fdff",border:"1px solid #e5f5fe",padding:"20px",
             borderRadius:"8px"}}>
