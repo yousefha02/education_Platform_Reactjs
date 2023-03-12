@@ -40,12 +40,9 @@ export default function LinksFooter() {
                     <IconWrapper><InstagramIcon sx={{fontSize:"18px",color:"white"}}/></IconWrapper>
                 </Box>
                 <Box sx={{display:"flex",columnGap:"18px",alignItems:"center",flexWrap:"wrap"}}>
-                    <MatLink to="">{t('pay')}</MatLink>
                     <MatLink to="">{t('aboutUs')}</MatLink>
-                    <MatLink to="">{('TermsAndConditions')}</MatLink>
+                    <MatLink to="">{t('TermsAndConditions')}</MatLink>
                     <MatLink to="">{t('PrivacyPolicy')}</MatLink>
-                    <MatLink to="">{t('RefundPolicy')}</MatLink>
-                    <MatLink to="">{t('Sitemap')}</MatLink>
                 </Box>
                 <Box sx={{display:"flex",columnGap:"4px",alignItems:"center"}}>
                     <Image src={english}/>

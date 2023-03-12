@@ -45,7 +45,7 @@ export default function AdditionalInformation() {
             reset({
                 certificates:user?.haveCertificates ? "yes" :"no",
                 experience :user?.haveExperience ? "yes" : "no",
-                yearsOfExperience : `${user?.experienceYears}`,
+                yearsOfExperience : user?.experienceYears,
                 hours_per_week : user?.favHours,
                 gender : user?.favStdGender
             })
@@ -106,12 +106,12 @@ export default function AdditionalInformation() {
             <Box sx={{marginBottom:"26px"}}>
                 <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>{t('experience')}</InputLabel>
                 <Controller
-                name="certificates"
+                name="experience"
                 control={control}
                 render={({ field }) =>
                 <RadioGroup {...field}>
                     <FormControlLabel value="yes" control={<Radio size="2px"/>} label={t('yes')}/>
-                    <FormControlLabel value="no" control={<Radio size="2px"/>} label={t('No')}/>
+                    <FormControlLabel value="no" control={<Radio size="2px"/>} label={t('no')}/>
                 </RadioGroup>}
                 {...register("experience", { required: "experience Address is required" })}
                 />
@@ -126,9 +126,9 @@ export default function AdditionalInformation() {
                 <RadioGroup {...field}>
                     <FormControlLabel value="0" control={<Radio size="2px"/>} label="0"/>
                     <FormControlLabel value="1" control={<Radio size="2px"/>} label="1" />
-                    <FormControlLabel value="2" control={<Radio size="2px"/>} label="2-4" />
-                    <FormControlLabel value="5" control={<Radio size="2px"/>} label="5-10" />
-                    <FormControlLabel value="10" control={<Radio size="2px"/>} label="+10" />
+                    <FormControlLabel value="2-4" control={<Radio size="2px"/>} label="2-4" />
+                    <FormControlLabel value="5-10" control={<Radio size="2px"/>} label="5-10" />
+                    <FormControlLabel value="+10" control={<Radio size="2px"/>} label="+10" />
                 </RadioGroup>}
                 {...register("yearsOfExperience", { required: "yearsOfExperience Address is required" })}
                 />
@@ -141,9 +141,9 @@ export default function AdditionalInformation() {
                 control={control}
                 render={({ field }) =>
                 <RadioGroup {...field}>
-                    <FormControlLabel value="male" control={<Radio size="2px"/>} label="male"/>
-                    <FormControlLabel value="female" control={<Radio size="2px"/>} label="female" />
-                    <FormControlLabel value="both" control={<Radio size="2px"/>} label="both" />
+                    <FormControlLabel value="male" control={<Radio size="2px"/>} label={t('male')}/>
+                    <FormControlLabel value="female" control={<Radio size="2px"/>} label={t('female')} />
+                    <FormControlLabel value="both" control={<Radio size="2px"/>} label={t('both')} />
                 </RadioGroup>}
                 {...register("gender", { required: "gender Address is required" })}
                 />
