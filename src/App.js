@@ -43,6 +43,7 @@ import AdminSubjectCategories from './pages/admin/AdminSubjectCategories';
 import AdminParentStudent from './pages/admin/AdminParentStudent';
 import StudentMessages from './pages/student/StudentMessages';
 import StudentLessons from './pages/student/StudentLessons';
+import TeacherMessages from './pages/teacher/TeacherMessages';
 
 const theme = createTheme({
   direction:"rtl",
@@ -125,6 +126,7 @@ function App() {
             <Route path='teacher/availability' element={teacher?<TeacherAvailability/>:<Navigate to="/login"/>}/>
             <Route path='teacher/description' element={teacher?<TeacherDescription/>:<Navigate to="/login"/>}/>
             <Route path='teacher/video' element={teacher?<TeacherVideo/>:<Navigate to="/login"/>}/>
+            <Route path='teacher/messages' element={teacher?<TeacherMessages/>:<Navigate to="/login"/>}/>
 
             {/** admin pages */}
             <Route path='admin/login' element={!admin?<AdminLogin/>:<Navigate to="/admin"/>}/>

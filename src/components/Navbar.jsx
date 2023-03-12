@@ -16,7 +16,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import PhoneIcon from '@mui/icons-material/Phone';
 import { Link,useNavigate } from 'react-router-dom';
 import ChangeLanguage from './reusableUi/ChangeLanguage';
-import { Button , styled } from '@mui/material';
+import { Button , Menu, MenuItem, styled } from '@mui/material';
 import SelectCurrency from './reusableUi/SelectCurrency';
 import logoImage from '../images/logo.png'
 import { useTranslation } from 'react-i18next';
@@ -25,6 +25,7 @@ import { logoutTeacher } from '../redux/teacherSlice';
 import {logoutParent} from '../redux/parentSlice'
 import cookies from "js-cookie";
 import {studentLogout} from '../redux/studentSlice'
+import { useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -78,6 +79,17 @@ function Navbar(props) {
 
     const container = window !== undefined ? () => window().document.body : undefined;
 
+    /** teacher profile links */
+    const teacherProfile = [{title:"Profile",link:"/about"},{title:"Messages",link:"/messages"}]
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+    setAnchorEl(null);
+    };
+
     return (
     <Box sx={{ display: 'flex' }}>
         <AppBar component="nav">
@@ -124,7 +136,31 @@ function Navbar(props) {
                 {
                     teacher&&
                     <>
-                        <Button color="Blue" variant="contained" onClick={()=>navigate('/teacher/about')}>{teacher?.firstName+" "+teacher?.lastName}</Button>
+                        <Button color="Blue" variant="contained" 
+                        id="basic-button"
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}
+                        >
+                            {teacher?.firstName+" "+teacher?.lastName}
+                        </Button>
+                        <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                            }}
+                        >
+                            {
+                                teacherProfile.map((item,link)=>
+                                {
+                                    return <MenuItem onClick={()=>{navigate(`/teacher${item.link}`);handleClose();}}>{item.title}</MenuItem>
+                                })
+                            }
+                        </Menu>
                         <Button color="Blue" variant="contained" onClick={handleTeacherLogout}>{t('logout')}</Button>
                     </>
                 }
