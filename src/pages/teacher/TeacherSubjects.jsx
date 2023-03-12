@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 import TeacherLayout from '../../components/teacher/TeacherLayout'
 import CheckBoxSubjects from '../../components/teacher/CheckBoxSubjects'
@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useSubjects } from '../../hooks/useSubject';
 import currencies from '../../data/currencies'
 import { useSelector } from 'react-redux';
+import { useTeacher } from '../../hooks/useTeacher';
 
 export default function TeacherSubjects() {
     const {t} = useTranslation()
@@ -29,6 +30,16 @@ export default function TeacherSubjects() {
     const [remote , setRemote] = useState({});
     const [f2fStudent , setf2fStudent] = useState({});
     const [f2fTeacher , setf2fTeacher] = useState({});
+    const {data : teacher2,isLoading : isLoading2} = useTeacher(teacher.id);
+
+    useEffect(()=>{
+        if(teacher2){
+            const user = teacher2?.data;
+            if(user?.TeacherSubjects.length>0){
+                setChosenCategories(user?.TeacherSubjects)
+            }
+        }
+    },[teacher2])
 
     const onSubmit = async () => {
         let ar1=choseCategories.map(sub => {
