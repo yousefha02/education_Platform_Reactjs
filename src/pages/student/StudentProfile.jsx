@@ -3,6 +3,7 @@ import React from 'react'
 import StudentLayout from '../../components/student/StudentLayout'
 import { useForm, Controller } from "react-hook-form";
 import AddLanguages from '../../components/reusableUi/AddLanguages'
+import { useTranslation } from 'react-i18next';
 
 const Image = styled('img')({
     width:"100%",
@@ -17,6 +18,7 @@ const Label = styled("label")({
 })
 
 export default function StudentProfile() {
+    const {t} = useTranslation()
 
     const { register,control, formState: { errors }, handleSubmit } = useForm({
         defaultValues: {
@@ -37,13 +39,13 @@ export default function StudentProfile() {
             <StudentLayout>
                 <Paper sx={{padding:"20px"}}>
                     <Typography sx={{fontSize:"24px",marginTop:"12px",fontWeight:"600",marginBottom:"30px"}}>
-                        Personal Information
+                        {t('personalInformation')}
                     </Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Grid container spacing={6}>
                             <Grid item xs={12} md={7}>
                                 <Box sx={{marginBottom:"26px"}}>
-                                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Full Name</InputLabel>
+                                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('fullname')}</InputLabel>
                                     <Controller
                                     name="fullName"
                                     control={control}
@@ -53,7 +55,7 @@ export default function StudentProfile() {
                                     {errors.fullName?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
                                 </Box>
                                 <Box sx={{marginBottom:"26px"}}>
-                                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Gender</InputLabel>
+                                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('gender')}</InputLabel>
                                     <Controller
                                         name="gender"
                                         control={control}
@@ -63,8 +65,8 @@ export default function StudentProfile() {
                                             id="demo-simple-select"
                                             {...register("gender", { required: "gender is required" })}
                                         >
-                                            <MenuItem value={'male'}>Male</MenuItem>
-                                            <MenuItem value={'female'}>Female</MenuItem>
+                                            <MenuItem value={'male'}>{t('male')}</MenuItem>
+                                            <MenuItem value={'female'}>{t('female')}</MenuItem>
                                         </Select>
                                         </FormControl>
                                         }
@@ -72,7 +74,7 @@ export default function StudentProfile() {
                                     {errors.gender?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
                                 </Box>
                                 <Box sx={{marginBottom:"26px"}}>
-                                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Date Of Birth</InputLabel>
+                                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('birth')}</InputLabel>
                                     <Controller
                                     name="dateOfBirth"
                                     control={control}
@@ -82,28 +84,28 @@ export default function StudentProfile() {
                                     {errors.dateOfBirth?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
                                 </Box>
                                 <Box sx={{marginBottom:"26px"}}>
-                                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Phone</InputLabel>
+                                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('phone')}</InputLabel>
                                     <Controller
                                     name="phone"
                                     control={control}
                                     render={({ field }) => <TextField {...field} fullWidth/>}
                                     {...register("phone", { required: "phone Address is required" })}
                                     />
-                                    {errors.phone?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                                    {errors.phone?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                                 </Box>
                                 <Box sx={{marginBottom:"26px"}}>
-                                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>City</InputLabel>
+                                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('city')}</InputLabel>
                                     <Controller
                                     name="city"
                                     control={control}
                                     render={({ field }) => <TextField {...field} fullWidth/>}
                                     {...register("city", { required: "city Address is required" })}
                                     />
-                                    {errors.city?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                                    {errors.city?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                                 </Box>
                                 <AddLanguages/>
                                 <Box sx={{marginBottom:"26px"}}>
-                                    <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>Level of student?</InputLabel>
+                                    <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>{t('studylevel')}</InputLabel>
                                     <Controller
                                     name="level"
                                     control={control}
@@ -113,10 +115,10 @@ export default function StudentProfile() {
                                         <FormControlLabel value="2" control={<Radio size="2px"/>} label="Elementary" />
                                     </RadioGroup>}
                                     />
-                                    {errors.level?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                                    {errors.level?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                                 </Box>
                                 <Box sx={{marginBottom:"26px"}}>
-                                    <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>Class of student?</InputLabel>
+                                    <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>{t('studyYear')}</InputLabel>
                                     <Controller
                                     name="class"
                                     control={control}
@@ -126,10 +128,10 @@ export default function StudentProfile() {
                                         <FormControlLabel value="2" control={<Radio size="2px"/>} label="Second Year" />
                                     </RadioGroup>}
                                     />
-                                    {errors.level?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                                    {errors.level?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                                 </Box>
                                 <Box sx={{marginBottom:"26px"}}>
-                                    <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>Curriculum of student?</InputLabel>
+                                    <InputLabel sx={{marginBottom:"6px",fontSize:"14px"}}>{t('studyCurriculum')}</InputLabel>
                                     <Controller
                                     name="curriculum"
                                     control={control}
@@ -139,18 +141,18 @@ export default function StudentProfile() {
                                         <FormControlLabel value="2" control={<Radio size="2px"/>} label="American" />
                                     </RadioGroup>}
                                     />
-                                    {errors.curriculum?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                                    {errors.curriculum?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                                 </Box>
                             </Grid>
                             <Grid item xs={12} md={4}>
                             <Button variant='contained' sx={{textTransform:"capitalize",padding:0,marginBottom:"30px"}}>
-                                <Label htmlFor='image'>Upload Image</Label>
+                                <Label htmlFor='image'>{t('replace_photo')}</Label>
                             </Button>
                             <input id="image" hidden type="file"/>
                             <Image/>
                             </Grid>
                         </Grid>
-                        <Button variant="contained" color="secondary" type="submit" sx={{marginY:"10px"}}>Save</Button>
+                        <Button variant="contained" color="secondary" type="submit" sx={{marginY:"10px"}}>{t('save')}</Button>
                     </form>
                 </Paper>
             </StudentLayout>

@@ -24,7 +24,7 @@ export default function StdeuntsTypeSingleTeacher({teacher}) {
                     <IconWrapper><TransgenderIcon/></IconWrapper>
                     <Box>
                         <Typography sx={{fontSize:"18px",fontWeight:"600"}}>Student's gender he teach</Typography>
-                        <Typography sx={{color:"#878787",fontSize:"14px"}}>{teacher.favStdGender}</Typography>
+                        <Typography sx={{color:"#878787",fontSize:"14px"}}>{teacher?.favStdGender}</Typography>
                     </Box>
                 </Stack>
                 <Stack direction="row" columnGap="10px">

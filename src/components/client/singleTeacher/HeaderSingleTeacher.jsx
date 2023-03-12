@@ -13,11 +13,11 @@ const Image = styled("img")({
 export default function HeaderSingleTeacher({teacher}) {
     return (
         <Paper sx={{padding:"24px",marginY:"30px"}}>
-            <ReactPlayer url={teacher.videoLink} width="100%"/>
+            <ReactPlayer url={teacher?.videoLink} width="100%"/>
             <Box sx={{marginTop:"30px",display:"flex",columnGap:"20px"}}>
                 <Image src={"https://mui.com/static/images/avatar/1.jpg"}/>
                 <Box>
-                    <Typography sx={{fontSize:"20px",marginBottom:"8px",fontWeight:"700"}}>{teacher.firstName + " "+teacher.lastName[0]}</Typography>
+                    <Typography sx={{fontSize:"20px",marginBottom:"8px",fontWeight:"700"}}>{teacher?.firstName + " "+teacher?.lastName[0]}</Typography>
                     <Box sx={{display:"flex",columnGap:"4px",alignItems:"center",marginBottom:"8px"}}>
                         <SpeakerNotesIcon sx={{fontSize:"16px",color:"#d5d5d5"}}/>
                         <Typography sx={{color:"#4f4f51",fontSize:"14px",fontWeight:"bold"}}>Speaks: </Typography>
@@ -26,12 +26,12 @@ export default function HeaderSingleTeacher({teacher}) {
                     <Box sx={{display:"flex",columnGap:"4px",alignItems:"center",marginBottom:"8px"}}>
                         <SpeakerNotesIcon sx={{fontSize:"16px",color:"#d5d5d5"}}/>
                         <Typography sx={{color:"#4f4f51",fontSize:"14px",fontWeight:"bold"}}>Certified teacher: </Typography>
-                        <Typography sx={{color:"#616161",fontSize:"14px"}}>{teacher.experienceYears} Total years of experience</Typography>
+                        <Typography sx={{color:"#616161",fontSize:"14px"}}>{teacher?.experienceYears} Total years of experience</Typography>
                     </Box>
                     <Box sx={{display:"flex",columnGap:"4px",alignItems:"center",marginBottom:"8px"}}>
                         <LocationOnIcon sx={{fontSize:"16px",color:"#d5d5d5"}}/>
                         <Typography sx={{color:"#4f4f51",fontSize:"14px",fontWeight:"bold"}}>Location: </Typography>
-                        <Typography sx={{color:"#616161",fontSize:"14px"}}>{teacher.city + " , "+ teacher.country}</Typography>
+                        <Typography sx={{color:"#616161",fontSize:"14px"}}>{teacher?.city + " , "+ teacher?.country}</Typography>
                     </Box>
                     <Box sx={{display:"flex",columnGap:"4px",alignItems:"center",marginBottom:"8px"}}>
                         <SchoolIcon sx={{fontSize:"16px",color:"#d5d5d5"}}/>

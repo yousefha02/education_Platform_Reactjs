@@ -33,9 +33,9 @@ export default function ResumeSingleTeacher({teacher}) {
                         <Tab label="Professional certificates" value="3" />
                     </TabList>
                     </Box>
-                    <TabPanel value="1">{teacher.EducationDegrees.length>0&&teacher.EducationDegrees.map(item=><Item from={item.from} to={item.to} name={item.UniversityName} desc={item.degree}/>)}</TabPanel>
-                    <TabPanel value="2">{teacher.Experiences.length>0&&teacher.Experiences.map(item=><Item from={item.from} to={item.to} name={item.jobTitle} desc={item.companyName}/>)}</TabPanel>
-                    <TabPanel value="3">{teacher.Certificates.length>0&&teacher.Certificates.map(item=><Item from={item.from} to={item.to} name={item.name} desc={item.subject}/>)}</TabPanel>
+                    <TabPanel value="1">{teacher?.EducationDegrees.length>0&&teacher.EducationDegrees.map(item=><Item from={item.from} to={item.to} name={item.UniversityName} desc={item.degree}/>)}</TabPanel>
+                    <TabPanel value="2">{teacher?.Experiences.length>0&&teacher.Experiences.map(item=><Item from={item.from} to={item.to} name={item.jobTitle} desc={item.companyName}/>)}</TabPanel>
+                    <TabPanel value="3">{teacher?.Certificates.length>0&&teacher.Certificates.map(item=><Item from={item.from} to={item.to} name={item.name} desc={item.subject}/>)}</TabPanel>
                 </TabContext>
             </Box>
         </Paper>

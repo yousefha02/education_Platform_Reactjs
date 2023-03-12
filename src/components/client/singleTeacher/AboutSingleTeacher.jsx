@@ -6,7 +6,7 @@ export default function AboutSingleTeacher({teacher}) {
         <Paper sx={{padding:"32px 24px",marginY:"30px"}}>
             <Typography sx={{fontSize:"22px",marginBottom:"18px"}}>About the teacher</Typography>
             <Typography>
-            {teacher.descriptionEn}
+            {teacher?.descriptionEn}
             </Typography>
         </Paper>
     )

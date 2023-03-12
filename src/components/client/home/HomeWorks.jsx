@@ -5,7 +5,7 @@ import image2 from '../../../images/work2.jpeg'
 import image3 from '../../../images/work3.jpeg'
 import image4 from '../../../images/work4.png'
 import { useTranslation } from 'react-i18next';
-
+import {useNavigate} from 'react-router-dom'
 
 const Image = styled("img")({
     width:"100%",
@@ -14,6 +14,7 @@ const Image = styled("img")({
 
 export default function HomeWorks() {
 
+    const navigate = useNavigate()
     const {t} = useTranslation()
     const data = [
         {
@@ -58,7 +59,7 @@ export default function HomeWorks() {
                     })
                 }
                 <Box sx={{display:"flex",justifyContent:"center"}}>
-                    <Button variant="contained">{t('becometeacher')}</Button>
+                    <Button variant="contained" onClick={()=>navigate('/teacherRegister/step1')}>{t('becometeacher')}</Button>
                 </Box>
             </Container>
         </Box>

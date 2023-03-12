@@ -5,11 +5,13 @@ import LinksFooter from '../client/home/LinksFooter'
 import Footer from '../client/home/Footer'
 import DownloadApp from '../client/home/DownloadApp'
 import Navbar from '../Navbar'
-
-const topics = [{title:"Profile",link:"/profile"},{title:"Lessons",link:"/lessons"},
-{title:"Settings",link:'/settings'},{title:"Messages",link:"/messages"}]
+import { useTranslation } from 'react-i18next';
 
 export default function StudentLayout({children}) {
+    const {t} = useTranslation()
+    const topics = [{title:t('profile'),link:"/profile"},{title:t('lessons'),link:"/lessons"},
+    {title:t('settings'),link:'/settings'},{title:t('messages'),link:"/messages"}]
+
     return (
         <Navbar>
             <Container sx={{marginTop:"50px"}}>

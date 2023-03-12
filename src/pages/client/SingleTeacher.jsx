@@ -21,11 +21,11 @@ export default function SingleTeacher() {
             <Container sx={{marginBottom:"40px",marginTop:"40px"}}>
                 <Grid container spacing={3}>
                     <Grid item xs={8}>
-                        <HeaderSingleTeacher teacher={data.data}/>
-                        <AboutSingleTeacher teacher={data.data}/>
-                        <StdeuntsTypeSingleTeacher teacher={data.data}/>
-                        <AvailablitySingleTeacher teacher={data.data}/>
-                        <ResumeSingleTeacher teacher={data.data}/>
+                        <HeaderSingleTeacher teacher={data?.data}/>
+                        <AboutSingleTeacher teacher={data?.data}/>
+                        <StdeuntsTypeSingleTeacher teacher={data?.data}/>
+                        <AvailablitySingleTeacher teacher={data?.data}/>
+                        <ResumeSingleTeacher teacher={data?.data}/>
                     </Grid>
                     <Grid item xs={4}>
                         <Paper sx={{padding:"24px 12px",marginY:"30px"}}>

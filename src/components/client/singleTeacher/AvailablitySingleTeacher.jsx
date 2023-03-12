@@ -13,7 +13,7 @@ export default function AvailablitySingleTeacher({teacher}) {
             <Box sx={{backgroundColor:"#f9fdff",border:"1px solid #e5f5fe",padding:"20px",
             borderRadius:"8px"}}>
                 {
-                    teacher.TeacherDays.length>0&&
+                    teacher?.TeacherDays.length>0&&
                     teacher.TeacherDays.map((item,index)=>
                     {
                         return(
