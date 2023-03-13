@@ -32,7 +32,7 @@ import TeachersApprove from './pages/admin/TeachersApprove';
 import AdminChangePassword from './pages/admin/AdminChangePassword';
 import HomeParent from './pages/parent/HomeParent';
 import Home from './pages/client/Home';
-import {useSelector,useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 import Landing from './pages/client/Landing';
 import SearchFilterTeacher from './pages/client/SearchFilterTeacher';
 import ParentRegister from './pages/parent/ParentRegister';
@@ -44,6 +44,7 @@ import AdminParentStudent from './pages/admin/AdminParentStudent';
 import StudentMessages from './pages/student/StudentMessages';
 import StudentLessons from './pages/student/StudentLessons';
 import TeacherMessages from './pages/teacher/TeacherMessages';
+import StudentPhoto from './pages/student/StudentPhoto';
 
 const theme = createTheme({
   direction:"rtl",
@@ -116,7 +117,7 @@ function App() {
             <Route path='student/settings' element={student?<StudentSettings/>:<Navigate to="/login"/>}/>
             <Route path='/student/messages' element={student?<StudentMessages/>:<Navigate to="/login"/>}/>
             <Route path='/student/lessons' element={student?<StudentLessons/>:<Navigate to="/login"/>}/>
-
+            <Route path='/student/profile_photo' element={student?<StudentPhoto/>:<Navigate to="/login"/>}/>
             {/** teacher pages */}
             <Route path='teacher/about' element={teacher?<TeacherAbout/>:<Navigate to="/login"/>}/>
             <Route path='teacher/photo' element={teacher?<TeacherPhoto/>:<Navigate to="/login"/>}/>

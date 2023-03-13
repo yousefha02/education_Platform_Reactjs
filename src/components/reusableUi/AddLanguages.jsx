@@ -2,25 +2,26 @@ import { Box ,Button,FormControl,Grid, InputLabel, MenuItem, Select} from '@mui/
 import React, { useEffect, useState } from 'react'
 import languages from '../../data/languages' 
 import { useTranslation } from 'react-i18next';
+import {useLangLevel} from '../../hooks/useLangLevel'
 import Cookies from 'js-cookie';
-
-const levels = ['Beginner','Intermediate','Intermediate High','Advanced','Native']
 
 export default function AddLanguages({chosenlanguages,setChosenLanguages}) {
     
     const {t} = useTranslation()
     const langCookie = Cookies.get("i18next") || "en";
 
+    const {data,isLoading} = useLangLevel()
+
     function addNewLanguage()
     {
-        setChosenLanguages(back=>[...back,{LanguageId:1,level:"Beginner",id:chosenlanguages.length+1}])
+        setChosenLanguages(back=>[...back,{LanguageId:1,LanguageLevelId:1,id:chosenlanguages.length+1}])
     }
 
     function handleChangeLevel(selectedLang,level)
     {
         setChosenLanguages(back=>back.map(lang=>
         {
-            return lang===selectedLang?{...lang,level:level}:lang
+            return lang===selectedLang?{...lang,LanguageLevelId:level}:lang
         }))
     }
 
@@ -70,13 +71,13 @@ export default function AddLanguages({chosenlanguages,setChosenLanguages}) {
                             </Grid>
                             <Grid item xs={5}>
                                 <FormControl fullWidth>
-                                    <Select value={language.level} 
+                                    <Select value={language.LanguageLevelId} 
                                     onChange={(e)=>handleChangeLevel(language,e.target.value)}>
                                         {
-                                            levels.map((level,index)=>
+                                            !isLoading&&data?.data.length>0&&data.data.map((level,index)=>
                                             {
                                                 return(
-                                                    <MenuItem key={index+'a2'} value={level}>{level}</MenuItem>
+                                                    <MenuItem key={index+'a2'} value={level.id}>{langCookie==="ar"?level.titleAR:level.titleEN}</MenuItem>
                                                 )
                                             })
                                         }

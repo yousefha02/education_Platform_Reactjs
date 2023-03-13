@@ -14,7 +14,7 @@ export default function ResumeSingleTeacher({teacher}) {
     function Item({from,to,name,desc})
     {
         return(
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{marginBottom:"12px"}}>
                 <Grid item xs={4}>{from + '-' + to}</Grid>
                 <Grid item xs={8}>{name + " " + desc}</Grid>
             </Grid>

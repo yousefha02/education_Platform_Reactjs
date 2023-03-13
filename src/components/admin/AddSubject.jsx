@@ -50,11 +50,11 @@ export default function AddSubject({handleClose,setSubjects}) {
                 },
                 body:formData
             })
+            const resData = await response.json()
             if(response.status!==200&&response.status!==201)
             {
                 throw new Error('failed occured')
             }
-            const resData = await response.json()
             handleClose()
             enqueueSnackbar(resData.msg,{variant:"success",autoHideDuration:8000})
             setSubjects(back=>[{...resData.data,TeacherSubjectCategories:[]},...back])

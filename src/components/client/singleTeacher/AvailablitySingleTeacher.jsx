@@ -1,9 +1,10 @@
 import { Box, Divider, Grid, Paper, Typography } from '@mui/material'
 import React from 'react'
 import TimezoneSelect from 'react-timezone-select'
+import Cookies from 'js-cookie';
 
 export default function AvailablitySingleTeacher({teacher}) {
-    console.log(teacher.timeZone)
+    const lang = Cookies.get("i18next") || "en";
     return (
         <Paper sx={{padding:"32px 24px",marginY:"30px"}}>
             <Typography sx={{fontSize:"22px",marginBottom:"18px"}}>Availability</Typography>
@@ -21,7 +22,7 @@ export default function AvailablitySingleTeacher({teacher}) {
                             <>
                                 <Grid container spacing={2}>
                                     <Grid item xs={4}>
-                                        <Typography sx={{color:"#1a477e",fontWeight:"600"}}>{item.DayId}</Typography>
+                                        <Typography sx={{color:"#1a477e",fontWeight:"600"}}>{lang==="ar"?item.Day.titleAR:item.Day.titleEN}</Typography>
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Typography sx={{color:"#1a477e"}}>{item.from} - {item.to}</Typography>

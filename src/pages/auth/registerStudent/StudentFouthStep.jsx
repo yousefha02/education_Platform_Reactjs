@@ -4,10 +4,12 @@ import { useForm, Controller } from "react-hook-form";
 import Navbar from '../../../components/Navbar';
 import HeaderSteps from '../../../components/auth/HeaderSteps';
 import { useTranslation } from 'react-i18next';
-import {useLevels} from '../../../hooks/useLevels'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLevels } from '../../../hooks/useLevels';
+import { useClasses } from '../../../hooks/useClasses';
+import { useCurriculums } from '../../../hooks/useCurriculums';
 
 export default function StudentFouthStep() {
     const navigate = useNavigate()
@@ -20,6 +22,13 @@ export default function StudentFouthStep() {
             curriculum:''
         }
     });
+
+    const levels = useLevels()
+    const classes = useClasses()
+    const curriculums = useCurriculums()
+
+    const [selectedClasses,setSelectedClasses] = useState([])
+    const [selectedCurriculums,setSelectedCurriculums] = useState([])
 
 
     async function onSubmit(data)
@@ -53,18 +62,19 @@ export default function StudentFouthStep() {
     }
 
     const {t} = useTranslation()
-    const levels = useLevels()
-    const [level,setLevel] = useState(null)
 
     useEffect(()=>
     {
-        async function getLevel()
+        if(classes?.data)
         {
-            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/admin/level/${watch('level')}`)
-            const data = await response.json()
-            setLevel(data.data)
+            const filteredClasses = classes?.data.data.filter(item=>item.LevelId==watch('level'))
+            setSelectedClasses(filteredClasses)
         }
-        getLevel()
+        if(curriculums?.data)
+        {
+            const filteredCurriculms = curriculums.data.data.filter(item=>item.CurriculumLevels.findIndex(val=>val.LevelId==watch('level'))!==-1)
+            setSelectedCurriculums(filteredCurriculms)
+        }
     },[watch('level')])
     
 
@@ -120,8 +130,8 @@ export default function StudentFouthStep() {
                         render={({ field }) =>
                         <RadioGroup>
                             {
-                                level?.Classes?.length>0
-                                &&level.Classes.map((item,index)=>
+                                selectedClasses.length>0
+                                &&selectedClasses.map((item,index)=>
                                 {
                                     return <FormControlLabel value={item.id} label={item.titleAR} key={index+'ma'} 
                                     control={<Radio size="2px" {...register("class", { required: "class Address is required" })}/>}/>
@@ -139,11 +149,11 @@ export default function StudentFouthStep() {
                     render={({ field }) =>
                     <RadioGroup>
                         {
-                                level?.CurriculumLevels?.length>0
-                                &&level.CurriculumLevels.map((item,index)=>
+                                selectedCurriculums.length>0
+                                &&selectedCurriculums.map((item,index)=>
                                 {
-                                    return <FormControlLabel value={item.CurriculumId} label={item.CurriculumId} key={index+'ma'} 
-                                    control={<Radio size="2px" {...register("curriculum", { required: "class Address is required" })}/>}/>
+                                    return <FormControlLabel value={item.id} label={item.titleAR} key={index+'ma'} 
+                                    control={<Radio size="2px" {...register("curriculum", { required: "curriculum Address is required" })}/>}/>
                                 })
                             }
                     </RadioGroup>}

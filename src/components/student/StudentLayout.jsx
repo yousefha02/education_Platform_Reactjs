@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function StudentLayout({children}) {
     const {t} = useTranslation()
-    const topics = [{title:t('profile'),link:"/profile"},{title:t('lessons'),link:"/lessons"},
+    const topics = [{title:t('profile'),link:"/profile"},{title:t('profile_photo'),link:"/profile_photo"},{title:t('lessons'),link:"/lessons"},
     {title:t('settings'),link:'/settings'},{title:t('messages'),link:"/messages"}]
 
     return (

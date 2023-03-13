@@ -1,105 +1,117 @@
-import { FormControl, Grid, InputLabel, MenuItem,styled, Paper, Select, Typography,Box, TextField, Button, FormControlLabel, RadioGroup, Radio } from '@mui/material'
+import { FormControl, Grid, InputLabel, MenuItem, Paper, Select, Typography,Box, TextField, Button, FormControlLabel, RadioGroup, Radio } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import StudentLayout from '../../components/student/StudentLayout'
 import { useForm, Controller } from "react-hook-form";
 import AddLanguages from '../../components/reusableUi/AddLanguages'
 import { useTranslation } from 'react-i18next';
-import TimezoneSelect from 'react-timezone-select'
 import { useSelector } from 'react-redux';
 import { useLevels } from '../../hooks/useLevels';
-
-
-const Image = styled('img')({
-    width:"100%",
-    height:"200px"
-})
-
-const Label = styled("label")({
-    width:"100%",
-    display:"block",
-    padding:"6px 16px",
-    cursor:"pointer"
-})
+import { useClasses } from '../../hooks/useClasses';
+import { useCurriculums } from '../../hooks/useCurriculums';
+import {useStudent} from '../../hooks/useStudent'
+import SelectTimeZone from '../../components/reusableUi/SelectTimeZone';
 
 export default function StudentProfile() {
     const {t} = useTranslation();
     const {student , token} = useSelector(s => s.student);
+    const {data,isLoading} = useStudent(student?.id)
     const [chosenlanguages,setChosenLanguages] = useState([])
 
     const { register,control, formState: { errors }, handleSubmit , watch , reset} = useForm({
         defaultValues: {
-            gender:student.gender,
-            fullName:student.name,
-            dateOfBirth:student.dateOfBirth,
-            phone:student.phoneNumber,
-            city:student.city,
-            level:student.LevelId,
-            class:student.ClassId,
-            curriculum:student.CurriculumId,
-            regionTime:student.regionTime || "",
-            location:student.location,
-            nationality:student.nationality
+            gender:"",
+            fullName:"",
+            dateOfBirth:"",
+            phone:"",
+            city:"",
+            level:"",
+            class:"",
+            curriculum:"",
+            regionTime:"",
+            location:"",
+            nationality:"",
         }
     });
-    console.log("class:",watch('class') , "level:",watch('level') , "curriculum:",watch('curriculum'));
+
+    useEffect(()=>{
+        if(data)
+        {
+            const user = data?.data;
+            console.log(user)
+            setChosenLanguages(data?.data?.LangTeachStds)
+            setRegionTime(user?.regionTime)
+            reset({
+                fullName:user?.name,
+                gender:user?.gender,
+                dateOfBirth:user?.dateOfBirth,
+                phone:user?.phoneNumber,
+                level:user?.LevelId,
+                city:user?.city,
+                class:user?.ClassId,
+                curriculum:user?.CurriculumId,
+                regionTime:user?.regionTime,
+                location:user?.location,
+                nationality:user?.nationality,
+            })
+        }
+    },[data])
 
     const [load , setLoad] = useState(false);
-    const [image , setImage] = useState(null);
+    const [regionTime,setRegionTime] = useState(null)
 
-    const onSubmit =async data => {
-        console.log(data);
-        // setLoad(true);
-        // const formData = new FormData();
-        // formData.append("name" , data.fullName);
-        // formData.append("gender" , data.gender);
-        // formData.append("dateOfBirth" , data.dateOfBirth);
-        // formData.append("phoneNumber" , data.phone);
-        // formData.append("city" , data.city);
-        // formData.append("nationality" , data.nationality);
-        // formData.append("location" , data.location);
-        // formData.append("regionTime" , data.regionTime);
-        // formData.append("LevelId" , data.level);
-        // formData.append("ClassId" , data.class);
-        // formData.append("CurriculumId" , data.curriculum);
-        // formData.append("languages" , []);
-        // formData.append("image" , image);
-        // try{
-        //     const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/student/editAbout/${student.id}`,{
-        //         method:"POST",
-        //         headers:{
-        //             "Authorization":token
-        //         },
-        //         body:formData
-        //     })
-        //     const resData = await response.json()
-        //     console.log(resData)
-        //     if(response.status!==200&&response.status!==201)
-        //     {
-        //         setLoad(false)
-        //         throw new Error('failed occured')
-        //     }
-        //     setLoad(false)
-        // }
-        // catch(err)
-        // {
-        //     console.log(err)
-        // }
+    const onSubmit = async data => {
+        setLoad(true);
+        const languages = chosenlanguages.map(lang=>
+        {
+            return {LanguageLevelId:lang.LanguageLevelId,StudentId:student?.id,LanguageId:lang.LanguageId}
+        })
+        try{
+            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/student/editAbout/${student.id}`,{
+                method:"POST",
+                headers:{
+                    "Authorization":token,
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({name:data.fullName,gender:data.gender,dateOfBirth:data.dateOfBirth,
+                    phoneNumber:data.phone ,city:data.city,nationality:data.nationality,location:data.location,
+                    regionTime:regionTime,LevelId:data.level,ClassId:data.class,CurriculumId:data.curriculum,
+                    languages:languages})
+            })
+            const resData = await response.json()
+            if(response.status!==200&&response.status!==201)
+            {
+                setLoad(false)
+                throw new Error('failed occured')
+            }
+            setLoad(false)
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
     };
 
     const levels = useLevels()
-    const [level , setLevel] = useState(null);
+    const classes = useClasses()
+    const curriculums = useCurriculums()
+
+    const [selectedClasses,setSelectedClasses] = useState([])
+    const [selectedCurriculums,setSelectedCurriculums] = useState([])
 
     useEffect(()=>
     {
-        async function getLevel()
+        if(classes?.data)
         {
-            const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/admin/level/${watch('level')}`)
-            const data = await response.json();
-            setLevel(data.data)
-            console.log(data);
+            const filteredClasses = classes?.data.data.filter(item=>item.LevelId==watch('level'))
+            setSelectedClasses(filteredClasses)
         }
-        getLevel()
-    },[watch('level')]);
+        if(curriculums?.data)
+        {
+            const filteredCurriculms = curriculums.data.data.filter(item=>item.CurriculumLevels.findIndex(val=>val.LevelId==watch('level'))!==-1)
+            setSelectedCurriculums(filteredCurriculms)
+        }
+    },[classes||watch('level')])
+
 
     return (
             <StudentLayout>
@@ -141,12 +153,7 @@ export default function StudentProfile() {
                                     {errors.gender?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
                                 </Box>
                                 <Box sx={{marginBottom:"26px"}}>
-                                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>Time Zone</InputLabel>
-                                    <TimezoneSelect
-                                    onChange={e=>reset({regionTime:e})}
-                                    value={watch('regionTime')}
-                                    />
-                                    {errors.regionTime?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
+                                    <SelectTimeZone selectedTimezone={regionTime} setSelectedTimezone={setRegionTime}/>
                                 </Box>
                                 <Box sx={{marginBottom:"26px"}}>
                                     <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('birth')}</InputLabel>
@@ -156,7 +163,6 @@ export default function StudentProfile() {
                                     {...register("dateOfBirth", { required: "dateOfBirth Address is required" })}
                                     render={({ field }) => <TextField {...field} fullWidth type={"date"}/>}
                                     />
-                                    {errors.dateOfBirth?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>this field is required</Typography>}
                                 </Box>
                                 <Box sx={{marginBottom:"26px"}}>
                                     <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('phone')}</InputLabel>
@@ -166,7 +172,6 @@ export default function StudentProfile() {
                                     render={({ field }) => <TextField {...field} fullWidth/>}
                                     {...register("phone", { required: "phone Address is required" })}
                                     />
-                                    {errors.phone?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                                 </Box>
                                 <Box sx={{marginBottom:"26px"}}>
                                     <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('city')}</InputLabel>
@@ -196,7 +201,6 @@ export default function StudentProfile() {
                                     render={({ field }) => <TextField {...field} fullWidth/>}
                                     {...register("nationality", { required: "nationality Address is required" })}
                                     />
-                                    {errors.nationality?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                                 </Box>
                                 <AddLanguages chosenlanguages={chosenlanguages} setChosenLanguages={setChosenLanguages}/>
                                 <Box sx={{marginBottom:"26px"}}>
@@ -228,8 +232,8 @@ export default function StudentProfile() {
                                     render={({ field }) =>
                                     <RadioGroup {...field}>
                                         {
-                                            level?.Classes?.length>0
-                                            &&level.Classes.map((item,index)=>
+                                            selectedClasses.length>0
+                                            &&selectedClasses.map((item,index)=>
                                             {
                                                 return <FormControlLabel value={item.id} label={item.titleAR} key={index+'ma'} 
                                                 control={<Radio size="2px"/>}/>
@@ -248,24 +252,16 @@ export default function StudentProfile() {
                                     render={({ field }) =>
                                     <RadioGroup {...field}>
                                         {
-                                                level?.CurriculumLevels?.length>0
-                                                &&level.CurriculumLevels.map((item,index)=>
+                                                selectedCurriculums.length>0
+                                                &&selectedCurriculums.map((item,index)=>
                                                 {
-                                                    return <FormControlLabel value={item.CurriculumId} label={item.CurriculumId} key={index+'ma'} 
+                                                    return <FormControlLabel value={item.id} label={item.titleAR} key={index+'ma'} 
                                                     control={<Radio size="2px"/>}/>
                                                 })
                                             }
                                     </RadioGroup>}
                                     />
-                                    {errors.curriculum?.type === 'required' && <Typography color="error" role="alert" sx={{fontSize:"13px",marginTop:"6px"}}>{t('required')}</Typography>}
                                 </Box>
-                            </Grid>
-                            <Grid item xs={12} md={4}>
-                            <Button variant='contained' sx={{textTransform:"capitalize",padding:0,marginBottom:"30px"}}>
-                                <Label htmlFor='image'>{t('replace_photo')}</Label>
-                            </Button>
-                            <input id="image" hidden type="file" onChange={e=>setImage(e.target.files[0])}/>
-                            <Image/>
                             </Grid>
                         </Grid>
                         {

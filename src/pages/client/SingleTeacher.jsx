@@ -13,21 +13,20 @@ export default function SingleTeacher() {
     const {id} = useParams()
     const {data,isLoading} = useTeacher(id)
 
-    console.log(data)
     return (
         <Navbar>
             {
             !isLoading?
             <Container sx={{marginBottom:"40px",marginTop:"40px"}}>
                 <Grid container spacing={3}>
-                    <Grid item xs={8}>
+                    <Grid item md={12} lg={8}>
                         <HeaderSingleTeacher teacher={data?.data}/>
                         <AboutSingleTeacher teacher={data?.data}/>
                         <StdeuntsTypeSingleTeacher teacher={data?.data}/>
                         <AvailablitySingleTeacher teacher={data?.data}/>
                         <ResumeSingleTeacher teacher={data?.data}/>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item md={12} lg={4}>
                         <Paper sx={{padding:"24px 12px",marginY:"30px"}}>
                             <Button variant="contained" color="secondary" fullWidth
                             sx={{textTransform:"capitalize",marginBottom:"16px"}}>Request to book</Button>

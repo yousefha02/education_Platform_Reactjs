@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 export default function TeacherAbout() {
     const {teacher,token} = useSelector((state)=>state.teacher)
     const [load,setLoad] = useState(false)
-    const {data,isLoading} = useTeacher(teacher.id)
+    const {data,isLoading} = useTeacher(teacher?.id)
 
     const navigate = useNavigate()
     const {t} = useTranslation()
@@ -54,7 +54,7 @@ export default function TeacherAbout() {
         setLoad(true)
         const languages = chosenlanguages.map(lang=>
         {
-            return {level:lang.level,TeacherId:teacher?.id,LanguageId:lang.LanguageId}
+            return {LanguageLevelId:lang.LanguageLevelId,TeacherId:teacher?.id,LanguageId:lang.LanguageId}
         })
         const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/about/${teacher.id}`,{
             method:"POST",

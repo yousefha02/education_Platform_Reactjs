@@ -12,9 +12,25 @@ import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useTranslation } from 'react-i18next';
+import {useWaitingTeachers} from '../../hooks/useWaitingTeachers'
+import Loading from '../../components/Loading'
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import {useSnackbar} from 'notistack'
 
 export default function TeachersApprove() {
+    const {closeSnackbar,enqueueSnackbar} = useSnackbar()
+    const {token,teacher} = useSelector((state)=>state.admin)
     const {t} = useTranslation()
+    const {data,isLoading} = useWaitingTeachers(token)
+    const [teachers,setTeachers] = useState([])
+    useEffect(()=>
+    {
+        if(data?.data)
+        {
+            setTeachers(data.data)
+        }
+    },[data])
 
     const columns = [
         { id: 'Name', label: t('name'), minWidth: 150 },
@@ -36,26 +52,41 @@ export default function TeachersApprove() {
         setPage(0);
     };
 
-    const teachers = [
-        {
-            name:"Yousef Abohani",
-            gender:"male",
-            phone:"0592374719",
-            email:"yousefha2029@gmail.com"
-        },
-        {
-            name:"Yousef Abohani",
-            gender:"male",
-            phone:"0592374719",
-            email:"yousefha2029@gmail.com"
-        },
-        {
-            name:"Yousef Abohani",
-            gender:"male",
-            phone:"0592374719",
-            email:"yousefha2029@gmail.com"
-        }
-    ]
+    async function acceptTeacher(id)
+    {
+        closeSnackbar()
+        const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/admin/accept/${id}`,{
+            method:"POST",
+            headers:{
+                "Authorization":token,
+                "Content-Type":"application/json"
+            }
+        })
+        const data = await response.json()
+        enqueueSnackbar("تم قبول المعلم",{variant:"success",autoHideDuration:8000})
+        filterTeachers(id)
+    }
+
+    async function rejectTeacher(id)
+    {
+        closeSnackbar()
+        const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/admin/reject/${id}`,{
+            method:"POST",
+            headers:{
+                "Authorization":token,
+                "Content-Type":"application/json"
+            }
+        })
+        const data = await response.json()
+        enqueueSnackbar("تم رفض المعلم",{variant:"error",autoHideDuration:8000})
+        filterTeachers(id)
+    }
+
+    function filterTeachers(id)
+    {
+        const filteredTeachers = teachers.filter(teacher=>teacher.id.toString()!==id.toString())
+        setTeachers(filteredTeachers)
+    }
 
     return (
     <AdminLayout>
@@ -63,8 +94,10 @@ export default function TeachersApprove() {
         marginTop:"40px"}}>
             <Typography sx={{fontSize:"20px",fontWeight:"500"}}>{t('teachersapprove')}</Typography>
         </Box>
+        {
+        !isLoading?
         <Paper sx={{ width: '100%',padding:"20px"}}>
-            <TableContainer sx={{ maxHeight: 440 }}>
+                <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableRow>
                         {columns.map((column) => (
@@ -78,11 +111,11 @@ export default function TeachersApprove() {
                         ))}
                         </TableRow>
                     <TableBody>
-                        {teachers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        {teachers.length>0&&teachers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((row) => {
                             return <TableRow hover role="checkbox"  key={row.id+"demj"}>
                                 <TableCell align='center'>
-                                    {row.name || ''}
+                                    {row.firstName + " " + row.lastName || ''}
                                 </TableCell>
                                 <TableCell align='center'>
                                     {row.email}
@@ -100,9 +133,9 @@ export default function TeachersApprove() {
                                 </TableCell>
                                 <TableCell align='center'>
                                     <Button color="success">
-                                        <DoneIcon/>
+                                        <DoneIcon onClick={()=>acceptTeacher(row.id)}/>
                                     </Button>
-                                    <Button color="error">
+                                    <Button color="error" onClick={()=>rejectTeacher(row.id)}>
                                         <ClearIcon/>
                                     </Button>
                                 </TableCell>
@@ -114,13 +147,16 @@ export default function TeachersApprove() {
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={teachers?.length}
+                    count={teachers.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-            </Paper>
+        </Paper>
+        :
+        <Loading/>
+        }
     </AdminLayout>
 )
 }
