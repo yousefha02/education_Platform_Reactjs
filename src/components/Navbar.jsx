@@ -80,7 +80,7 @@ function Navbar(props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     /** teacher profile links */
-    const teacherProfile = [{title:"Profile",link:"/about"},{title:"Messages",link:"/messages"}]
+    const teacherProfile = [{title:t('profile'),link:"/about"},{title:t('messages'),link:"/messages"}]
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {

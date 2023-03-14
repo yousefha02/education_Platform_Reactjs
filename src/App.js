@@ -45,6 +45,9 @@ import StudentMessages from './pages/student/StudentMessages';
 import StudentLessons from './pages/student/StudentLessons';
 import TeacherMessages from './pages/teacher/TeacherMessages';
 import StudentPhoto from './pages/student/StudentPhoto';
+import AboutUs from './pages/client/AboutUs';
+import Privacy from './pages/client/Privacy';
+import Terms from './pages/client/Terms';
 
 const theme = createTheme({
   direction:"rtl",
@@ -97,6 +100,9 @@ function App() {
             <Route path='teacher/:id' element={<SingleTeacher/>}/>
             <Route path="teachers/search" element={<SearchTeachers/>}/>
             <Route path='/filter/:subjectId' element={<SearchFilterTeacher/>}/>
+            <Route path='about-us' element={<AboutUs/>}/>
+            <Route path='PrivacyPolicy' element={<Privacy/>}/>
+            <Route path='TermsAndConditions' element={<Terms/>}/>
 
             {/** login page */}
             <Route path='login' element={<Login/>}/>
