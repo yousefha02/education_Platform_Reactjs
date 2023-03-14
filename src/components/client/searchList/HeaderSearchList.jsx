@@ -1,21 +1,21 @@
 import { Autocomplete, Box, TextField, Paper, Grid, Button, MenuItem, FormControl, InputLabel, Select } from '@mui/material'
+import Cookies from 'js-cookie';
 import React, { useState } from 'react'
 import { useLevels } from '../../../hooks/useLevels';
 import { useSubjectCategoreis } from '../../../hooks/useSubjectCategoreis';
 
-export default function HeaderSearchList() {
+export default function HeaderSearchList({level , setLevel , value , setValue,onSearch}) {
 
     const categoriesData = useSubjectCategoreis()
     const levelsData = useLevels()
 
     /** handle level */
-    const [level, setLevel] = React.useState('');
     const handleChange = (event) => {
         setLevel(event.target.value);
     };
 
-    /** handel categoires */
-    const [value, setValue] = useState([]);
+
+    const lang = Cookies.get("i18next") || "en";
 
     return (
         <Paper sx={{padding:"32px 24px"}}>
@@ -31,7 +31,7 @@ export default function HeaderSearchList() {
                         id="size-small-standard-multi"
                         size="small"
                         options={categoriesData.data.data}
-                        getOptionLabel={(option) => option.titleAR}
+                        getOptionLabel={(option) => lang==="en"?option.titleEN:option.titleAR}
                         renderInput={(params) => (
                         <TextField
                             {...params}
@@ -57,14 +57,14 @@ export default function HeaderSearchList() {
                                     !levelsData.isLoading&&levelsData.data.data.length>0&&
                                     levelsData.data.data.map((item,index)=>
                                     {
-                                        return <MenuItem key={index+'zas'} value={item.id}>{item.titleAR}</MenuItem>
+                                        return <MenuItem key={index+'zas'} value={item.id}>{lang==="en"?item.titleEN:item.titleAR}</MenuItem>
                                     })
                                 }
                             </Select>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} md={12} lg={2}>
-                        <Button variant="contained" fullWidth>بحث</Button>
+                        <Button variant="contained" fullWidth onClick={onSearch}>بحث</Button>
                     </Grid>
                 </Grid>
         </Paper>

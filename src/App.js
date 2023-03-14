@@ -97,8 +97,8 @@ function App() {
             {/** client pages */}
             <Route path='/' element={<Home/>}/>
             <Route path='/landing' element={<Landing/>}/>
-            <Route path='teacher/:id' element={<SingleTeacher/>}/>
             <Route path="teachers/search" element={<SearchTeachers/>}/>
+            <Route path='teacher/:id' element={<SingleTeacher/>}/>
             <Route path='/filter/:subjectId' element={<SearchFilterTeacher/>}/>
             <Route path='about-us' element={<AboutUs/>}/>
             <Route path='PrivacyPolicy' element={<Privacy/>}/>
