@@ -48,6 +48,7 @@ import StudentPhoto from './pages/student/StudentPhoto';
 import AboutUs from './pages/client/AboutUs';
 import Privacy from './pages/client/Privacy';
 import Terms from './pages/client/Terms';
+import StudentCredit from './pages/student/StudentCredit';
 
 const theme = createTheme({
   direction:"rtl",
@@ -124,6 +125,7 @@ function App() {
             <Route path='/student/messages' element={student?<StudentMessages/>:<Navigate to="/login"/>}/>
             <Route path='/student/lessons' element={student?<StudentLessons/>:<Navigate to="/login"/>}/>
             <Route path='/student/profile_photo' element={student?<StudentPhoto/>:<Navigate to="/login"/>}/>
+            <Route path='/student/credit' element={student?<StudentCredit/>:<Navigate to="/login"/>}/>
             {/** teacher pages */}
             <Route path='teacher/about' element={teacher?<TeacherAbout/>:<Navigate to="/login"/>}/>
             <Route path='teacher/photo' element={teacher?<TeacherPhoto/>:<Navigate to="/login"/>}/>
