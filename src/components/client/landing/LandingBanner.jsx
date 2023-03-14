@@ -6,6 +6,7 @@ import {useSubjectCategoreis} from '../../../hooks/useSubjectCategoreis'
 import { useLevels } from '../../../hooks/useLevels';
 import { useState } from 'react';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled(Box)({
     backgroundPosition:"center",
@@ -34,6 +35,12 @@ export default function LandingBanner() {
 
     /** handel categoires */
     const [value, setValue] = useState([]);
+    
+
+    const navigate = useNavigate();
+    function searchNavigate(){
+        navigate(`/teachers/search?level=${level}&&subjects=${value.map(val=>val?.id)}`)
+    }
 
     return (
         <Wrapper sx={{backgroundImage:`url(${cover})`}} className="overlay">
@@ -87,7 +94,7 @@ export default function LandingBanner() {
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} md={12} lg={2}>
-                        <Button variant="contained" fullWidth>{t('search')}</Button>
+                        <Button variant="contained" fullWidth onClick={searchNavigate}>{t('search')}</Button>
                     </Grid>
                 </Grid>
             </Container>

@@ -94,8 +94,8 @@ function App() {
             {/** client pages */}
             <Route path='/' element={<Home/>}/>
             <Route path='/landing' element={<Landing/>}/>
-            <Route path='teacher/:id' element={<SingleTeacher/>}/>
             <Route path="teachers/search" element={<SearchTeachers/>}/>
+            <Route path='teacher/:id' element={<SingleTeacher/>}/>
             <Route path='/filter/:subjectId' element={<SearchFilterTeacher/>}/>
 
             {/** login page */}

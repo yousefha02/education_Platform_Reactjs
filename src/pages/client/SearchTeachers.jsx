@@ -4,10 +4,11 @@ import FilterSearch from '../../components/client/searchList/FilterSearch'
 import HeaderSearchList from '../../components/client/searchList/HeaderSearchList'
 import TeacherSearchBox from '../../components/client/searchList/TeacherSearchBox'
 import Navbar from '../../components/Navbar'
-import {useLocation} from 'react-router-dom'
+import {useSearchParams} from 'react-router-dom'
 import Loading from '../../components/Loading'
 export default function SearchTeachers() {
-    const {state} = useLocation();
+    const [searchParams , setSearchParams] = useSearchParams();
+
     //  side bar search
     const [gender,setGender] = useState('all')
     const [curriculum ,setCurriculum ] = useState('all')
@@ -15,13 +16,12 @@ export default function SearchTeachers() {
     const [isVideo,setIsVideo] = useState(false);
 
     const [teachers , setTeachers] = useState([]);
-    const [isLoading , setIsLoading] = useState(false);
+    const [isLoading , setIsLoading] = useState(true);
 
     // top bar search
     const [level, setLevel] =useState('');
     /** handel categoires */
     const [value, setValue] = useState([]);
-    console.log(value);
 
 
     const handleSideFilter = async () =>{
@@ -72,30 +72,32 @@ export default function SearchTeachers() {
         }
     }
 
-    // useEffect(()=>{
-    //     async function getTeachers(){
-    //         try{
-    //             const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/search/side`,{
-    //                 method:"POST",
-    //                 headers:{
-    //                     "Content-Type":"application/json",
-    //                 },
-    //                 body:JSON.stringify({
-    //                     videoLink:isVideo  , gender :gender  , LanguageId : spackArabic , CurriculumId: curriculum
-    //                 })
-    //             });
-    //             const resData = await response.json();
-    //             if(resData.status !== 200 && resData.status!==201){
-    //                 throw new Error('');
-    //             }
-    //             console.log(resData);
-    //         }
-    //         catch(err){
-    //             console.log(err);
-    //         }
-    //     };
-    //     getTeachers();
-    // },[])
+    useEffect(()=>{
+        async function getTeachers(){
+            try{
+                const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/search/top`,{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json",
+                    },
+                    body:JSON.stringify({
+                        LevelId:+searchParams.get('level') , subjects:searchParams.get('subjects').split(',').filter(it => it!=="")
+                    })
+                });
+                const resData = await response.json();
+                if(resData.status !== 200 && resData.status!==201){
+                    throw new Error('');
+                }
+                setTeachers(resData.data);
+                console.log(resData);
+                setIsLoading(false);
+            }
+            catch(err){
+                console.log(err);
+            }
+        };
+        getTeachers();
+    },[searchParams])
 
     return (
         <Navbar>
