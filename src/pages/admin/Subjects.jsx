@@ -29,7 +29,6 @@ export default function Subjects() {
         if(!isLoading)
         {
             setSubjects(data.data)
-            console.log(data.data)
         }
     },[data])
 
@@ -53,7 +52,7 @@ export default function Subjects() {
                             <Typography sx={{fontSize:"20px",fontWeight:"600",marginBottom:"8px"}}>
                                 {Cookies.get("i18next")==='ar'?subject.titleAR:subject.titleEN}
                             </Typography>
-                            <Typography sx={{fontSize:"13px"}}>{subject?.TeacherSubjectCategories?.length} {t('categories')}</Typography>
+                            <Typography sx={{fontSize:"13px"}}>{subject?.Subjects?.length} {t('categories')}</Typography>
                         </Box>
                     </Grid>
                 )
