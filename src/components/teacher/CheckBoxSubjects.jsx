@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 
 export default function CheckBoxSubjects({subject,choseCategories,setChosenCategories}) {
 
+
     const handleToggle = (value) => () => {
         const currentIndex = choseCategories.indexOf(value);
         const newChecked = [...choseCategories];
@@ -41,7 +42,7 @@ export default function CheckBoxSubjects({subject,choseCategories,setChosenCateg
                         size='2px'
                         edge="end"
                         onChange={handleToggle(value)}
-                        checked={choseCategories.indexOf(value) !== -1}
+                        checked={choseCategories.findIndex(va => va.id == value.id) !== -1}
                         inputProps={{ 'aria-labelledby': labelId }}
                     />
                     }

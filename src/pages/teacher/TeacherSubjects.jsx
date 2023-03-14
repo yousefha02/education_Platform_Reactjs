@@ -10,6 +10,7 @@ import { useSubjects } from '../../hooks/useSubject';
 import currencies from '../../data/currencies'
 import { useSelector } from 'react-redux';
 import { useTeacher } from '../../hooks/useTeacher';
+import { useNavigate } from 'react-router-dom';
 
 export default function TeacherSubjects() {
     const {t} = useTranslation()
@@ -31,37 +32,42 @@ export default function TeacherSubjects() {
     const [f2fStudent , setf2fStudent] = useState({});
     const [f2fTeacher , setf2fTeacher] = useState({});
     const {data : teacher2,isLoading : isLoading2} = useTeacher(teacher.id);
+    const navigate = useNavigate();
 
     useEffect(()=>{
         if(teacher2){
             const user = teacher2?.data;
+            console.log(user);
             if(user?.TeacherSubjects.length>0){
-                setChosenCategories(user?.TeacherSubjects)
+                setChosenCategories(user?.TeacherSubjects.map(cat => cat?.Subject))
+            }
+            if(user?.RemoteSession){
+                setOnline(true);
+                setRemote({price: +user?.RemoteSession?.price , TeacherId:user?.RemoteSession?.TeacherId , currency:user?.RemoteSession?.currency})
+            }
+            if(user?.F2FSessionStd){
+                setPerson(true);
+                setStudentHome(true);
+                setf2fStudent({price: +user?.F2FSessionStd?.price , TeacherId:user?.F2FSessionStd?.TeacherId , currency:user?.F2FSessionStd?.currency})
+            }
+            if(user?.F2FSessionTeacher){
+                setPerson(true);
+                setTeacherHome(true);
+                setf2fTeacher({price: +user?.F2FSessionTeacher?.price , TeacherId:user?.F2FSessionTeacher?.TeacherId , currency:user?.F2FSessionTeacher?.currency})
             }
         }
     },[teacher2])
+
+
 
     const onSubmit = async () => {
         let ar1=choseCategories.map(sub => {
             return {TeacherId:teacher.id , SubjectId:sub.id}
         });
-        // let ar2 = [];
-        // if(Object.keys(remote).length>0){
-        //     ar2 = [{...remote}]
-        // }
-        // let ar3 = [];
-        // if(Object.keys(f2fStudent).length>0){
-        //     ar3 = [{...f2fStudent}]
-        // }
-        // let ar4 = [];
-        // if(Object.keys(f2fTeacher).length>0){
-        //     ar4 = [{...f2fTeacher}]
-        // }
-        // console.log(ar1);
-        // console.log(ar2);
-        // console.log(ar3);
-        // console.log(ar4);
         setLoad(true);
+        const remote2 = Object.keys(remote).length >0 ? remote : null;
+        const f2fStudent2 =  Object.keys(f2fStudent).length >0 ? f2fStudent : null;
+        const f2fTeacher2 = Object.keys(f2fTeacher).length >0 ? f2fTeacher : null;
         try{
             const response = await fetch(`${process.env.REACT_APP_API_KEY}api/v1/teacher/subjects/${teacher.id}`,{
                 method:"POST",
@@ -70,7 +76,7 @@ export default function TeacherSubjects() {
                     "Authorization":token
                 },
                 body:JSON.stringify({
-                    subjects:ar1  , remote :remote , f2fStudent :f2fStudent , f2fTeacher:f2fTeacher
+                    subjects:ar1  , remote :remote2  , f2fStudent : f2fStudent2 , f2fTeacher: f2fTeacher2
                 })
             });
             setLoad(false);
@@ -78,8 +84,7 @@ export default function TeacherSubjects() {
             if(resData.status !== 200 && resData.status!==201){
                 throw new Error('');
             }
-            console.log(resData);
-            // navigate('/teacher/subjects')
+            navigate('/teacher/resume')
         }
         catch(err){
             console.log(err);
@@ -129,6 +134,7 @@ export default function TeacherSubjects() {
                             <Grid item xs={6}>
                                 <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('rateperhour')}</InputLabel>
                                 <TextField fullWidth type="number" name="rate" 
+                                value={remote?.price}
                                 onChange={e=>setRemote(pre=>{
                                     return {...pre , price:e.target.value , TeacherId: teacher.id}
                                 })}
@@ -140,6 +146,7 @@ export default function TeacherSubjects() {
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     fullWidth
+                                    value={remote?.currency}
                                     onChange={e=>setRemote(pre=>{
                                         return {...pre , currency:e.target.value , TeacherId: teacher.id}
                                     })}
@@ -162,14 +169,15 @@ export default function TeacherSubjects() {
                             <Box sx={{paddingX:"20px",marginTop:"20px"}}>
                                 <Box sx={{marginBottom:"30px"}}>
                                     <FormControlLabel control={<Checkbox size='small' 
-                                    onChange={()=>{setTeacherHome(back=>!back);setf2fStudent()}} checked={teeacherHome}/>}
+                                    onChange={()=>{setTeacherHome(back=>!back);setf2fTeacher({})}} checked={teeacherHome}/>}
                                     label={t('home')} />
                                     {teeacherHome&&
                                         <Grid container sx={{marginY:"2px",paddingX:"30px"}} spacing={3} alignItems="center">
                                         <Grid item xs={6}>
                                             <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('rateperhour')}</InputLabel>
                                             <TextField fullWidth type="number" name="rate" 
-                                            onChange={e=>setf2fStudent(pre=>{
+                                            value={f2fTeacher?.price}
+                                            onChange={e=>setf2fTeacher(pre=>{
                                                 return {...pre , price:e.target.value , TeacherId: teacher.id}
                                             })}
                                             />
@@ -180,7 +188,8 @@ export default function TeacherSubjects() {
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
                                                 fullWidth
-                                                onChange={e=>setf2fStudent(pre=>{
+                                                value={f2fTeacher?.currency}
+                                                onChange={e=>setf2fTeacher(pre=>{
                                                     return {...pre , currency:e.target.value , TeacherId: teacher.id}
                                                 })}
                                             >
@@ -196,14 +205,15 @@ export default function TeacherSubjects() {
                                 </Box>
                                 <Box sx={{marginBottom:"30px"}}>
                                     <FormControlLabel control={<Checkbox size='small' 
-                                    onChange={()=>{setStudentHome(back=>!back);setf2fTeacher({})}} checked={studentHome}/>}
+                                    onChange={()=>{setStudentHome(back=>!back);setf2fStudent({})}} checked={studentHome}/>}
                                     label={t('studenthome')} />
                                     {studentHome&&
                                         <Grid container sx={{marginY:"2px",paddingX:"30px"}} spacing={3} alignItems="center">
                                         <Grid item xs={6}>
                                             <InputLabel sx={{marginBottom:"6px",fontSize:"13px"}}>{t('rateperhour')}</InputLabel>
-                                            <TextField fullWidth type="number" name="rate" 
-                                            onChange={e=>setf2fTeacher(pre=>{
+                                            <TextField fullWidth type="number" name="rate-"
+                                            value={f2fStudent?.price} 
+                                            onChange={e=>setf2fStudent(pre=>{
                                                 return {...pre , price:e.target.value , TeacherId: teacher.id}
                                             })}
                                             />
@@ -214,7 +224,8 @@ export default function TeacherSubjects() {
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
                                                 fullWidth
-                                                onChange={e=>setf2fTeacher(pre=>{
+                                                value={f2fStudent?.currency}
+                                                onChange={e=>setf2fStudent(pre=>{
                                                     return {...pre , currency:e.target.value , TeacherId: teacher.id}
                                                 })}
                                             >
