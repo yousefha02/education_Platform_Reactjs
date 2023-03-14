@@ -9,7 +9,6 @@ export default function FilterSearch() {
     const {data,isLoading} = useCurriculums()
     const [gender,setGender] = useState('all')
     const [curriculum ,setCurriculum ] = useState('all')
-    const [search,setSearch] = useState(false)
     const [spackArabic,setSpeakArabic] = useState(false)
     const [isVideo,setIsVideo] = useState(false)
 
@@ -52,10 +51,6 @@ export default function FilterSearch() {
                         <MenuItem value={'male'}>ذكر</MenuItem>
                         <MenuItem value={'female'}>أنثى</MenuItem>
                     </Select>
-                </Box>
-                <Box sx={{marginY:"16px"}}>
-                    <InputLabel sx={{marginBottom:"6px",fontSize:"13px",fontWeight:"bold",color:"#151313"}}>خبرة في الرسائل والبحوث</InputLabel>
-                    <Switch {...label} checked={search} onChange={()=>setSearch(back=>!back)}/>
                 </Box>
                 <Box sx={{marginY:"16px"}}>
                     <InputLabel sx={{marginBottom:"6px",fontSize:"13px",fontWeight:"bold",color:"#151313"}}>يتحدث العربية</InputLabel>
