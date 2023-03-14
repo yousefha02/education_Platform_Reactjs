@@ -5,12 +5,8 @@ import {useCurriculums} from '../../../hooks/useCurriculums'
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-export default function FilterSearch() {
+export default function FilterSearch({gender,setGender , curriculum,setCurriculum , spackArabic,setSpeakArabic , isVideo,setIsVideo , onSearch}) {
     const {data,isLoading} = useCurriculums()
-    const [gender,setGender] = useState('all')
-    const [curriculum ,setCurriculum ] = useState('all')
-    const [spackArabic,setSpeakArabic] = useState(false)
-    const [isVideo,setIsVideo] = useState(false)
 
     return (
         <Paper sx={{paddingY:"16px"}}>
@@ -60,7 +56,7 @@ export default function FilterSearch() {
                     <InputLabel sx={{marginBottom:"6px",fontSize:"13px",fontWeight:"bold",color:"#151313"}}>يحتوي على فيديو فقط</InputLabel>
                     <Switch {...label} checked={isVideo} onChange={()=>setIsVideo(back=>!back)}/>
                 </Box>
-                <Button variant="contained" fullWidth>تطبيق الكل</Button>
+                <Button variant="contained" fullWidth onClick={onSearch}>تطبيق الكل</Button>
             </Box>
         </Paper>
     )

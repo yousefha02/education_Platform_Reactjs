@@ -1,27 +1,32 @@
-import { Box, Button, Grid, Paper,styled, Typography } from '@mui/material'
+import { Avatar, Box, Button, Grid, Paper,styled, Typography } from '@mui/material'
 import React from 'react'
 import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
 import ShieldIcon from '@mui/icons-material/Shield';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Image = styled("img")({
     width:"100%",height:"180px"
 })
 
-const MatLink = styled("Link")({})
+const MatLink = styled(Link)({})
 
-export default function TeacherSearchBox() {
+export default function TeacherSearchBox({teacher}) {
+    const lang = Cookies.get("i18next") || "en";
     return (
         <Paper sx={{padding:"32px 24px",marginY:"20px"}}>
             <Grid container spacing={2}>
                 <Grid item xs={3}>
-                    <Image src={'https://mui.com/static/images/avatar/2.jpg'}/>
+                    <Avatar src={`${process.env.REACT_APP_API_KEY}images/${teacher.image}`} 
+                    variant="square" sx={{width:"100%" , height:"100%",fontSize:"30px"}} alt={teacher.firstName}/>
                 </Grid>
                 <Grid item xs={6}>
                     <Link to="/teacher/1">
-                        <Typography sx={{fontSize:"20px",marginBottom:"8px",fontWeight:"700"}}>Yousef A.</Typography>
+                        <Typography sx={{fontSize:"20px",marginBottom:"8px",fontWeight:"700"}}>{teacher.firstName} {teacher.lastName}</Typography>
                     </Link>
-                    <Typography sx={{fontSize:"15px",fontWeight:"600",marginBottom:"10px"}}>Simple and clear style up to the highest levels</Typography>
+                    <Typography sx={{fontSize:"15px",fontWeight:"600",marginBottom:"10px"}}>
+                        {lang==="en"?teacher.shortHeadlineEn:teacher.shortHeadlineAr}
+                    </Typography>
                     <Box sx={{display:"flex",columnGap:"4px",alignItems:"center",marginBottom:"8px"}}>
                         <SpeakerNotesIcon sx={{fontSize:"16px",color:"#d5d5d5"}}/>
                         <Typography sx={{color:"#4f4f51",fontSize:"14px",fontWeight:"bold"}}>Speaks: </Typography>
@@ -30,10 +35,10 @@ export default function TeacherSearchBox() {
                     <Box sx={{display:"flex",columnGap:"4px",alignItems:"center",marginBottom:"8px"}}>
                         <ShieldIcon sx={{fontSize:"16px",color:"#d5d5d5"}}/>
                         <Typography sx={{color:"#4f4f51",fontSize:"14px",fontWeight:"bold"}}>Certified teacher: </Typography>
-                        <Typography sx={{color:"#616161",fontSize:"14px"}}>5-10 Total years of experience</Typography>
+                        <Typography sx={{color:"#616161",fontSize:"14px"}}>{teacher.experienceYears} years of experience</Typography>
                     </Box>
                     <Typography sx={{fontSize:"13px",width:"90%"}}>
-                    Chemistry, physics and mathematics teacher, long experience in school education for all educational stages of the ...
+                    {lang==="en"?teacher.descriptionEn:teacher.descriptionAr}
                     <MatLink to="" 
                     sx={{marginRight:"4px",display:"inline-block",color:"#1a477e",fontSize:"13px"}}>Read more
                     </MatLink>
